@@ -1,11 +1,16 @@
+// components
+import { Header } from "src/components/header/Header";
+import { AppRoutes } from "src/routes";
+// styles
 import "./App.scss";
 
-function App() {
+const App = (): JSX.Element => {
   return (
-    <div className="app">
-      <h2 className="app-header">Book Mart</h2>
-    </div>
+    <>
+      <Header />
+      <AppRoutes />
+    </>
   );
-}
+};
 
 export default App;

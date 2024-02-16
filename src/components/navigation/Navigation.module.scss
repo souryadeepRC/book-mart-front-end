@@ -1,0 +1,14 @@
+@import "src/styles/variables.scss";
+
+.navigation__list {
+  display: flex;
+  margin: 0;
+  justify-content: space-between;
+  align-items: center;
+  list-style-type: none; 
+  gap: 15px; 
+  .navigation__item { 
+    color: $color-white;
+    font-weight: bold;
+  }
+}
