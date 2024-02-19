@@ -1,0 +1,17 @@
+@import "src/styles/variables.scss";
+.book-mart__button {
+  &.MuiButton-root {
+    font-size: fontSize(16);
+    background-color: $color-btn-primary;
+    color: $color-bg-primary;
+    font-weight: bold;
+    text-transform: unset;
+    width: 100%;
+  }
+  &.Mui-disabled {
+    background-color: rgba($color-btn-primary, 0.25);
+    color: rgba($color-bg-primary, 0.25);
+    cursor: not-allowed;
+    pointer-events: all;
+  }
+}

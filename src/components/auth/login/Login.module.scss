@@ -1,0 +1,51 @@
+@import "src/styles/variables.scss";
+
+.login__container {
+  padding: 25px 0;
+  width: 50%;
+  margin: auto;
+  .login-error__container {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid $app-error-primary;
+    border-radius: 5px;
+    background-color: $color-white;
+    box-shadow: 0 0 0 4px $color-lavender-blush inset;
+    .login-error__message {
+      color: $app-error-primary;
+      width: 100%;
+      text-align: left;
+    }
+  }
+  .login-form__container {
+    padding: 20px 26px;
+    border: 1px $color-light-gray solid;
+    background-color: $color-white;
+    border-radius: 8px;
+    margin: 10px 0;
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding: 20px 0;
+      width: 100%;
+    }
+  }
+
+  .sign-up__divider {
+    padding: 15px 0 10px;
+    font-size: fontSize(12);
+  }
+  .sign-up__btn {
+    &:global(.book-mart__button) {
+      font-weight: normal;
+      background-color: $color-anti-flash-white;
+      border-color: $color-gainsboro;
+    }
+    &:global(.book-mart__button:hover) {
+      background-color: $color-light-gray;
+    }
+  }
+}

@@ -4,7 +4,7 @@
 $color-bg-primary: #061d3d;
 // -- Buttons
 $color-btn-primary: #fcd200;
-$color-btn-secondary: #ffa41c;
+$color-btn-secondary: #f19c09;
 // -- Others
 $color-item-link: #007185;
 $color-price-notification: #b12704;
@@ -12,3 +12,18 @@ $color-nav-link: #ffc262;
 
 $color-white: #ffffff;
 $color-black: #000000;
+
+$app-error-primary: #b12704;
+$app-error-secondary: #ffc262;
+
+$color-anti-flash-white: #eff0f3;
+$color-gainsboro: #dadce3;
+$color-light-gray: #d5d5d5;
+$color-lavender-blush: #fcf4f4;
+
+// ============= Font ==========
+$font-weight-700: 700;
+
+@function fontSize($fontSize) {
+  @return #{$fontSize}px;
+}

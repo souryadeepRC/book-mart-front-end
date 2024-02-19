@@ -1,15 +1,41 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+// common components
+import { TextField, Button } from "src/components/common/CommonComponents";
+
+// styles
+import styles from "./Login.module.scss";
+import { PasswordField } from "../PasswordField";
 
 const LoginForm = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
-  const [userDetails, setUserDetails] = useState({
-    email: "test.deep@gmail.com",
-    password: "Test@1234",
-  });
+  const [isActionTaken, setIsActionTaken] = useState<boolean>(false);
+  const [userDetails, setUserDetails] = useState<{
+    email: string;
+    password: string;
+  }>({ email: "", password: "" });
+  const emailRef = useRef<any>();
+  const passwordRef = useRef<any>();
+
+  useEffect(() => {
+    emailRef.current.focus();
+  }, []);
+
   const onLogin = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-    const dbUrl: string = `${process.env.REACT_APP_DATABASE_URL}/login` || "";
+
+    console.log(emailRef?.current.value);
+    setIsActionTaken(true);
     const { email, password } = userDetails;
+    if (!email) {
+      emailRef.current.focus();
+      return;
+    }
+    if (!password) {
+      passwordRef.current.focus();
+      return;
+    }
+
+    const dbUrl: string = `${process.env.REACT_APP_DATABASE_URL}/login` || "";
     setIsLoading(true);
     fetch(dbUrl, {
       method: "POST",
@@ -31,46 +57,40 @@ const LoginForm = (): JSX.Element => {
         setIsLoading(false);
       });
   };
-  const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onDetailsChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     setUserDetails((userDetails) => {
       return {
         ...userDetails,
-        email: event.target.value,
+        [event.target.name]: event.target.value,
       };
     });
   };
-  const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserDetails((userDetails) => {
-      return {
-        ...userDetails,
-        password: event.target.value,
-      };
-    });
-  };
+  const { email, password } = userDetails;
   return (
-    <form
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 5,
-        width: "50%",
-      }}
-    >
-      <input
-        type="text"
+    <form className={styles["login-form"]}>
+      <TextField
+        label="Email address"
         name="email"
-        placeholder="Email Address"
-        value={userDetails.email}
-        onChange={onEmailChange}
+        value={email}
+        onChange={onDetailsChange}
+        inputRef={emailRef}
+        helperText={isActionTaken && !email && "Enter your email address"}
+        error={isActionTaken && !email}
       />
-      <input
-        type="text"
+      <PasswordField
+        label="Password"
         name="password"
-        placeholder="Password"
-        value={userDetails.password}
-        onChange={onPasswordChange}
+        value={password}
+        onChange={onDetailsChange}
+        inputRef={passwordRef}
+        helperText={isActionTaken && !password && "Enter your password"}
+        error={isActionTaken && !password}
       />
-      <button onClick={onLogin}>{isLoading ? "Loading..." : "Login"}</button>
+      <Button variant="contained" onClick={onLogin}>
+        {isLoading ? "Loading..." : "Login"}
+      </Button>
     </form>
   );
 };
