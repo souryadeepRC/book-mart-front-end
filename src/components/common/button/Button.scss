@@ -9,8 +9,8 @@
     width: 100%;
   }
   &.Mui-disabled {
-    background-color: rgba($color-btn-primary, 0.25);
-    color: rgba($color-bg-primary, 0.25);
+    background-color: rgba($color-btn-primary, 0.75);
+    color: rgba($color-bg-primary, 0.75);
     cursor: not-allowed;
     pointer-events: all;
   }

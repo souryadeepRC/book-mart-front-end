@@ -3,7 +3,8 @@
 .login__container {
   padding: 25px 0;
   width: 50%;
-  margin: auto;
+  margin: 45px auto;
+  max-width: 600px;
   .login-error__container {
     display: flex;
     padding: 10px;
@@ -47,5 +48,11 @@
     &:global(.book-mart__button:hover) {
       background-color: $color-light-gray;
     }
+  }
+}
+@media screen and (max-width: $mobile-max-width) {
+  .login__container {
+    width: 80%;
+    max-width: 400px;
   }
 }

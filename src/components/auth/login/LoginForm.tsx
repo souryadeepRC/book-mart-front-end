@@ -1,18 +1,29 @@
 import { useEffect, useRef, useState } from "react";
+// library
+import { useDispatch, useSelector } from "react-redux";
 // common components
 import { TextField, Button } from "src/components/common/CommonComponents";
-
+// components
+import { PasswordField } from "../PasswordField";
+// actions
+import { loginUser } from "src/store/app-reducer/app-action";
+// selectors
+import { selectAppIsLoading } from "src/store/app-reducer/app-selector";
+// types
+import { AppDispatch } from "src/store/reducer-type";
 // styles
 import styles from "./Login.module.scss";
-import { PasswordField } from "../PasswordField";
 
 const LoginForm = (): JSX.Element => {
-  const [isLoading, setIsLoading] = useState(false);
+  // store
+  const dispatch: AppDispatch = useDispatch();
+  // state
+  const isLoading: boolean = useSelector(selectAppIsLoading);
   const [isActionTaken, setIsActionTaken] = useState<boolean>(false);
   const [userDetails, setUserDetails] = useState<{
     email: string;
     password: string;
-  }>({ email: "", password: "" });
+  }>({ email: "deep.sourya@mail.com", password: "Test@1234" });
   const emailRef = useRef<any>();
   const passwordRef = useRef<any>();
 
@@ -22,8 +33,6 @@ const LoginForm = (): JSX.Element => {
 
   const onLogin = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-
-    console.log(emailRef?.current.value);
     setIsActionTaken(true);
     const { email, password } = userDetails;
     if (!email) {
@@ -34,28 +43,7 @@ const LoginForm = (): JSX.Element => {
       passwordRef.current.focus();
       return;
     }
-
-    const dbUrl: string = `${process.env.REACT_APP_DATABASE_URL}/login` || "";
-    setIsLoading(true);
-    fetch(dbUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((response) => {
-        console.log(response);
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsLoading(false);
-      });
+    dispatch(loginUser({ email, password }));
   };
   const onDetailsChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -88,8 +76,8 @@ const LoginForm = (): JSX.Element => {
         helperText={isActionTaken && !password && "Enter your password"}
         error={isActionTaken && !password}
       />
-      <Button variant="contained" onClick={onLogin}>
-        {isLoading ? "Loading..." : "Login"}
+      <Button variant="contained" onClick={onLogin} disabled={isLoading}>
+        {isLoading ? "Almost there..." : "Login"}
       </Button>
     </form>
   );

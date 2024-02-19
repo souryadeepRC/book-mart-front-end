@@ -7,8 +7,7 @@ const Header = (): JSX.Element => {
     <header className={styles["header__container"]}>
       <h1 className={styles["header__text"]}>
         <NavLink to="">Book Mart</NavLink>
-      </h1>
-
+      </h1> 
       <Navigation />
     </header>
   );
