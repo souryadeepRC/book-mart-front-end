@@ -5,15 +5,13 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 // common components
 import { NavLink } from "src/components/common/nav-link/NavLink";
 // selectors
-import {
-  selectUserName,
-  selectIsUserVerified,
-} from "src/store/app-reducer/app-selector";
+import { selectIsUserAuthenticated } from "src/store/auth/auth-selector";
+import { selectUserName } from "src/store/user/user-selector";
 // styles
 import styles from "./Navigation.module.scss";
 
 const Navigation = (): JSX.Element => {
-  const isUserVerified: boolean = useSelector(selectIsUserVerified);
+  const isUserAuthenticated: boolean = useSelector(selectIsUserAuthenticated);
   const username: string = useSelector(selectUserName);
   return (
     <nav>
@@ -23,7 +21,7 @@ const Navigation = (): JSX.Element => {
             Products
           </NavLink>
         </li>
-        {isUserVerified && (
+        {isUserAuthenticated && (
           <li className={styles["navigation__item"]}>
             <NavLink tabIndex={0} to="/cart" aria-label="book mart products">
               Cart
@@ -31,8 +29,18 @@ const Navigation = (): JSX.Element => {
           </li>
         )}
         <li className={styles["navigation__item"]}>
-          {isUserVerified ? (
-            <span>{username}</span>
+          {isUserAuthenticated ? (
+            <>
+              <span>{username}</span>
+              <NavLink
+                tabIndex={0}
+                to="/auth/logout"
+                aria-label="book mart app logout"
+              >
+                <AccountCircleIcon />
+                Logout
+              </NavLink>
+            </>
           ) : (
             <NavLink tabIndex={0} to="/auth" aria-label="book mart app login">
               <AccountCircleIcon />

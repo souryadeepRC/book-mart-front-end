@@ -1,12 +1,46 @@
+// store
 import { rootStore } from "src/store/root-store";
+// types
+import { NotificationType } from "src/types/screen-type";
 
-export type AppReducerType = {
+export type ScreenReducerType = {
+  screenType: string;
+  screenTheme: string;
+  notifications: NotificationType[] | [];
+};
+export type AuthReducerType = {
+  action: string;
+  isLoading: boolean;
+  error: string;
+  authToken: string;
+  isUserAuthenticated: boolean;
+  loginState: string;
+  signupState: string;
+  authOtp: string;
+};
+export type UserReducerType = {
   isLoading: boolean;
   action: string;
   error: string;
-  isMobile: boolean;
-  isLoginVerified: boolean;
-  userDetails: { username: string; email: string };
+  username: string;
+  email: string;
+  personal: {
+    name: {
+      firstName: string;
+      middleName: string;
+      lastName: string;
+    };
+  };
+  contact: {
+    primary: {
+      code: string;
+      value: string;
+    };
+    secondary: {
+      code: string;
+      value: string;
+    };
+  };
 };
 export type ReducerActionPayloadType = {
   type: any;
@@ -14,7 +48,9 @@ export type ReducerActionPayloadType = {
 };
 
 export type AppStoreType = {
-  app: AppReducerType;
+  screen: ScreenReducerType;
+  auth: AuthReducerType;
+  user: UserReducerType;
 };
 
 export type AppDispatch = typeof rootStore.dispatch;

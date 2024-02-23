@@ -12,12 +12,14 @@ type OtpValidationProps = {
   length?: number;
   label?: string;
   onSubmit: (enteredOtp: string) => void;
+  onOtpResend?: () => void;
 };
 const OtpValidation = memo(
   ({
     length = 4,
     label = "Verify OTP",
     onSubmit,
+    onOtpResend,
   }: OtpValidationProps): JSX.Element => {
     const otpRefs = useRef<any>([]);
     const [otp, setOtp] = useState<string[]>(Array(length).fill(""));
@@ -27,12 +29,16 @@ const OtpValidation = memo(
         otpRefs.current[0].focus();
       }
     }, []);
-    const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    // action fns
+    const handleVerify = (event: React.MouseEvent<HTMLButtonElement>): void => {
       event.preventDefault();
       if (otp.length !== length) return;
       onSubmit(otp.join(""));
     };
-
+    const handleResend = (event: React.MouseEvent<HTMLButtonElement>): void => {
+      event.preventDefault();
+      onOtpResend && onOtpResend();
+    };
     const handleChange =
       (activeIndex: number) =>
       (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -88,9 +94,14 @@ const OtpValidation = memo(
               );
             })}
           </section>
-          <Button variant="contained" onClick={handleSubmit}>
+          <Button variant="contained" onClick={handleVerify}>
             Verify
           </Button>
+          {onOtpResend && (
+            <Button variant="contained" onClick={handleResend}>
+              Resend
+            </Button>
+          )}
         </form>
       </section>
     );

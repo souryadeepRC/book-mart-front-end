@@ -1,23 +1,5 @@
-import AuthHTTP from "./http/auth";
-import qs from "qs";
+import AppHTTP from "./http/app";
 
-export const loginUser = (payload: any) => {
-  return AuthHTTP.post(`/login`, qs.stringify(payload), {
-    baseURL: process.env.REACT_APP_DATABASE_URL,
-    "Content-Type": "application/json",
-  });
-  /*  return fetch(`${process.env.REACT_APP_DATABASE_URL}/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  }).then((response) => response.json()); */
-};
-
-export const postVerifyLoginOtp = (payload: any) => {
-  return AuthHTTP.post(`/verify-login-otp`, qs.stringify({ otp: payload }), {
-    baseURL: process.env.REACT_APP_DATABASE_URL,
-    "Content-Type": "application/json",
-  });
+export const getLoggedInUserDetails = () => {
+  return AppHTTP.get(`/api/book-mart/account/user/me`);
 };

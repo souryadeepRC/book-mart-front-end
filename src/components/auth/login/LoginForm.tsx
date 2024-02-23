@@ -6,9 +6,9 @@ import { TextField, Button } from "src/components/common/CommonComponents";
 // components
 import { PasswordField } from "../PasswordField";
 // actions
-import { loginUser } from "src/store/app-reducer/app-action";
+import { loginUser } from "src/store/auth/auth-action";
 // selectors
-import { selectAppIsLoading } from "src/store/app-reducer/app-selector";
+import { selectAuthIsLoading } from "src/store/auth/auth-selector";
 // types
 import { AppDispatch } from "src/store/reducer-type";
 // styles
@@ -18,7 +18,7 @@ const LoginForm = (): JSX.Element => {
   // store
   const dispatch: AppDispatch = useDispatch();
   // state
-  const isLoading: boolean = useSelector(selectAppIsLoading);
+  const isLoading: boolean = useSelector(selectAuthIsLoading);
   const [isActionTaken, setIsActionTaken] = useState<boolean>(false);
   const [userDetails, setUserDetails] = useState<{
     email: string;

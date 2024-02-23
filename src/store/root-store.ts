@@ -1,13 +1,17 @@
 import createSagaMiddleware from "redux-saga";
 import { configureStore } from "@reduxjs/toolkit";
-// reducers 
-import { AppReducer } from "./app-reducer/app-reducer";
+// reducers
+import { UserReducer } from "./user/user-reducer";
+import { ScreenReducer } from "src/store/screen/screen-reducer";
+import { AuthReducer } from "src/store/auth/auth-reducer";
 import { rootSaga } from "./root-saga";
 
 const sagaMiddleware = createSagaMiddleware();
 
 const reducer = {
-  app: AppReducer,
+  screen: ScreenReducer,
+  auth: AuthReducer,
+  user: UserReducer,
 };
 
 const rootStore = configureStore({
@@ -16,7 +20,7 @@ const rootStore = configureStore({
     getDefaultMiddleware().concat(sagaMiddleware),
   devTools: process.env.ENVIRONMENT !== "production",
 });
+
 sagaMiddleware.run(rootSaga);
 
 export { rootStore };
- 

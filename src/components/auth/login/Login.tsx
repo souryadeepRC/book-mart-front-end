@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 // library
 import { useSelector, useDispatch } from "react-redux";
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";
@@ -9,35 +10,39 @@ import { Button, OtpValidation } from "src/components/common/CommonComponents";
 // components
 import { LoginForm } from "./LoginForm";
 // actions
-import { verifyOtp } from "src/store/app-reducer/app-action";
+import { resendOtp, verifyOtp } from "src/store/auth/auth-action";
 // selectors
 import {
-  selectAppError,
-  selectAppAction,
-  selectIsUserVerified,
-  selectUserName,
-} from "src/store/app-reducer/app-selector";
+  selectLoginState,
+  selectAuthError,
+  selectIsUserAuthenticated,
+} from "src/store/auth/auth-selector";
 // types
 import { AppDispatch } from "src/store/reducer-type";
+// constants
+import { LOGIN_STATE } from "src/constants/authentication-constants";
 // styles
 import styles from "./Login.module.scss";
-import { useEffect } from "react";
 const Login = (): JSX.Element => {
   // store
   const navigate: NavigateFunction = useNavigate();
   const dispatch: AppDispatch = useDispatch();
-  const error: string = useSelector(selectAppError);
-  const appAction: string = useSelector(selectAppAction);
-  const isUserVerified: boolean = useSelector(selectIsUserVerified);
-  const username: string = useSelector(selectUserName);
-
+  const error: string = useSelector(selectAuthError);
+  const loginState: string = useSelector(selectLoginState);
+  const isUserAuthenticated: boolean = useSelector(selectIsUserAuthenticated);
+  console.log('Login');
+  
   useEffect(() => {
-    if (isUserVerified) {
-      navigate("/cart");
+    if (isUserAuthenticated) {
+      navigate("/products");
     }
-  }, [navigate, isUserVerified]);
+  }, [navigate, isUserAuthenticated]);
+
   const onOtpSubmit = (enteredOtp: string): void => {
     dispatch(verifyOtp(enteredOtp));
+  };
+  const onOtpResend = (): void => {
+    dispatch(resendOtp());
   };
   return (
     <div className={styles["login__container"]}>
@@ -47,15 +52,15 @@ const Login = (): JSX.Element => {
           <span className={styles["login-error__message"]}>{error}</span>
         </section>
       )}
-      {appAction !== "USER_LOGIN_SUCCESS" && !username && (
+      {loginState === LOGIN_STATE.ACCOUNT && (
         <section className={styles["login-form__container"]}>
           <h1 style={{ margin: 0 }}>Log in</h1>
           <LoginForm />
         </section>
       )}
-      {username && (
+      {loginState === LOGIN_STATE.OTP && (
         <section className={styles["login-form__container"]}>
-          <OtpValidation onSubmit={onOtpSubmit} />
+          <OtpValidation onSubmit={onOtpSubmit}  onOtpResend={onOtpResend}/>
         </section>
       )}
       <Divider className={styles["sign-up__divider"]}>

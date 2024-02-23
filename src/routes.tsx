@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 // library
 import { Routes, Route, Navigate } from "react-router-dom";
 // selectors
-import { selectIsUserVerified } from "./store/app-reducer/app-selector";
+import { selectIsUserAuthenticated } from "src/store/auth/auth-selector";
 
 const ProductsPage = lazy(() =>
   import("src/pages/ProductsPage").then(({ ProductsPage }) => ({
@@ -25,21 +25,33 @@ const Login = lazy(() =>
     default: Login,
   }))
 );
+const Logout = lazy(() =>
+  import("src/components/auth/logout/Logout").then(({ Logout }) => ({
+    default: Logout,
+  }))
+);
 
 const AppRoutes = (): JSX.Element => {
   // store
-  const isUserVerified: boolean = useSelector(selectIsUserVerified);
+  const isUserAuthenticated: boolean = useSelector(selectIsUserAuthenticated);
   return (
     <Suspense fallback={<span>Loading...</span>}>
       <Routes>
         <Route path="" element={<Navigate to="products" />} />
         <Route path="products" element={<ProductsPage />} />
-        {isUserVerified && <Route path="cart" element={<CartPage />} />}
-        <Route path="auth">
-          <Route path="" element={<Navigate to="login" />} />
-          <Route path="register" element={<SignUp />} />
-          <Route path="login" element={<Login />} />
-        </Route>
+        {isUserAuthenticated && <Route path="cart" element={<CartPage />} />}
+
+        {!isUserAuthenticated && (
+          <Route path="auth">
+            <Route path="" element={<Navigate to="login" />} />
+            <Route path="register" element={<SignUp />} />
+            <Route path="login" element={<Login />} />
+          </Route>
+        )}
+        {isUserAuthenticated && (
+          <Route path="auth/logout" element={<Logout />} />
+        )}
+
         <Route path="*" element={<Navigate to="" />} />
       </Routes>
     </Suspense>
