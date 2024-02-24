@@ -30,8 +30,6 @@ const Login = (): JSX.Element => {
   const error: string = useSelector(selectAuthError);
   const loginState: string = useSelector(selectLoginState);
   const isUserAuthenticated: boolean = useSelector(selectIsUserAuthenticated);
-  console.log('Login');
-  
   useEffect(() => {
     if (isUserAuthenticated) {
       navigate("/products");
@@ -60,7 +58,7 @@ const Login = (): JSX.Element => {
       )}
       {loginState === LOGIN_STATE.OTP && (
         <section className={styles["login-form__container"]}>
-          <OtpValidation onSubmit={onOtpSubmit}  onOtpResend={onOtpResend}/>
+          <OtpValidation onSubmit={onOtpSubmit} onOtpResend={onOtpResend} />
         </section>
       )}
       <Divider className={styles["sign-up__divider"]}>

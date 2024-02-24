@@ -74,7 +74,10 @@ const OtpValidation = memo(
     };
     return (
       <section className="otp__container">
-        <h1 style={{ margin: 0 }}>{label}</h1>
+        <h4 style={{ margin: 0 }}>
+          Dear User, please verify the OTP received on your registered email
+          address
+        </h4>
         <form className="otp__form">
           <section className="otp__input-container">
             {otp?.map((value: string, index: number) => {

@@ -6,6 +6,7 @@ import axios from "axios";
 import { getItemFromLS } from "src/utils/storage-utils";
 // constants
 import { STATUS_CODES } from "src/constants/common-constants";
+import { STORAGE_KEY } from "src/constants/common-constants";
 
 const appAxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
@@ -14,7 +15,7 @@ const appAxiosInstance = axios.create({
 
 appAxiosInstance.interceptors.request.use(
   (config) => {
-    const accessToken: string | null = getItemFromLS("accessToken");
+    const accessToken: string | null = getItemFromLS(STORAGE_KEY.ACCESS_TOKEN);
     if (accessToken) {
       config.headers["Authorization"] = `Bearer ${accessToken}`;
     }

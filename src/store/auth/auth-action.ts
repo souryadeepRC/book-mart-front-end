@@ -8,6 +8,8 @@ import {
   RESEND_LOGIN_OTP,
   USER_LOGOUT,
   SET_USER_AUTHENTICATE,
+  SET_LOGIN_STATE,
+  SET_AUTH_ERROR,
 } from "./auth-constants";
 
 export const loginUser = (payload: {
@@ -36,4 +38,10 @@ export const resendOtp = (): ReducerActionPayloadType => {
 };
 export const resetLoginAuthentication = (): ReducerActionPayloadType => {
   return { type: RESET_LOGIN_AUTH };
+};
+export const setLoginState = (payload: string): ReducerActionPayloadType => {
+  return { type: SET_LOGIN_STATE, payload };
+};
+export const setAuthError = (payload: string): ReducerActionPayloadType => {
+  return { type: SET_AUTH_ERROR, payload };
 };

@@ -15,10 +15,9 @@ import {
   RESEND_LOGIN_OTP_REQUEST,
   RESEND_LOGIN_OTP_SUCCESS,
   RESEND_LOGIN_OTP_FAILURE,
-  SET_USER_AUTHENTICATE, 
-  USER_LOGOUT_REQUEST,
-  USER_LOGOUT_SUCCESS,
-  USER_LOGOUT_FAILURE,
+  SET_USER_AUTHENTICATE,
+  SET_LOGIN_STATE,
+  SET_AUTH_ERROR,
 } from "src/store/auth/auth-constants";
 import {
   LOGIN_STATE,
@@ -43,7 +42,6 @@ const AuthReducer = (
     case USER_LOGIN_REQUEST:
     case VERIFY_LOGIN_OTP_REQUEST:
     case RESEND_LOGIN_OTP_REQUEST:
-    case USER_LOGOUT_REQUEST:
       return { ...state, isLoading: true, action: type };
     case USER_LOGIN_SUCCESS:
       return {
@@ -78,15 +76,16 @@ const AuthReducer = (
         isUserAuthenticated: payload,
       };
     }
-    case USER_LOGOUT_SUCCESS:
+    case SET_AUTH_ERROR:
       return {
         ...state,
-        isUserAuthenticated: false,
+        error: payload,
       };
+    case SET_LOGIN_STATE:
+      return { ...state, loginState: payload };
     case USER_LOGIN_FAILURE:
     case VERIFY_LOGIN_OTP_FAILURE:
     case RESEND_LOGIN_OTP_FAILURE:
-    case USER_LOGOUT_FAILURE:
       return {
         ...state,
         isLoading: false,

@@ -1,4 +1,3 @@
-import AppHTTP from "./http/app";
 import AuthHTTP from "./http/auth";
 import qs from "qs";
 
@@ -11,7 +10,7 @@ export const postLoginUser = (payload: any) => {
 };
 
 export const postVerifyLoginOtp = (payload: any) => {
-  return AppHTTP.post(
+  return AuthHTTP.post(
     `${API_BASE_URL_AUTH}/verify-auth-otp`,
     qs.stringify({ otp: payload }),
     {
@@ -22,17 +21,8 @@ export const postVerifyLoginOtp = (payload: any) => {
 };
 
 export const getResendLoginOtp = () => {
-  return AppHTTP.get(`${API_BASE_URL_AUTH}/resend-auth-otp`, {
+  return AuthHTTP.get(`${API_BASE_URL_AUTH}/resend-auth-otp`, {
     baseURL: process.env.REACT_APP_API_BASE_URL,
     "Content-Type": "application/json",
   });
-};
-
-export const getLogoutUser = () => {
-  localStorage.removeItem("accessToken");
-  return true;
-  /* return AppHTTP.get(`${API_BASE_URL_AUTH}/logout`, {
-    baseURL: process.env.REACT_APP_API_BASE_URL,
-    "Content-Type": "application/json",
-  }); */
 };
