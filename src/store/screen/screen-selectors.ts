@@ -1,6 +1,6 @@
 // types
-import { AppStoreType } from "src/store/reducer-type";
-import { NotificationType } from "src/types/screen-type";
+import { AppStoreType } from "src/store/reducer-types";
+import { NotificationType } from "src/types/screen-types";
 
 export const selectScreenType = (state: AppStoreType): string =>
   state?.screen?.screenType;

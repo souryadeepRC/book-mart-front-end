@@ -1,12 +1,19 @@
 // store
 import { rootStore } from "src/store/root-store";
-// types
-import { NotificationType } from "src/types/screen-type";
+import { BookType } from "src/types/book-types";
+// types 
 
 export type ScreenReducerType = {
   screenType: string;
   screenTheme: string;
-  notifications: NotificationType[] | [];
+  notifications: any[] | [];
+};
+
+export type BookReducerType = {
+  action: string;
+  isLoading: boolean;
+  error: string;
+  books: BookType[] | [];
 };
 export type AuthReducerType = {
   action: string;
@@ -51,6 +58,7 @@ export type AppStoreType = {
   screen: ScreenReducerType;
   auth: AuthReducerType;
   user: UserReducerType;
+  book: BookReducerType;
 };
 
 export type AppDispatch = typeof rootStore.dispatch;

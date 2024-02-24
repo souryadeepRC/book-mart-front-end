@@ -1,13 +1,13 @@
 import { Suspense, lazy } from "react";
 import { useSelector } from "react-redux";
 // library
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 // selectors
-import { selectIsUserAuthenticated } from "src/store/auth/auth-selector";
+import { selectIsUserAuthenticated } from "src/store/auth/auth-selectors";
 
-const ProductsPage = lazy(() =>
-  import("src/pages/ProductsPage").then(({ ProductsPage }) => ({
-    default: ProductsPage,
+const BooksPage = lazy(() =>
+  import("src/pages/BooksPage").then(({ BooksPage }) => ({
+    default: BooksPage,
   }))
 );
 const CartPage = lazy(() =>
@@ -37,8 +37,8 @@ const AppRoutes = (): JSX.Element => {
   return (
     <Suspense fallback={<span>Loading...</span>}>
       <Routes>
-        <Route path="" element={<Navigate to="products" />} />
-        <Route path="products" element={<ProductsPage />} />
+        <Route path="" element={<Navigate to="books" />} />
+        <Route path="books" element={<BooksPage />} />
         {isUserAuthenticated && <Route path="cart" element={<CartPage />} />}
 
         {!isUserAuthenticated && (
@@ -58,3 +58,4 @@ const AppRoutes = (): JSX.Element => {
   );
 };
 export { AppRoutes };
+

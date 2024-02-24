@@ -6,8 +6,8 @@ import {
   postVerifyLoginOtp,
 } from "src/api/auth-api";
 // actions
-import { addNotifications } from "../screen/screen-action";
-import { fetchUserDetails } from "../user/user-action";
+import { addNotifications } from "../screen/screen-actions";
+import { fetchUserDetails } from "../user/user-actions";
 // utils
 import { removeItemFromLS, setItemToLS } from "src/utils/storage-utils";
 // constants

@@ -1,8 +1,8 @@
 // types
 import {
-  UserReducerType,
   ReducerActionPayloadType,
-} from "src/store/reducer-type";
+  UserReducerType,
+} from "src/store/reducer-types";
 // constants
 import {
   FETCH_USER_DETAILS_FAILURE,
@@ -78,3 +78,4 @@ const UserReducer = (
   }
 };
 export { UserReducer };
+

@@ -1,13 +1,13 @@
 // library
-import { useDispatch, useSelector } from "react-redux";
 import { Alert, Snackbar } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 // actions
-import { removeNotifications } from "src/store/screen/screen-action";
+import { removeNotifications } from "src/store/screen/screen-actions";
 // selectors
-import { selectNotifications } from "src/store/screen/screen-selector";
+import { selectNotifications } from "src/store/screen/screen-selectors";
 // types
-import { NotificationType } from "src/types/screen-type";
-import { AppDispatch } from "src/store/reducer-type";
+import { AppDispatch } from "src/store/reducer-types";
+import { NotificationType } from "src/types/screen-types";
 
 type StackedNotificationProps = {
   children: JSX.Element;
@@ -43,3 +43,4 @@ const StackedNotification = ({ children }: StackedNotificationProps) => {
   );
 };
 export { StackedNotification };
+

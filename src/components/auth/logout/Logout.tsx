@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { logoutUser } from "src/store/auth/auth-action";
+import { logoutUser } from "src/store/auth/auth-actions";
 
 const Logout = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -15,3 +15,4 @@ const Logout = (): JSX.Element => {
 };
 
 export { Logout };
+

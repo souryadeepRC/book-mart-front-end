@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 // types
-import { AppDispatch } from "src/store/reducer-type";
+import { AppDispatch } from "src/store/reducer-types";
 // actions
 import {
   logoutUser,
   setLoginState,
   setUserAuthenticate,
-} from "src/store/auth/auth-action";
-import { fetchUserDetails } from "src/store/user/user-action";
+} from "src/store/auth/auth-actions";
+import { fetchUserDetails } from "src/store/user/user-actions";
 // utils
 import { getItemFromLS } from "src/utils/storage-utils";
 // constants

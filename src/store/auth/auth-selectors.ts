@@ -1,5 +1,5 @@
 // types
-import { AppStoreType } from "src/store/reducer-type";
+import { AppStoreType } from "src/store/reducer-types";
 
 export const selectAuthIsLoading = (state: AppStoreType): boolean =>
   state?.auth?.isLoading;

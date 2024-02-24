@@ -1,5 +1,5 @@
 // types
-import { ReducerActionPayloadType } from "../reducer-type";
+import { ReducerActionPayloadType } from "src/store/reducer-types";
 // constants
 import { FETCH_USER_DETAILS, SET_USER_DETAILS } from "./user-constants";
 

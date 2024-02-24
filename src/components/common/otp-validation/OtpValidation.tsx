@@ -1,4 +1,4 @@
-import React, { memo, useRef, useEffect, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 // library
 import { Input } from "@mui/material";
 // common components
@@ -74,7 +74,7 @@ const OtpValidation = memo(
     };
     return (
       <section className="otp__container">
-        <h4 style={{ margin: 0 }}>
+        <h4 className='otp_message'>
           Dear User, please verify the OTP received on your registered email
           address
         </h4>
@@ -112,3 +112,4 @@ const OtpValidation = memo(
 );
 OtpValidation.displayName = "OtpValidation";
 export { OtpValidation };
+

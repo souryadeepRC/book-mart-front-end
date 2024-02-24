@@ -2,15 +2,15 @@ import { useEffect, useRef, useState } from "react";
 // library
 import { useDispatch, useSelector } from "react-redux";
 // common components
-import { TextField, Button } from "src/components/common/CommonComponents";
+import { Button, TextField } from "src/components/common/CommonComponents";
 // components
 import { PasswordField } from "../PasswordField";
 // actions
-import { loginUser } from "src/store/auth/auth-action";
+import { loginUser } from "src/store/auth/auth-actions";
 // selectors
-import { selectAuthIsLoading } from "src/store/auth/auth-selector";
+import { selectAuthIsLoading } from "src/store/auth/auth-selectors";
 // types
-import { AppDispatch } from "src/store/reducer-type";
+import { AppDispatch } from "src/store/reducer-types";
 // styles
 import styles from "./Login.module.scss";
 
@@ -57,30 +57,34 @@ const LoginForm = (): JSX.Element => {
   };
   const { email, password } = userDetails;
   return (
-    <form className={styles["login-form"]}>
-      <TextField
-        label="Email address"
-        name="email"
-        value={email}
-        onChange={onDetailsChange}
-        inputRef={emailRef}
-        helperText={isActionTaken && !email && "Enter your email address"}
-        error={isActionTaken && !email}
-      />
-      <PasswordField
-        label="Password"
-        name="password"
-        value={password}
-        onChange={onDetailsChange}
-        inputRef={passwordRef}
-        helperText={isActionTaken && !password && "Enter your password"}
-        error={isActionTaken && !password}
-      />
-      <Button variant="contained" onClick={onLogin} disabled={isLoading}>
-        {isLoading ? "Almost there..." : "Login"}
-      </Button>
-    </form>
+    <>
+      <h1 style={{ margin: 0 }}>Log in</h1>
+      <form className={styles["login-form"]}>
+        <TextField
+          label="Email address"
+          name="email"
+          value={email}
+          onChange={onDetailsChange}
+          inputRef={emailRef}
+          helperText={isActionTaken && !email && "Enter your email address"}
+          error={isActionTaken && !email}
+        />
+        <PasswordField
+          label="Password"
+          name="password"
+          value={password}
+          onChange={onDetailsChange}
+          inputRef={passwordRef}
+          helperText={isActionTaken && !password && "Enter your password"}
+          error={isActionTaken && !password}
+        />
+        <Button variant="contained" onClick={onLogin} disabled={isLoading}>
+          {isLoading ? "Almost there..." : "Login"}
+        </Button>
+      </form>
+    </>
   );
 };
 
 export { LoginForm };
+

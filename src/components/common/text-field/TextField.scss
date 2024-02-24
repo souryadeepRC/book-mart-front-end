@@ -4,13 +4,13 @@
     width: 100%;
     .MuiInputLabel-root {
       color: $color-bg-primary;
-      font-family: Tahoma;
+      font-family: "Roboto Condensed", sans-serif;
     }
     .MuiOutlinedInput-input {
       font-size: fontSize(14);
       color: $color-bg-primary;
       padding: 16.5px 25px;
-      font-family: Tahoma;
+      font-family: "Roboto Condensed", sans-serif;
     }
     .MuiInputAdornment-root {
       color: $color-bg-primary;

@@ -2,27 +2,27 @@
 import {
   AuthReducerType,
   ReducerActionPayloadType,
-} from "src/store/reducer-type";
+} from "src/store/reducer-types";
 // constants
 import {
+  LOGIN_STATE,
+  SIGN_UP_STATE,
+} from "src/constants/authentication-constants";
+import {
+  RESEND_LOGIN_OTP_FAILURE,
+  RESEND_LOGIN_OTP_REQUEST,
+  RESEND_LOGIN_OTP_SUCCESS,
+  RESET_LOGIN_AUTH,
+  SET_AUTH_ERROR,
+  SET_LOGIN_STATE,
+  SET_USER_AUTHENTICATE,
   USER_LOGIN_FAILURE,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   VERIFY_LOGIN_OTP_FAILURE,
   VERIFY_LOGIN_OTP_REQUEST,
   VERIFY_LOGIN_OTP_SUCCESS,
-  RESET_LOGIN_AUTH,
-  RESEND_LOGIN_OTP_REQUEST,
-  RESEND_LOGIN_OTP_SUCCESS,
-  RESEND_LOGIN_OTP_FAILURE,
-  SET_USER_AUTHENTICATE,
-  SET_LOGIN_STATE,
-  SET_AUTH_ERROR,
 } from "src/store/auth/auth-constants";
-import {
-  LOGIN_STATE,
-  SIGN_UP_STATE,
-} from "src/constants/authentication-constants";
 
 const initialState: AuthReducerType = {
   action: "",
@@ -99,3 +99,4 @@ const AuthReducer = (
   }
 };
 export { AuthReducer };
+

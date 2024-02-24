@@ -1,5 +1,10 @@
 @import "src/styles/variables.scss";
 .otp__container {
+  .otp_message {
+    font-size: fontSize(14);
+    margin: 0;
+    font-weight: normal;
+  }
   .otp__form {
     display: flex;
     flex-direction: column;
@@ -19,6 +24,6 @@
         font-size: 25px;
         color: $color-black;
       }
-    }
+    } 
   }
 }

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 // library
-import { useSelector, useDispatch } from "react-redux";
-import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import Divider from "@mui/material/Divider";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 // icons
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 // common components
@@ -10,15 +10,15 @@ import { Button, OtpValidation } from "src/components/common/CommonComponents";
 // components
 import { LoginForm } from "./LoginForm";
 // actions
-import { resendOtp, verifyOtp } from "src/store/auth/auth-action";
+import { resendOtp, verifyOtp } from "src/store/auth/auth-actions";
 // selectors
 import {
-  selectLoginState,
   selectAuthError,
   selectIsUserAuthenticated,
-} from "src/store/auth/auth-selector";
+  selectLoginState,
+} from "src/store/auth/auth-selectors";
 // types
-import { AppDispatch } from "src/store/reducer-type";
+import { AppDispatch } from "src/store/reducer-types";
 // constants
 import { LOGIN_STATE } from "src/constants/authentication-constants";
 // styles
@@ -32,7 +32,7 @@ const Login = (): JSX.Element => {
   const isUserAuthenticated: boolean = useSelector(selectIsUserAuthenticated);
   useEffect(() => {
     if (isUserAuthenticated) {
-      navigate("/products");
+      navigate("/books");
     }
   }, [navigate, isUserAuthenticated]);
 
@@ -52,7 +52,6 @@ const Login = (): JSX.Element => {
       )}
       {loginState === LOGIN_STATE.ACCOUNT && (
         <section className={styles["login-form__container"]}>
-          <h1 style={{ margin: 0 }}>Log in</h1>
           <LoginForm />
         </section>
       )}
@@ -74,3 +73,4 @@ const Login = (): JSX.Element => {
 };
 
 export { Login };
+

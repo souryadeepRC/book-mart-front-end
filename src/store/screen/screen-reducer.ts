@@ -1,13 +1,13 @@
 // types
-import { ScreenReducerType, ReducerActionPayloadType } from "../reducer-type";
+import { ReducerActionPayloadType, ScreenReducerType } from "src/store/reducer-types";
 // utils
 import { generateRandomId } from "src/utils/common-utils";
 // constants
 import {
-  SET_SCREEN_THEME,
-  SET_SCREEN_TYPE,
   ADD_NOTIFICATION,
   REMOVE_NOTIFICATION,
+  SET_SCREEN_THEME,
+  SET_SCREEN_TYPE,
 } from "./screen-constants";
 
 const initialState: ScreenReducerType = {
@@ -49,3 +49,4 @@ const ScreenReducer = (
   }
 };
 export { ScreenReducer };
+

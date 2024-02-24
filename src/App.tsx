@@ -10,9 +10,9 @@ import { AppRoutes } from "src/routes";
 import { useMediaQuery } from "src/hooks/useMediaQuery";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 // actions
-import { setScreenType } from "src/store/screen/screen-action";
+import { setScreenType } from "src/store/screen/screen-actions";
 // types
-import { AppDispatch } from "./store/reducer-type";
+import { AppDispatch } from "./store/reducer-types";
 // styles
 import "./App.scss";
 const App = (): JSX.Element => {

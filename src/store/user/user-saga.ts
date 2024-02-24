@@ -1,11 +1,11 @@
 import { put, takeEvery } from "redux-saga/effects";
+import { getLoggedInUserDetails } from "src/api/user-api";
 import {
   FETCH_USER_DETAILS,
   FETCH_USER_DETAILS_FAILURE,
   FETCH_USER_DETAILS_REQUEST,
   FETCH_USER_DETAILS_SUCCESS,
 } from "./user-constants";
-import { getLoggedInUserDetails } from "src/api/user-api";
 
 function* fetchUserDetails(): any {
   yield put({ type: FETCH_USER_DETAILS_REQUEST });

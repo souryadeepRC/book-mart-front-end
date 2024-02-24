@@ -1,11 +1,11 @@
 // types
-import { ReducerActionPayloadType } from "../reducer-type";
+import { ReducerActionPayloadType } from "src/store/reducer-types";
 // constants
 import {
-  SET_SCREEN_TYPE,
-  SET_SCREEN_THEME,
   ADD_NOTIFICATION,
   REMOVE_NOTIFICATION,
+  SET_SCREEN_THEME,
+  SET_SCREEN_TYPE,
 } from "./screen-constants";
 
 export const setScreenType = (payload: string): ReducerActionPayloadType => {

@@ -1,15 +1,15 @@
 // types
-import { ReducerActionPayloadType } from "src/store/reducer-type";
+import { ReducerActionPayloadType } from "src/store/reducer-types";
 // constants
 import {
-  USER_LOGIN,
-  VERIFY_LOGIN_OTP,
-  RESET_LOGIN_AUTH,
   RESEND_LOGIN_OTP,
-  USER_LOGOUT,
-  SET_USER_AUTHENTICATE,
-  SET_LOGIN_STATE,
+  RESET_LOGIN_AUTH,
   SET_AUTH_ERROR,
+  SET_LOGIN_STATE,
+  SET_USER_AUTHENTICATE,
+  USER_LOGIN,
+  USER_LOGOUT,
+  VERIFY_LOGIN_OTP,
 } from "./auth-constants";
 
 export const loginUser = (payload: {
