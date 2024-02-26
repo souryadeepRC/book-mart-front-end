@@ -13,3 +13,5 @@ export const selectUserName = (state: AppStoreType): string =>
   state?.user?.username;
 export const selectUserEmail = (state: AppStoreType): string =>
   state?.user?.email;
+export const selectMessages = (state: AppStoreType): any[] | [] =>
+  state?.user?.messages;

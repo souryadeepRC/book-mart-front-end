@@ -52,6 +52,7 @@ export type UserReducerType = {
       value: string;
     };
   };
+  messages: any[] | [];
 };
 export type ReducerActionPayloadType = {
   type: any;

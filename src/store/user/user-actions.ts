@@ -18,3 +18,18 @@ export const setUserDetails = (payload: {
     payload,
   };
 };
+
+export const sendMessage = (payload: {
+  message: string;username:string;
+}): ReducerActionPayloadType => {
+  return {
+    type: "SEND_MESSAGE",
+    payload,
+  };
+};
+export const storeMessage = (payload: any): ReducerActionPayloadType => {
+  return {
+    type: "STORE_MESSAGE",
+    payload,
+  };
+};

@@ -1,5 +1,5 @@
 import { put, takeEvery } from "redux-saga/effects";
-import { getLoggedInUserDetails } from "src/api/user-api";
+import { getLoggedInUserDetails, sendMessage } from "src/api/user-api";
 import {
   FETCH_USER_DETAILS,
   FETCH_USER_DETAILS_FAILURE,
@@ -16,10 +16,26 @@ function* fetchUserDetails(): any {
   } catch (error: any) {
     yield put({
       type: FETCH_USER_DETAILS_FAILURE,
-      error: error?.response?.error_description,
+      error: error?.response?.error_description || 'SERVER DOWN',
     });
   }
 }
+
+function* sendMessageSaga({payload}:any): any {
+  yield put({ type: 'SEND_MESSAGE_REQUEST' });
+
+  try {
+    const response = yield sendMessage(payload);
+    yield put({ type: 'SEND_MESSAGE_SUCCESS', payload: response.data });
+  } catch (error: any) {
+    yield put({
+      type: 'SEND_MESSAGE_FAILURE',
+      error: error.response.error_description,
+    });
+  }
+}
+
 export function* userSaga() {
   yield takeEvery(FETCH_USER_DETAILS, fetchUserDetails);
+  yield takeEvery('SEND_MESSAGE', sendMessageSaga);
 }

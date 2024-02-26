@@ -30,6 +30,7 @@ const initialState: UserReducerType = {
       value: "",
     },
   },
+  messages: [],
 };
 const UserReducer = (
   state = initialState,
@@ -70,6 +71,11 @@ const UserReducer = (
         isLoading: false,
         action: type,
         error: payload,
+      };
+    case "STORE_MESSAGE":
+      return {
+        ...state,
+        messages: [payload, ...state.messages],
       };
     default:
       return state;
