@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { logoutUser } from "src/store/auth/auth-actions";
 
 const Logout = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -8,7 +7,7 @@ const Logout = (): JSX.Element => {
 
   useEffect(() => {
     if (logoutRef.current) return;
-    dispatch(logoutUser());
+    // dispatch(logoutUser());
     logoutRef.current = true;
   }, [dispatch]);
   return <></>;

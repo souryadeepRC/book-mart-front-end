@@ -1,7 +1,7 @@
 // store
 import { rootStore } from "src/store/root-store";
 import { BookType } from "src/types/book-types";
-// types 
+// types
 
 export type ScreenReducerType = {
   screenType: string;
@@ -19,11 +19,13 @@ export type AuthReducerType = {
   action: string;
   isLoading: boolean;
   error: string;
+  errorStatusCode: number | undefined;
   authToken: string;
   isUserAuthenticated: boolean;
   loginState: string;
   signupState: string;
   authOtp: string;
+  isAccessTokenExist:boolean;
 };
 export type UserReducerType = {
   isLoading: boolean;

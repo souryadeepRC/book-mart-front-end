@@ -5,8 +5,7 @@ import axios from "axios";
 // utils
 import { getItemFromLS } from "src/utils/storage-utils";
 // constants
-import { STATUS_CODES } from "src/constants/common-constants";
-import { STORAGE_KEY } from "src/constants/common-constants";
+import { STATUS_CODES, STORAGE_KEY } from "src/constants/common-constants";
 
 const appAxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
@@ -30,8 +29,10 @@ appAxiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error?.response?.status === STATUS_CODES.UNAUTHORIZED) {
+      console.log('error');
+      
       //store.dispatch(logoutUser());
-      window.location.href = "/products";
+      // window.location.href = "/products";
     }
     const Regex5XX = /^5\d{2}$/;
     if (Regex5XX.test(error?.response?.status)) {

@@ -1,22 +1,28 @@
 import { useCallback, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // types
 import { AppDispatch } from "src/store/reducer-types";
 // actions
 import {
-  logoutUser,
+  checkUserAuth,
+  resetUserAuth,
+  setAccessTokenExistence,
   setLoginState,
-  setUserAuthenticate,
 } from "src/store/auth/auth-actions";
-import { fetchUserDetails } from "src/store/user/user-actions";
 // utils
 import { getItemFromLS } from "src/utils/storage-utils";
 // constants
 import { LOGIN_STATE } from "src/constants/authentication-constants";
 import { STORAGE_KEY } from "src/constants/common-constants";
+import {
+  selectAuthIsLoading,
+  selectIsUserAuthenticated,
+} from "src/store/auth/auth-selectors";
 const useLocalStorage = () => {
   // store
   const dispatch: AppDispatch = useDispatch();
+  const authIsLoading: boolean = useSelector(selectAuthIsLoading);
+  const isUserAuthenticated: boolean = useSelector(selectIsUserAuthenticated);
   // ref
   const storageRef = useRef<boolean>(false);
   // event callback
@@ -24,26 +30,34 @@ const useLocalStorage = () => {
     const accessToken = getItemFromLS(STORAGE_KEY.ACCESS_TOKEN);
     const authToken = getItemFromLS(STORAGE_KEY.AUTH_TOKEN);
 
-    if (storageRef.current && accessToken) return;
+    if (accessToken) {
+      dispatch(setAccessTokenExistence(true));
+    } else {
+      dispatch(setAccessTokenExistence(false));
+    }
 
-    if (storageRef.current && !accessToken) {
-      dispatch(logoutUser());
+    if (authIsLoading) return;
+
+    if (!accessToken && isUserAuthenticated) {
+      dispatch(resetUserAuth());
       return;
     }
     if (accessToken) {
-      dispatch(setUserAuthenticate(true));
-      dispatch(setLoginState(LOGIN_STATE.DONE));
-      dispatch(fetchUserDetails());
-      storageRef.current = true;
+      dispatch(checkUserAuth());
     } else {
       dispatch(
         setLoginState(authToken ? LOGIN_STATE.OTP : LOGIN_STATE.ACCOUNT)
       );
     }
-  }, [dispatch]);
+  }, [dispatch, authIsLoading, isUserAuthenticated]);
 
   // effects
+
   useEffect(() => {
+    if (!storageRef.current) {
+      handleStorage();
+      storageRef.current = true;
+    }
     window.addEventListener("storage", handleStorage);
     return () => window.removeEventListener("storage", handleStorage);
   }, [handleStorage]);

@@ -10,17 +10,25 @@ import { Button, OtpValidation } from "src/components/common/CommonComponents";
 // components
 import { LoginForm } from "./LoginForm";
 // actions
-import { resendOtp, verifyOtp } from "src/store/auth/auth-actions";
+import {
+  resendOtp,
+  setLoginState,
+  verifyOtp,
+} from "src/store/auth/auth-actions";
 // selectors
 import {
   selectAuthError,
+  selectAuthErrorStatusCode,
   selectIsUserAuthenticated,
   selectLoginState,
 } from "src/store/auth/auth-selectors";
 // types
 import { AppDispatch } from "src/store/reducer-types";
+// utils
+import { removeAllItemFromLS } from 'src/utils/storage-utils';
 // constants
 import { LOGIN_STATE } from "src/constants/authentication-constants";
+import { STATUS_CODES } from "src/constants/common-constants";
 // styles
 import styles from "./Login.module.scss";
 const Login = (): JSX.Element => {
@@ -30,6 +38,9 @@ const Login = (): JSX.Element => {
   const error: string = useSelector(selectAuthError);
   const loginState: string = useSelector(selectLoginState);
   const isUserAuthenticated: boolean = useSelector(selectIsUserAuthenticated);
+  const errorStatusCode: number | undefined = useSelector(
+    selectAuthErrorStatusCode
+  );
   useEffect(() => {
     if (isUserAuthenticated) {
       navigate("/books");
@@ -42,6 +53,9 @@ const Login = (): JSX.Element => {
   const onOtpResend = (): void => {
     dispatch(resendOtp());
   };
+  const isAuthUnauthorized: boolean =
+    errorStatusCode !== undefined &&
+    errorStatusCode === STATUS_CODES.UNAUTHORIZED;
   return (
     <div className={styles["login__container"]}>
       {error && (
@@ -50,13 +64,27 @@ const Login = (): JSX.Element => {
           <span className={styles["login-error__message"]}>{error}</span>
         </section>
       )}
+      {isAuthUnauthorized && (
+        <Button
+          onClick={() => {
+            dispatch(setLoginState(LOGIN_STATE.ACCOUNT));
+            removeAllItemFromLS();
+          }}
+        >
+          Go back to Login page
+        </Button>
+      )}
       {loginState === LOGIN_STATE.ACCOUNT && (
         <section className={styles["login-form__container"]}>
           <LoginForm />
         </section>
       )}
       {loginState === LOGIN_STATE.OTP && (
-        <section className={styles["login-form__container"]}>
+        <section
+          className={`${styles["login-form__container"]} ${
+            isAuthUnauthorized && styles["disable-form"]
+          }`}
+        >
           <OtpValidation onSubmit={onOtpSubmit} onOtpResend={onOtpResend} />
         </section>
       )}

@@ -21,7 +21,7 @@ function* fetchBookSaga(): any {
     yield put({
       type: FETCH_BOOKS_FAILURE,
       payload:
-        error.response.data.error_description ||
+        error?.response?.data?.error_description ||
         "Sorry! network issue detected",
     });
   }

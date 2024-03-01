@@ -1,5 +1,6 @@
-import AuthHTTP from "./http/auth";
 import qs from "qs";
+import AppHTTP from "./http/app";
+import AuthHTTP from "./http/auth";
 
 const API_BASE_URL_AUTH: string = "/api/book-mart/auth";
 export const postLoginUser = (payload: any) => {
@@ -22,6 +23,18 @@ export const postVerifyLoginOtp = (payload: any) => {
 
 export const getResendLoginOtp = () => {
   return AuthHTTP.get(`${API_BASE_URL_AUTH}/resend-auth-otp`, {
+    baseURL: process.env.REACT_APP_API_BASE_URL,
+    "Content-Type": "application/json",
+  });
+};
+export const getUserAuthCheck= () => {
+  return AppHTTP.get(`${API_BASE_URL_AUTH}/check-auth`, {
+    baseURL: process.env.REACT_APP_API_BASE_URL,
+    "Content-Type": "application/json",
+  });
+};
+export const getUserLogout= () => {
+  return AppHTTP.get(`${API_BASE_URL_AUTH}/logout`, {
     baseURL: process.env.REACT_APP_API_BASE_URL,
     "Content-Type": "application/json",
   });

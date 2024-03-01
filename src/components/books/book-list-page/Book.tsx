@@ -3,7 +3,7 @@ import { Card, CardContent } from "@mui/material";
 import { BookType } from "src/types/book-types";
 // styles
 import StarRating from "src/components/common/star-rating/StarRating";
-import { formatDate } from "src/utils/data-utils";
+import { formatDate } from "src/utils/date-utils";
 import "./Book.scss";
 import { BookPrice } from "./BookPrice";
 interface BookProps {

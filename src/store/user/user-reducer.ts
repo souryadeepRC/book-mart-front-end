@@ -70,8 +70,6 @@ const UserReducer = (
         isLoading: false,
         action: type,
         error: payload,
-        username: "souryadeep",
-        email: "deep.sourya@mail.com",
       };
     default:
       return state;

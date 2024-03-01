@@ -6,5 +6,8 @@ export const getItemFromLS = (key: string): string | null => {
   return window?.localStorage.getItem(key);
 };
 export const removeItemFromLS = (key: string): void => {
-  localStorage.removeItem(key);
+  localStorage.removeItem(key)
+};
+export const removeAllItemFromLS = (): void => {
+  localStorage.clear();
 };

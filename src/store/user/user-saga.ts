@@ -16,7 +16,7 @@ function* fetchUserDetails(): any {
   } catch (error: any) {
     yield put({
       type: FETCH_USER_DETAILS_FAILURE,
-      error: error.response.error_description,
+      error: error?.response?.error_description,
     });
   }
 }

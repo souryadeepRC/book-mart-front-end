@@ -9,10 +9,14 @@ import {
   SIGN_UP_STATE,
 } from "src/constants/authentication-constants";
 import {
+  CHECK_USER_AUTH_FAILURE,
+  CHECK_USER_AUTH_REQUEST,
+  CHECK_USER_AUTH_SUCCESS,
   RESEND_LOGIN_OTP_FAILURE,
   RESEND_LOGIN_OTP_REQUEST,
   RESEND_LOGIN_OTP_SUCCESS,
   RESET_LOGIN_AUTH,
+  SET_ACCESS_TOKEN_EXISTENCE,
   SET_AUTH_ERROR,
   SET_LOGIN_STATE,
   SET_USER_AUTHENTICATE,
@@ -28,11 +32,13 @@ const initialState: AuthReducerType = {
   action: "",
   isLoading: false,
   error: "",
+  errorStatusCode: undefined,
   authToken: "",
   isUserAuthenticated: false,
   loginState: LOGIN_STATE.ACCOUNT,
   signupState: SIGN_UP_STATE.ACCOUNT,
   authOtp: "",
+  isAccessTokenExist: true,
 };
 const AuthReducer = (
   state = initialState,
@@ -42,6 +48,7 @@ const AuthReducer = (
     case USER_LOGIN_REQUEST:
     case VERIFY_LOGIN_OTP_REQUEST:
     case RESEND_LOGIN_OTP_REQUEST:
+    case CHECK_USER_AUTH_REQUEST:
       return { ...state, isLoading: true, action: type };
     case USER_LOGIN_SUCCESS:
       return {
@@ -82,15 +89,33 @@ const AuthReducer = (
         error: payload,
       };
     case SET_LOGIN_STATE:
-      return { ...state, loginState: payload };
-    case USER_LOGIN_FAILURE:
-    case VERIFY_LOGIN_OTP_FAILURE:
-    case RESEND_LOGIN_OTP_FAILURE:
+      return {
+        ...state,
+        loginState: payload,
+        errorStatusCode: undefined,
+        error: "",
+      };
+    case CHECK_USER_AUTH_SUCCESS:
       return {
         ...state,
         isLoading: false,
         action: type,
-        error: payload,
+        error: "",
+        isUserAuthenticated: payload,
+        loginState: LOGIN_STATE.DONE,
+      };
+    case SET_ACCESS_TOKEN_EXISTENCE:
+      return { ...state, isAccessTokenExist: payload };
+    case USER_LOGIN_FAILURE:
+    case VERIFY_LOGIN_OTP_FAILURE:
+    case RESEND_LOGIN_OTP_FAILURE:
+    case CHECK_USER_AUTH_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        action: type,
+        error: payload?.error ?? state.error,
+        errorStatusCode: payload?.errorStatusCode ?? state.errorStatusCode,
       };
     case RESET_LOGIN_AUTH:
       return { ...state, loginState: initialState.loginState };

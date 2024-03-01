@@ -2,14 +2,17 @@
 import { ReducerActionPayloadType } from "src/store/reducer-types";
 // constants
 import {
+  CHECK_USER_AUTH,
   RESEND_LOGIN_OTP,
   RESET_LOGIN_AUTH,
+  RESET_USER_AUTH,
+  SET_ACCESS_TOKEN_EXISTENCE,
   SET_AUTH_ERROR,
   SET_LOGIN_STATE,
   SET_USER_AUTHENTICATE,
   USER_LOGIN,
   USER_LOGOUT,
-  VERIFY_LOGIN_OTP,
+  VERIFY_LOGIN_OTP
 } from "./auth-constants";
 
 export const loginUser = (payload: {
@@ -44,4 +47,17 @@ export const setLoginState = (payload: string): ReducerActionPayloadType => {
 };
 export const setAuthError = (payload: string): ReducerActionPayloadType => {
   return { type: SET_AUTH_ERROR, payload };
+};
+
+export const checkUserAuth = (): ReducerActionPayloadType => {
+  return { type: CHECK_USER_AUTH };
+};
+
+export const resetUserAuth = (): ReducerActionPayloadType => {
+  return { type: RESET_USER_AUTH };
+};
+export const setAccessTokenExistence = (
+  payload: boolean
+): ReducerActionPayloadType => {
+  return { type: SET_ACCESS_TOKEN_EXISTENCE, payload };
 };

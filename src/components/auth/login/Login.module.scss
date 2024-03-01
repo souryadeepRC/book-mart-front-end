@@ -8,6 +8,7 @@
   .login-error__container {
     display: flex;
     padding: 10px;
+    margin: 5px 0;
     align-items: center;
     gap: 10px;
     border: 1px solid $app-error-primary;
@@ -33,6 +34,10 @@
       padding: 20px 0;
       width: 100%;
     }
+  }
+  .disable-form {
+    opacity: 0.5;
+    pointer-events: none;
   }
 
   .sign-up__divider {

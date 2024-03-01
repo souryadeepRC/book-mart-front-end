@@ -21,33 +21,41 @@ const Navigation = (): JSX.Element => {
             Books
           </NavLink>
         </li>
-        {isUserAuthenticated && (
-          <li className={styles["navigation__item"]}>
-            <NavLink tabIndex={0} to="/cart" aria-label="book mart cart">
-              Cart
-            </NavLink>
-          </li>
-        )}
-        <li className={styles["navigation__item"]}>
-          {isUserAuthenticated ? (
-            <>
-              <span>{username}</span>
+
+        {isUserAuthenticated ? (
+          <>
+            <li className={styles["navigation__item"]}>
               <NavLink
                 tabIndex={0}
-                to="/auth/logout"
+                to={`cart`}
+                aria-label="book mart cart"
+              >
+                Cart
+              </NavLink>
+            </li>
+            <li className={styles["navigation__item"]}>
+              <NavLink
+                tabIndex={0}
+                to={`account`}
                 aria-label="book mart app logout"
               >
                 <AccountCircleIcon />
-                Logout
+                <span>{username}</span>
               </NavLink>
-            </>
-          ) : (
-            <NavLink tabIndex={0} to="/auth" aria-label="book mart app login">
+            </li>
+          </>
+        ) : (
+          <li className={styles["navigation__item"]}>
+            <NavLink
+              tabIndex={0}
+              to="/auth/login"
+              aria-label="book mart app login"
+            >
               <AccountCircleIcon />
               Login
             </NavLink>
-          )}
-        </li>
+          </li>
+        )}
       </ul>
     </nav>
   );

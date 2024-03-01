@@ -5,10 +5,13 @@ import { BookReducer } from "src/store/book/book-reducer";
 import { ScreenReducer } from "src/store/screen/screen-reducer";
 import { UserReducer } from "./user/user-reducer";
 // utils
-import { removeItemFromLS } from "src/utils/storage-utils";
+import { removeAllItemFromLS } from "src/utils/storage-utils";
 // constants
-import { STORAGE_KEY } from "src/constants/common-constants";
-import { USER_LOGOUT } from "./auth/auth-constants";
+import {
+  RESET_USER_AUTH,
+  USER_LOGOUT_FAILURE,
+  USER_LOGOUT_SUCCESS,
+} from "./auth/auth-constants";
 
 // Define your reducers
 const combinedReducers = combineReducers({
@@ -18,11 +21,14 @@ const combinedReducers = combineReducers({
   book: BookReducer,
 });
 const rootReducer = (state: any, action: any) => {
-  if (action.type === USER_LOGOUT) {
-    removeItemFromLS(STORAGE_KEY.ACCESS_TOKEN);
-    window.location.href = "/";
+  if (action.type === RESET_USER_AUTH || action.type === USER_LOGOUT_SUCCESS) {
+    removeAllItemFromLS();
+    window.location.href = "/"; 
     // Reset the state to its initial state when logging out
     state = undefined;
+  }
+  if (action.type === USER_LOGOUT_FAILURE) {
+    console.log("TOKEN NOT VALID");
   }
   return combinedReducers(state, action);
 };
