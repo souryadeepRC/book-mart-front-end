@@ -1,18 +1,29 @@
 @import "src/styles/variables.scss";
 .book-mart__button {
   &.MuiButton-root {
-    font-size: fontSize(16);
-    background-color: $color-btn-primary;
-    color: $color-bg-primary;
-    font-weight: bold;
-    text-transform: unset;
     width: 100%;
+    background-color: $color-btn-primary;
+    font-size: fontSize(16);
     font-family: "Roboto Condensed", sans-serif;
+    font-weight: bold;
+    color: $color-bg-primary;
+    text-transform: unset;
+    &:hover {
+      background-color: $color-btn-primary;
+    }
   }
   &.Mui-disabled {
-    background-color: rgba($color-btn-primary, 0.75);
-    color: rgba($color-bg-primary, 0.75);
-    cursor: not-allowed;
     pointer-events: all;
+    background-color: rgba($color-btn-primary, 0.75);
+    cursor: not-allowed;
+    color: rgba($color-bg-primary, 0.75);
+  }
+}
+
+@media screen and (max-width: $mobile-max-width) {
+  .book-mart__button {
+    &.MuiButton-root {
+      font-size: fontSize(12);
+    }
   }
 }

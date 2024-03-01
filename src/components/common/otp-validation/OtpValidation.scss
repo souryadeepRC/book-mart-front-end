@@ -1,8 +1,8 @@
 @import "src/styles/variables.scss";
 .otp__container {
   .otp_message {
-    font-size: fontSize(14);
     margin: 0;
+    font-size: fontSize(14);
     font-weight: normal;
   }
   .otp__form {
@@ -11,19 +11,36 @@
     align-items: stretch;
     gap: 15px;
     .otp__input-container {
-      padding: 20px 0;
       display: flex;
       justify-content: space-evenly;
       align-items: center;
+      padding: 20px 0;
       .MuiInput-input {
-        border: 1px solid $color-item-link;
         width: 50px;
         height: 40px;
+        border: 1px solid $color-item-link;
         border-radius: 5px;
-        text-align: center;
         font-size: 25px;
         color: $color-black;
+        text-align: center;
       }
-    } 
+    }
+  }
+}
+
+@media screen and (max-width: $mobile-max-width) {
+  .otp__container {
+    .otp_message {
+      font-size: fontSize(12);
+    }
+    .otp__form {
+      .otp__input-container {
+        .MuiInput-input {
+          width: 26px;
+          height: 25px;
+          font-size: 14px;
+        }
+      }
+    }
   }
 }

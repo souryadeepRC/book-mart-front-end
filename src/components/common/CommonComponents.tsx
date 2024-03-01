@@ -1,4 +1,8 @@
 import { Button } from "src/components/common/button/Button";
-import { TextField } from "src/components/common/text-field/TextField";
+import { Loader } from "src/components/common/loader/Loader";
 import { OtpValidation } from "src/components/common/otp-validation/OtpValidation";
-export { Button, TextField, OtpValidation };
+import { TextField } from "src/components/common/text-field/TextField";
+
+
+export { Button, Loader, OtpValidation, TextField };
+

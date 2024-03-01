@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 // library
 import { useDispatch, useSelector } from "react-redux";
+// common components
+import { Loader } from "src/components/common/CommonComponents";
 // components
 import { Header } from "src/components/header/Header";
 import { StackedNotification } from "src/components/stacked-notification/StackedNotification";
+import { Navigation } from "./components/navigation/Navigation";
 // routes
 import { AppRoutes } from "src/app-route/routes";
 // hooks
@@ -15,8 +18,8 @@ import { setScreenType } from "src/store/screen/screen-actions";
 import { selectScreenType } from "./store/screen/screen-selectors";
 // types
 import { AppDispatch } from "./store/reducer-types";
-// utils
 // constants
+import { MEDIA_TYPES } from "./constants/screen-constants";
 // styles
 import "./App.scss";
 const App = (): JSX.Element => {
@@ -33,15 +36,21 @@ const App = (): JSX.Element => {
   }, [dispatch, mediaType]);
 
   if (!screenType) {
-    return <span>Loading...</span>;
+    return <Loader />;
   }
   // render fns
   return (
     <StackedNotification>
-      <>
-        <Header />
-        <AppRoutes />
-      </>
+      <section className="app__container">
+        <header className="app-header">
+          <Header />
+          {screenType !== MEDIA_TYPES.MOBILE && <Navigation />}
+        </header>
+        <section className="app-content">
+          <AppRoutes />
+        </section>
+        {screenType === MEDIA_TYPES.MOBILE && <Navigation />}
+      </section>
     </StackedNotification>
   );
 };

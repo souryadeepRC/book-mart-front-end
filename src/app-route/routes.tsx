@@ -8,6 +8,8 @@ import { AuthRoutes } from "./auth-routes";
 import { selectIsAccessTokenExist } from "src/store/auth/auth-selectors";
 // layout
 import { PrivateLayout } from "./layout/PrivateLayout";
+// common components
+import { Loader } from "src/components/common/CommonComponents";
 // components
 const CartPage: any = lazy(() =>
 import("src/pages/CartPage").then(({ CartPage }) => ({
@@ -29,7 +31,7 @@ const AppRoutes = (): JSX.Element => {
   // store
   const isAccessTokenExist: boolean = useSelector(selectIsAccessTokenExist);
   return (
-    <Suspense fallback={<span>Loading...</span>}>
+    <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="" element={<Navigate to="books" />} />
         {!isAccessTokenExist && <Route path="auth">{AuthRoutes()}</Route>}
