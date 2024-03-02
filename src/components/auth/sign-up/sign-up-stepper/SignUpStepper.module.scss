@@ -1,0 +1,60 @@
+@import "src/styles/variables.scss";
+
+.sign-up-stepper__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  .stepper__container {
+    .stepper-tabs {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      .stepper__label {
+        background-color: $color-anti-flash-white;
+        border-radius: 10px;
+        padding: 3px 15px;
+        font-size: fontSize(14);
+        text-align: center;
+        width: unset;
+        &.saved {
+          background-color: $color-success;
+        }
+        &.active {
+          background-color: $app-error-secondary;
+        }
+      }
+    }
+  }
+
+  .stepper__progress-bar {
+    height: 5px;
+    background-color: #eff0f3;
+    width: 50%;
+    border-radius: 10px;
+    .stepper__progress-value {
+      background-color: green;
+      display: block;
+      height: inherit;
+      border-radius: 10px;
+    }
+  }
+}
+@media screen and (max-width: $mobile-max-width) {
+  .sign-up-stepper__container {
+    .stepper__container {
+      white-space: nowrap;
+      width: 85%;
+      overflow: auto hidden;
+      padding: 10px 0;
+      .stepper-tabs{
+        display: block;
+          .stepper__label {
+            margin: 0 5px;
+            font-size: fontSize(10);
+          }
+      }
+    }
+  }
+}

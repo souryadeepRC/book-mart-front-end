@@ -1,5 +1,6 @@
 // store
 import { rootStore } from "src/store/root-store";
+import { SignUpType } from "src/types/authentication-types";
 import { BookType } from "src/types/book-types";
 // types
 
@@ -25,7 +26,8 @@ export type AuthReducerType = {
   loginState: string;
   signupState: string;
   authOtp: string;
-  isAccessTokenExist:boolean;
+  isAccessTokenExist: boolean;
+  signUp: SignUpType;
 };
 export type UserReducerType = {
   isLoading: boolean;

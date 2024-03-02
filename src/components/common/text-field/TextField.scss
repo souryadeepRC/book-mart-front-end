@@ -34,3 +34,18 @@
     }
   }
 }
+
+@media screen and (max-width: $mobile-max-width) {
+  .book-mart__text-field {
+    &.MuiTextField-root {
+      .MuiInputLabel-root {
+        font-size: fontSize(12);
+        top: -5px;
+      }
+      .MuiOutlinedInput-input {
+        font-size: fontSize(12);
+        padding: 10px 15px;
+      }
+    }
+  }
+}

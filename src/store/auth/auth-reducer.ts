@@ -6,12 +6,17 @@ import {
 // constants
 import {
   LOGIN_STATE,
+  SIGN_UP_ACTION_TYPES,
   SIGN_UP_STATE,
 } from "src/constants/authentication-constants";
 import {
+  CHECK_SIGN_UP_EMAIL_FAILURE,
+  CHECK_SIGN_UP_EMAIL_REQUEST,
+  CHECK_SIGN_UP_EMAIL_SUCCESS,
   CHECK_USER_AUTH_FAILURE,
   CHECK_USER_AUTH_REQUEST,
   CHECK_USER_AUTH_SUCCESS,
+  MOVE_SIGN_UP_STEP_ACTIVE_INDEX,
   RESEND_LOGIN_OTP_FAILURE,
   RESEND_LOGIN_OTP_REQUEST,
   RESEND_LOGIN_OTP_SUCCESS,
@@ -19,7 +24,16 @@ import {
   SET_ACCESS_TOKEN_EXISTENCE,
   SET_AUTH_ERROR,
   SET_LOGIN_STATE,
+  SET_SIGN_UP_ACCOUNT_DETAILS,
+  SET_SIGN_UP_ADDRESS_DETAILS,
+  SET_SIGN_UP_CONTACT_DETAILS,
+  SET_SIGN_UP_PASSWORD_DETAILS,
+  SET_SIGN_UP_PERSONAL_DETAILS,
+  SET_SIGN_UP_STEP_ACTIVE_INDEX,
   SET_USER_AUTHENTICATE,
+  SIGN_UP_USER_FAILURE,
+  SIGN_UP_USER_REQUEST,
+  SIGN_UP_USER_SUCCESS,
   USER_LOGIN_FAILURE,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -39,6 +53,38 @@ const initialState: AuthReducerType = {
   signupState: SIGN_UP_STATE.ACCOUNT,
   authOtp: "",
   isAccessTokenExist: true,
+  signUp: {
+    details: {
+      account: { email: "", username: "" },
+      password: { password: "" },
+      personal: {
+        name: {
+          firstName: "",
+          middleName: "",
+          lastName: "",
+        },
+      },
+      address: {
+        pinCode: "",
+      },
+      contact: {
+        primary: {
+          code: "",
+          value: "",
+        },
+        secondary: {
+          code: "",
+          value: "",
+        },
+      },
+    },
+    activeStepIndex: 0,
+    savedStepIndexes: Array(5).fill(false),
+    maxStep: 5,
+  },
+};
+const setSuccessState = (type: string) => {
+  return { isLoading: false, action: type, error: "" };
 };
 const AuthReducer = (
   state = initialState,
@@ -49,22 +95,20 @@ const AuthReducer = (
     case VERIFY_LOGIN_OTP_REQUEST:
     case RESEND_LOGIN_OTP_REQUEST:
     case CHECK_USER_AUTH_REQUEST:
+    case CHECK_SIGN_UP_EMAIL_REQUEST:
+    case SIGN_UP_USER_REQUEST:
       return { ...state, isLoading: true, action: type };
     case USER_LOGIN_SUCCESS:
       return {
         ...state,
-        isLoading: false,
-        error: "",
-        action: type,
+        ...setSuccessState(type),
         loginState: LOGIN_STATE.OTP,
         authOtp: payload,
       };
     case VERIFY_LOGIN_OTP_SUCCESS: {
       return {
         ...state,
-        isLoading: false,
-        error: "",
-        action: type,
+        ...setSuccessState(type),
         isUserAuthenticated: true,
         loginState: LOGIN_STATE.DONE,
       };
@@ -72,9 +116,7 @@ const AuthReducer = (
     case RESEND_LOGIN_OTP_SUCCESS: {
       return {
         ...state,
-        isLoading: false,
-        error: "",
-        action: type,
+        ...setSuccessState(type),
       };
     }
     case SET_USER_AUTHENTICATE: {
@@ -98,18 +140,123 @@ const AuthReducer = (
     case CHECK_USER_AUTH_SUCCESS:
       return {
         ...state,
-        isLoading: false,
-        action: type,
-        error: "",
+        ...setSuccessState(type),
         isUserAuthenticated: payload,
         loginState: LOGIN_STATE.DONE,
       };
     case SET_ACCESS_TOKEN_EXISTENCE:
       return { ...state, isAccessTokenExist: payload };
+    case SET_SIGN_UP_STEP_ACTIVE_INDEX: {
+      let activeIndex = state.signUp.activeStepIndex;
+      let savedStepIndexes = [...state.signUp.savedStepIndexes];
+      if (payload === SIGN_UP_ACTION_TYPES.FORWARD) {
+        savedStepIndexes.splice(activeIndex, 1, true);
+        activeIndex = activeIndex + 1;
+      } else {
+        activeIndex = activeIndex - 1;
+      }
+      return {
+        ...state,
+        action: type,
+        signUp: {
+          ...state.signUp,
+          activeStepIndex: activeIndex,
+          savedStepIndexes,
+        },
+      };
+    }
+    case MOVE_SIGN_UP_STEP_ACTIVE_INDEX:
+      return {
+        ...state,
+        action: type,
+        signUp: {
+          ...state.signUp,
+          activeStepIndex: payload,
+        },
+      };
+    case SET_SIGN_UP_ACCOUNT_DETAILS:
+      return {
+        ...state,
+        action: type,
+        error: "",
+        signUp: {
+          ...state.signUp,
+          details: {
+            ...state.signUp.details,
+            account: payload,
+          },
+        },
+      };
+    case SET_SIGN_UP_PASSWORD_DETAILS:
+      return {
+        ...state,
+        action: type,
+        error: "",
+        signUp: {
+          ...state.signUp,
+          details: {
+            ...state.signUp.details,
+            password: payload,
+          },
+        },
+      };
+    case SET_SIGN_UP_PERSONAL_DETAILS:
+      return {
+        ...state,
+        action: type,
+        error: "",
+        signUp: {
+          ...state.signUp,
+          details: {
+            ...state.signUp.details,
+            personal: payload,
+          },
+        },
+      };
+    case SET_SIGN_UP_ADDRESS_DETAILS:
+      return {
+        ...state,
+        action: type,
+        error: "",
+        signUp: {
+          ...state.signUp,
+          details: {
+            ...state.signUp.details,
+            address: payload,
+          },
+        },
+      };
+    case SET_SIGN_UP_CONTACT_DETAILS:
+      return {
+        ...state,
+        action: type,
+        error: "",
+        signUp: {
+          ...state.signUp,
+          details: {
+            ...state.signUp.details,
+            contact: payload,
+          },
+        },
+      };
+    case CHECK_SIGN_UP_EMAIL_SUCCESS:
+      return {
+        ...state,
+        ...setSuccessState(type),
+      };
+    case SIGN_UP_USER_SUCCESS:
+      return {
+        ...state,
+        ...setSuccessState(type),
+        isUserAuthenticated: true,
+        loginState: SIGN_UP_STATE.DONE,
+      };
     case USER_LOGIN_FAILURE:
     case VERIFY_LOGIN_OTP_FAILURE:
     case RESEND_LOGIN_OTP_FAILURE:
     case CHECK_USER_AUTH_FAILURE:
+    case CHECK_SIGN_UP_EMAIL_FAILURE:
+    case SIGN_UP_USER_FAILURE:
       return {
         ...state,
         isLoading: false,

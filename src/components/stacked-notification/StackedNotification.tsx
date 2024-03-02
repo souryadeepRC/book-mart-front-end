@@ -24,6 +24,7 @@ const StackedNotification = ({ children }: StackedNotificationProps) => {
     <>
       <div>
         {notifications?.map((notification: NotificationType, index: number) => {
+          const notificationType: any = notification.type || "success";
           return (
             <Snackbar
               anchorOrigin={{ vertical: "top", horizontal: "center" }}
@@ -32,7 +33,7 @@ const StackedNotification = ({ children }: StackedNotificationProps) => {
               autoHideDuration={10000}
               key={index}
             >
-              <Alert severity="success">{notification.message}</Alert>
+              <Alert severity={notificationType}>{notification.message}</Alert>
             </Snackbar>
           );
         })}

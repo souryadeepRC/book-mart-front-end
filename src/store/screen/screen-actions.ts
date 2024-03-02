@@ -22,7 +22,10 @@ export const setScreenTheme = (payload: string): ReducerActionPayloadType => {
   };
 };
 
-export const addNotifications = (payload: string): ReducerActionPayloadType => {
+export const addNotifications = (payload: {
+  message: string;
+  type?: string;
+}): ReducerActionPayloadType => {
   return {
     type: ADD_NOTIFICATION,
     payload,

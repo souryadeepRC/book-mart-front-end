@@ -1,0 +1,30 @@
+@import "src/styles/variables.scss";
+
+.sign-up-actions__container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+  align-items: center;
+  :global(.book-mart__button.MuiButton-root) {
+    background-color: $color-anti-flash-white;
+  }
+  .action-next__container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    :global(.book-mart__button.MuiButton-root) {
+      background-color: $color-btn-primary;
+    }
+  }
+}
+
+@media screen and (max-width: $mobile-max-width) {
+  .sign-up-actions__container {
+    flex-wrap: wrap;
+    .action-next__container {
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+  }
+}

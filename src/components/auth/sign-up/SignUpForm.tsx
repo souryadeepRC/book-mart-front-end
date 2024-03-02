@@ -1,80 +1,50 @@
-import { useState } from "react";
-
+import { useSelector } from "react-redux";
+// components
+import { SignUpStepper } from "./sign-up-stepper/SignUpStepper";
+import {
+  SignUpAccount,
+  SignUpAddress,
+  SignUpContact,
+  SignUpDone,
+  SignUpPassword,
+  SignUpPersonal,
+} from "./sign-up-steps/SignUpSteps";
+// selectors
+import { selectSignUpActiveStepIndex } from "src/store/auth/auth-selectors";
+// constants
+import { SIGN_UP_STEP } from "src/constants/authentication-constants";
+// styles
+import styles from "./SignUp.module.scss";
 const SignUpForm = (): JSX.Element => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [userDetails, setUserDetails] = useState({
-    email: "test.deep@gmail.com",
-    password: "Test@1234",
-  });
-  const onSignUp = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    event.preventDefault();
-    const dbUrl: string = `${process.env.REACT_APP_DATABASE_URL}/signup` || "";
-    const { email, password } = userDetails;
-    console.log({ email, password });
+  // store
+  const activeStepIndex: number = useSelector(selectSignUpActiveStepIndex);
 
-    setIsLoading(true);
-    fetch(dbUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((response) => {
-        console.log(response);
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsLoading(false);
-      });
-  };
-  const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserDetails((userDetails) => {
-      return {
-        ...userDetails,
-        email: event.target.value,
-      };
-    });
-  };
-  const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserDetails((userDetails) => {
-      return {
-        ...userDetails,
-        password: event.target.value,
-      };
-    });
+  // render fns
+  const renderSignUpForm = (signUpStep: number) => {
+    switch (signUpStep) {
+      case SIGN_UP_STEP.ACCOUNT:
+        return <SignUpAccount />;
+      case SIGN_UP_STEP.PASSWORD:
+        return <SignUpPassword />;
+      case SIGN_UP_STEP.PERSONAL:
+        return <SignUpPersonal />;
+      case SIGN_UP_STEP.ADDRESS:
+        return <SignUpAddress />;
+      case SIGN_UP_STEP.CONTACT:
+        return <SignUpContact />;
+      case SIGN_UP_STEP.DONE:
+        return <SignUpDone />;
+    }
   };
   return (
-    <form
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 5,
-        width: "50%",
-      }}
-    >
-      <input
-        type="text"
-        name="email"
-        placeholder="Email Address"
-        value={userDetails.email}
-        onChange={onEmailChange}
-      />
-      <input
-        type="text"
-        name="password"
-        placeholder="Password"
-        value={userDetails.password}
-        onChange={onPasswordChange}
-      />
-      <button onClick={onSignUp}>{isLoading ? "Loading..." : "Sign up"}</button>
-    </form>
+    <div className={styles["sign-up-form__container"]}>
+      <SignUpStepper />
+      <section className={styles["form-steps__container"]}>
+        {renderSignUpForm(activeStepIndex)}
+      </section>
+    </div>
   );
 };
 
 export { SignUpForm };
+

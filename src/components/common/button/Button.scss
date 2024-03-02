@@ -1,7 +1,6 @@
 @import "src/styles/variables.scss";
 .book-mart__button {
-  &.MuiButton-root {
-    width: 100%;
+  &.MuiButton-root { 
     background-color: $color-btn-primary;
     font-size: fontSize(16);
     font-family: "Roboto Condensed", sans-serif;

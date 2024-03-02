@@ -1,5 +1,8 @@
 // types
-import { ReducerActionPayloadType, ScreenReducerType } from "src/store/reducer-types";
+import {
+  ReducerActionPayloadType,
+  ScreenReducerType,
+} from "src/store/reducer-types";
 // utils
 import { generateRandomId } from "src/utils/common-utils";
 // constants
@@ -26,11 +29,13 @@ const ScreenReducer = (
       return { ...state, screenTheme: payload };
     case ADD_NOTIFICATION: {
       const existingNotifications = [...state.notifications];
+      const { message, type = "success" } = payload;
       const notifications = [
         ...existingNotifications,
         {
           id: generateRandomId(),
-          message: payload,
+          message,
+          type,
         },
       ];
       return {

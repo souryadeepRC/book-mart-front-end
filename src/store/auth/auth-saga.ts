@@ -5,6 +5,8 @@ import {
   getUserAuthCheck,
   getUserLogout,
   postLoginUser,
+  postSignUpEmailCheck,
+  postSignUpUser,
   postVerifyLoginOtp,
 } from "src/api/auth-api";
 // actions
@@ -16,6 +18,10 @@ import { removeItemFromLS, setItemToLS } from "src/utils/storage-utils";
 import { STATUS_CODES, STORAGE_KEY } from "src/constants/common-constants";
 import { resetUserAuth } from "./auth-actions";
 import {
+  CHECK_SIGN_UP_EMAIL,
+  CHECK_SIGN_UP_EMAIL_FAILURE,
+  CHECK_SIGN_UP_EMAIL_REQUEST,
+  CHECK_SIGN_UP_EMAIL_SUCCESS,
   CHECK_USER_AUTH,
   CHECK_USER_AUTH_FAILURE,
   CHECK_USER_AUTH_REQUEST,
@@ -24,6 +30,10 @@ import {
   RESEND_LOGIN_OTP_FAILURE,
   RESEND_LOGIN_OTP_REQUEST,
   RESEND_LOGIN_OTP_SUCCESS,
+  SIGN_UP_USER,
+  SIGN_UP_USER_FAILURE,
+  SIGN_UP_USER_REQUEST,
+  SIGN_UP_USER_SUCCESS,
   USER_LOGIN,
   USER_LOGIN_FAILURE,
   USER_LOGIN_REQUEST,
@@ -50,9 +60,9 @@ function* loginUserSaga({ payload }: any): any {
       payload: response.data.otp,
     });
     yield put(
-      addNotifications(
-        `Your verification code is ${otpValue} is valid for ${expiresIn}`
-      )
+      addNotifications({
+        message: `Your verification code is ${otpValue} is valid for ${expiresIn}`,
+      })
     );
   } catch (error: any) {
     yield put({
@@ -100,9 +110,9 @@ function* resendOtpSaga(): any {
     const { value: otpValue, expiresIn } = response.data.otp;
     yield put({ type: RESEND_LOGIN_OTP_SUCCESS, payload: response.data });
     yield put(
-      addNotifications(
-        `Your verification code is ${otpValue} is valid for ${expiresIn}`
-      )
+      addNotifications({
+        message: `Your verification code is ${otpValue} is valid for ${expiresIn}`,
+      })
     );
   } catch (error: any) {
     yield put({
@@ -121,13 +131,13 @@ function* resendOtpSaga(): any {
 function* checkUserAuth(): any {
   yield put({ type: CHECK_USER_AUTH_REQUEST });
   try {
-    const response = yield getUserAuthCheck(); 
+    const response = yield getUserAuthCheck();
     yield put({
       type: CHECK_USER_AUTH_SUCCESS,
       payload: response.data.isUserAuthenticated,
     });
     yield put(fetchUserDetails());
-  } catch (error: any) { 
+  } catch (error: any) {
     yield put({
       type: CHECK_USER_AUTH_FAILURE,
     });
@@ -144,7 +154,48 @@ function* logoutSaga(): any {
   } catch (error: any) {
     yield put({
       type: USER_LOGOUT_FAILURE,
-    }); 
+    });
+  }
+}
+function* checkSignUpEmail({ payload }: any): any {
+  yield put({ type: CHECK_SIGN_UP_EMAIL_REQUEST });
+  try {
+    yield postSignUpEmailCheck(payload);
+    yield put({
+      type: CHECK_SIGN_UP_EMAIL_SUCCESS,
+    });
+  } catch (error: any) {
+    yield put({
+      type: CHECK_SIGN_UP_EMAIL_FAILURE,
+      payload: {
+        error:
+          error?.response?.data?.error_description ||
+          "Sorry! network issue detected",
+      },
+    });
+  }
+}
+
+function* signUpUser({ payload }: any): any {
+  yield put({ type: SIGN_UP_USER_REQUEST });
+  try {
+    const response = yield postSignUpUser(payload);
+    const { accessToken, expiryDate } = response.data;
+    setItemToLS(STORAGE_KEY.ACCESS_TOKEN, accessToken);
+    setItemToLS(STORAGE_KEY.TOKEN_EXPIRY_DATE, expiryDate);
+    yield put({
+      type: SIGN_UP_USER_SUCCESS,
+    });
+    yield put(fetchUserDetails());
+  } catch (error: any) {
+    yield put({
+      type: SIGN_UP_USER_FAILURE,
+      payload: {
+        error:
+          error?.response?.data?.error_description ||
+          "Sorry! network issue detected",
+      },
+    });
   }
 }
 export function* authSaga() {
@@ -153,4 +204,6 @@ export function* authSaga() {
   yield takeEvery(RESEND_LOGIN_OTP, resendOtpSaga);
   yield takeEvery(CHECK_USER_AUTH, checkUserAuth);
   yield takeEvery(USER_LOGOUT, logoutSaga);
+  yield takeEvery(CHECK_SIGN_UP_EMAIL, checkSignUpEmail);
+  yield takeEvery(SIGN_UP_USER, signUpUser);
 }
