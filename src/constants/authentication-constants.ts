@@ -52,3 +52,4 @@ export const SIGN_UP_STEPS: SignUpStepsType[] = [
     isRequired: false,
   },
 ];
+export const EMAIL_REGEX: RegExp = /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/;

@@ -6,8 +6,7 @@ import {
 // constants
 import {
   LOGIN_STATE,
-  SIGN_UP_ACTION_TYPES,
-  SIGN_UP_STATE,
+  SIGN_UP_STATE
 } from "src/constants/authentication-constants";
 import {
   CHECK_SIGN_UP_EMAIL_FAILURE,
@@ -24,11 +23,7 @@ import {
   SET_ACCESS_TOKEN_EXISTENCE,
   SET_AUTH_ERROR,
   SET_LOGIN_STATE,
-  SET_SIGN_UP_ACCOUNT_DETAILS,
-  SET_SIGN_UP_ADDRESS_DETAILS,
-  SET_SIGN_UP_CONTACT_DETAILS,
-  SET_SIGN_UP_PASSWORD_DETAILS,
-  SET_SIGN_UP_PERSONAL_DETAILS,
+  SET_SIGN_UP_DETAILS,
   SET_SIGN_UP_STEP_ACTIVE_INDEX,
   SET_USER_AUTHENTICATE,
   SIGN_UP_USER_FAILURE,
@@ -39,8 +34,9 @@ import {
   USER_LOGIN_SUCCESS,
   VERIFY_LOGIN_OTP_FAILURE,
   VERIFY_LOGIN_OTP_REQUEST,
-  VERIFY_LOGIN_OTP_SUCCESS,
+  VERIFY_LOGIN_OTP_SUCCESS
 } from "src/store/auth/auth-constants";
+import { mapSignUpDetails, mapSignUpStepInfo } from "./auth-mapper";
 
 const initialState: AuthReducerType = {
   action: "",
@@ -146,25 +142,12 @@ const AuthReducer = (
       };
     case SET_ACCESS_TOKEN_EXISTENCE:
       return { ...state, isAccessTokenExist: payload };
-    case SET_SIGN_UP_STEP_ACTIVE_INDEX: {
-      let activeIndex = state.signUp.activeStepIndex;
-      let savedStepIndexes = [...state.signUp.savedStepIndexes];
-      if (payload === SIGN_UP_ACTION_TYPES.FORWARD) {
-        savedStepIndexes.splice(activeIndex, 1, true);
-        activeIndex = activeIndex + 1;
-      } else {
-        activeIndex = activeIndex - 1;
-      }
+    case SET_SIGN_UP_STEP_ACTIVE_INDEX:
       return {
         ...state,
         action: type,
-        signUp: {
-          ...state.signUp,
-          activeStepIndex: activeIndex,
-          savedStepIndexes,
-        },
+        signUp: mapSignUpStepInfo(state.signUp, payload),
       };
-    }
     case MOVE_SIGN_UP_STEP_ACTIVE_INDEX:
       return {
         ...state,
@@ -174,70 +157,12 @@ const AuthReducer = (
           activeStepIndex: payload,
         },
       };
-    case SET_SIGN_UP_ACCOUNT_DETAILS:
+    case SET_SIGN_UP_DETAILS:
       return {
         ...state,
         action: type,
         error: "",
-        signUp: {
-          ...state.signUp,
-          details: {
-            ...state.signUp.details,
-            account: payload,
-          },
-        },
-      };
-    case SET_SIGN_UP_PASSWORD_DETAILS:
-      return {
-        ...state,
-        action: type,
-        error: "",
-        signUp: {
-          ...state.signUp,
-          details: {
-            ...state.signUp.details,
-            password: payload,
-          },
-        },
-      };
-    case SET_SIGN_UP_PERSONAL_DETAILS:
-      return {
-        ...state,
-        action: type,
-        error: "",
-        signUp: {
-          ...state.signUp,
-          details: {
-            ...state.signUp.details,
-            personal: payload,
-          },
-        },
-      };
-    case SET_SIGN_UP_ADDRESS_DETAILS:
-      return {
-        ...state,
-        action: type,
-        error: "",
-        signUp: {
-          ...state.signUp,
-          details: {
-            ...state.signUp.details,
-            address: payload,
-          },
-        },
-      };
-    case SET_SIGN_UP_CONTACT_DETAILS:
-      return {
-        ...state,
-        action: type,
-        error: "",
-        signUp: {
-          ...state.signUp,
-          details: {
-            ...state.signUp.details,
-            contact: payload,
-          },
-        },
+        signUp: mapSignUpDetails(state.signUp, payload),
       };
     case CHECK_SIGN_UP_EMAIL_SUCCESS:
       return {
@@ -249,7 +174,7 @@ const AuthReducer = (
         ...state,
         ...setSuccessState(type),
         isUserAuthenticated: true,
-        loginState: SIGN_UP_STATE.DONE,
+        signupState: SIGN_UP_STATE.DONE,
       };
     case USER_LOGIN_FAILURE:
     case VERIFY_LOGIN_OTP_FAILURE:

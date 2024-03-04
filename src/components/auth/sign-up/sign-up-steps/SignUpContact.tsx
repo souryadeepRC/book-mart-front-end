@@ -5,16 +5,13 @@ import { TextField } from "src/components/common/CommonComponents";
 // components
 import { SignUpActions } from "../sign-up-actions/SignUpActions";
 // actions
-import {
-  setSignUpContactDetails,
-  setSignUpStep,
-} from "src/store/auth/auth-actions";
+import { setSignUpDetails } from "src/store/auth/auth-actions";
 // selectors
 import { selectSignUpContactDetails } from "src/store/auth/auth-selectors";
 // types
 import { AppDispatch } from "src/store/reducer-types";
 // constants
-import { SIGN_UP_ACTION_TYPES } from "src/constants/authentication-constants";
+import { SIGN_UP_STATE } from "src/constants/authentication-constants";
 
 const SignUpContact = (): JSX.Element => {
   // store
@@ -31,15 +28,18 @@ const SignUpContact = (): JSX.Element => {
 
   // callbacks
   const onSave = (): void => {
+    const contactDetails = {
+      primary: {
+        code: contactCodeRef.current.value,
+        value: contactValueRef.current.value,
+      },
+    };
     dispatch(
-      setSignUpContactDetails({
-        primary: {
-          code: contactCodeRef.current.value,
-          value: contactValueRef.current.value,
-        },
+      setSignUpDetails({
+        type: SIGN_UP_STATE.CONTACT,
+        details: contactDetails,
       })
     );
-    dispatch(setSignUpStep(SIGN_UP_ACTION_TYPES.FORWARD));
   };
 
   const { code, value } = storedContactDetails.primary;

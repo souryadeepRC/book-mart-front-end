@@ -7,26 +7,33 @@ import { SignUpActions } from "../sign-up-actions/SignUpActions";
 // actions
 import {
   checkSignUpEmail,
-  setSignUpAccountDetails,
-  setSignUpStep,
+  setAuthError,
+  setSignUpDetails,
 } from "src/store/auth/auth-actions";
 // selectors
 import {
   selectAuthAction,
+  selectAuthError,
   selectSignUpAccountDetails,
 } from "src/store/auth/auth-selectors";
 // types
 import { AppDispatch } from "src/store/reducer-types";
 // constants
-import { SIGN_UP_ACTION_TYPES } from "src/constants/authentication-constants";
+import {
+  EMAIL_REGEX,
+  SIGN_UP_STATE,
+} from "src/constants/authentication-constants";
 import { CHECK_SIGN_UP_EMAIL_SUCCESS } from "src/store/auth/auth-constants";
 
 const SignUpAccount = (): JSX.Element => {
   // store
   const dispatch: AppDispatch = useDispatch();
   const authAction: string = useSelector(selectAuthAction);
+  const authError: string = useSelector(selectAuthError);
   const storedAccountDetails = useSelector(selectSignUpAccountDetails);
   // state
+  const [isActionTaken, setIsActionTaken] = useState<boolean>(false);
+  const [isInvalidEmail, setIsInvalidEmail] = useState<boolean>(false);
   const [accountDetails, setAccountDetails] = useState({
     email: "",
     username: "",
@@ -51,8 +58,12 @@ const SignUpAccount = (): JSX.Element => {
   }, [storedAccountDetails]);
 
   const saveAccountDetailsToStore = useCallback(() => {
-    dispatch(setSignUpAccountDetails(accountDetails));
-    dispatch(setSignUpStep(SIGN_UP_ACTION_TYPES.FORWARD));
+    dispatch(
+      setSignUpDetails({
+        type: SIGN_UP_STATE.ACCOUNT,
+        details: accountDetails,
+      })
+    );
   }, [dispatch, accountDetails]);
 
   useEffect(() => {
@@ -60,6 +71,7 @@ const SignUpAccount = (): JSX.Element => {
       saveAccountDetailsToStore();
     }
   }, [dispatch, saveAccountDetailsToStore, authAction]);
+
   // callbacks
   const onDetailsChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -73,6 +85,14 @@ const SignUpAccount = (): JSX.Element => {
   };
 
   const onSave = (): void => {
+    !isActionTaken && setIsActionTaken(true);
+    if (!EMAIL_REGEX.test(email)) {
+      dispatch(setAuthError("Invalid Email address"));
+      setIsInvalidEmail(true);
+      return;
+    }
+    setIsInvalidEmail(false);
+
     if (email === storedAccountDetails.email) {
       saveAccountDetailsToStore();
     } else {
@@ -82,7 +102,11 @@ const SignUpAccount = (): JSX.Element => {
 
   const { email, username } = accountDetails;
   const isStepDisabled: boolean = !(email && username);
-  const isActionTaken: boolean = false;
+  const isEmailError: boolean =
+    (isActionTaken && !email) || authError !== "" || isInvalidEmail;
+  const emailErrorText: string = isInvalidEmail
+    ? "Enter valid email address (e.g. abc@mail.com)"
+    : authError ?? "Enter your email address";
   return (
     <>
       <TextField
@@ -91,16 +115,16 @@ const SignUpAccount = (): JSX.Element => {
         value={email}
         onChange={onDetailsChange}
         inputRef={emailRef}
-        helperText={isActionTaken && !email && "Enter your email address"}
-        error={isActionTaken && !email}
+        helperText={isEmailError && emailErrorText}
+        error={isEmailError}
       />
       <TextField
         label="Username"
         name="username"
         value={username}
         onChange={onDetailsChange}
-        helperText={isActionTaken && !email && "Enter your email address"}
-        error={isActionTaken && !email}
+        helperText={isActionTaken && !username && "Enter your username"}
+        error={isActionTaken && !username}
       />
       <SignUpActions isDisabled={isStepDisabled} onSave={onSave} />
     </>

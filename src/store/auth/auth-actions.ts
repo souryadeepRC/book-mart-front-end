@@ -1,12 +1,8 @@
 // types
 import { ReducerActionPayloadType } from "src/store/reducer-types";
 import {
-  SignUpDetailsAccountType,
-  SignUpDetailsAddressType,
-  SignUpDetailsContactType,
-  SignUpDetailsPasswordType,
-  SignUpDetailsPersonalType,
-  SignUpDetailsType,
+  SignUpDetailsPayloadType,
+  SignUpDetailsType
 } from "src/types/authentication-types";
 // constants
 import {
@@ -19,11 +15,7 @@ import {
   SET_ACCESS_TOKEN_EXISTENCE,
   SET_AUTH_ERROR,
   SET_LOGIN_STATE,
-  SET_SIGN_UP_ACCOUNT_DETAILS,
-  SET_SIGN_UP_ADDRESS_DETAILS,
-  SET_SIGN_UP_CONTACT_DETAILS,
-  SET_SIGN_UP_PASSWORD_DETAILS,
-  SET_SIGN_UP_PERSONAL_DETAILS,
+  SET_SIGN_UP_DETAILS,
   SET_SIGN_UP_STEP_ACTIVE_INDEX,
   SET_USER_AUTHENTICATE,
   SIGN_UP_USER,
@@ -85,37 +77,17 @@ export const setSignUpStep = (payload: string): ReducerActionPayloadType => {
 export const moveSignUpStep = (payload: number): ReducerActionPayloadType => {
   return { type: MOVE_SIGN_UP_STEP_ACTIVE_INDEX, payload };
 };
-export const setSignUpAccountDetails = (
-  payload: SignUpDetailsAccountType
-): ReducerActionPayloadType => {
-  return { type: SET_SIGN_UP_ACCOUNT_DETAILS, payload };
-};
-export const setSignUpPasswordDetails = (
-  payload: SignUpDetailsPasswordType
-): ReducerActionPayloadType => {
-  return { type: SET_SIGN_UP_PASSWORD_DETAILS, payload };
-};
-export const setSignUpPersonalDetails = (
-  payload: SignUpDetailsPersonalType
-): ReducerActionPayloadType => {
-  return { type: SET_SIGN_UP_PERSONAL_DETAILS, payload };
-};
-export const setSignUpAddressDetails = (
-  payload: SignUpDetailsAddressType
-): ReducerActionPayloadType => {
-  return { type: SET_SIGN_UP_ADDRESS_DETAILS, payload };
-};
-export const setSignUpContactDetails = (
-  payload: SignUpDetailsContactType
-): ReducerActionPayloadType => {
-  return { type: SET_SIGN_UP_CONTACT_DETAILS, payload };
-};
+
 export const checkSignUpEmail = (payload: {
   email: string;
 }): ReducerActionPayloadType => {
   return { type: CHECK_SIGN_UP_EMAIL, payload };
 };
-
+export const setSignUpDetails = (
+  payload: SignUpDetailsPayloadType
+): ReducerActionPayloadType => {
+  return { type: SET_SIGN_UP_DETAILS, payload };
+};
 export const signUpUser = (
   payload: SignUpDetailsType
 ): ReducerActionPayloadType => {

@@ -36,6 +36,15 @@ export type SignUpDetailsType = {
   address: SignUpDetailsAddressType;
   contact: SignUpDetailsContactType;
 };
+export type SignUpDetailsPayloadType = {
+  type: string;
+  details:
+    | SignUpDetailsAccountType
+    | SignUpDetailsPasswordType
+    | SignUpDetailsPersonalType
+    | SignUpDetailsAddressType
+    | SignUpDetailsContactType;
+};
 export type SignUpType = {
   details: SignUpDetailsType;
   activeStepIndex: number;

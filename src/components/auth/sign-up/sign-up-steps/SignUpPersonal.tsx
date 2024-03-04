@@ -5,24 +5,19 @@ import { TextField } from "src/components/common/CommonComponents";
 // components
 import { SignUpActions } from "../sign-up-actions/SignUpActions";
 // actions
-import {
-  setSignUpPersonalDetails,
-  setSignUpStep,
-} from "src/store/auth/auth-actions";
+import { setSignUpDetails } from "src/store/auth/auth-actions";
 // selectors
-import {
-  selectSignUpPersonalDetails
-} from "src/store/auth/auth-selectors";
+import { selectSignUpPersonalDetails } from "src/store/auth/auth-selectors";
 // types
 import { AppDispatch } from "src/store/reducer-types";
 // constants
-import { SIGN_UP_ACTION_TYPES } from "src/constants/authentication-constants";
+import { SIGN_UP_STATE } from "src/constants/authentication-constants";
 
 const SignUpPersonal = (): JSX.Element => {
   // store
-  const dispatch: AppDispatch = useDispatch(); 
+  const dispatch: AppDispatch = useDispatch();
   const storedPersonalDetails = useSelector(selectSignUpPersonalDetails);
-  
+
   // refs
   const firstNameRef = useRef<any>();
   const middleNameRef = useRef<any>();
@@ -31,19 +26,22 @@ const SignUpPersonal = (): JSX.Element => {
   useEffect(() => {
     firstNameRef.current.focus();
   }, []);
-  
-  // callbacks 
+
+  // callbacks
   const onSave = (): void => {
+    const personalDetails = {
+      name: {
+        firstName: firstNameRef.current.value,
+        middleName: middleNameRef.current.value,
+        lastName: lastNameRef.current.value,
+      },
+    };
     dispatch(
-      setSignUpPersonalDetails({
-        name: {
-          firstName: firstNameRef.current.value,
-          middleName: middleNameRef.current.value,
-          lastName: lastNameRef.current.value,
-        },
+      setSignUpDetails({
+        type: SIGN_UP_STATE.PERSONAL,
+        details: personalDetails,
       })
     );
-    dispatch(setSignUpStep(SIGN_UP_ACTION_TYPES.FORWARD));
   };
 
   const { firstName, middleName, lastName } = storedPersonalDetails.name;

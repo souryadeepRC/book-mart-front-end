@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { PasswordField } from "src/components/auth/PasswordField";
 import { SignUpActions } from "../sign-up-actions/SignUpActions";
 // actions
-import { setSignUpPasswordDetails, setSignUpStep } from "src/store/auth/auth-actions";
+import { setSignUpDetails } from "src/store/auth/auth-actions";
 // selectors
 import { selectSignUpPasswordDetails } from "src/store/auth/auth-selectors";
 // types
 import { AppDispatch } from "src/store/reducer-types";
 // constants
-import { SIGN_UP_ACTION_TYPES } from "src/constants/authentication-constants";
+import { SIGN_UP_STATE } from "src/constants/authentication-constants";
+// constants
 
 const SignUpPassword = (): JSX.Element => {
   // store
@@ -51,8 +52,12 @@ const SignUpPassword = (): JSX.Element => {
   };
 
   const onSave = () => {
-    dispatch(setSignUpPasswordDetails(passwordDetails));
-    dispatch(setSignUpStep(SIGN_UP_ACTION_TYPES.FORWARD));
+    dispatch(
+      setSignUpDetails({
+        type: SIGN_UP_STATE.PASSWORD,
+        details: passwordDetails,
+      })
+    );
   };
   const { password } = passwordDetails;
   const isStepDisabled: boolean = !password;

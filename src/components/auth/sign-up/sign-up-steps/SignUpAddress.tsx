@@ -1,20 +1,17 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // common components
-import { SIGN_UP_ACTION_TYPES } from "src/constants/authentication-constants";
+import { TextField } from "src/components/common/CommonComponents";
 // components
 import { SignUpActions } from "../sign-up-actions/SignUpActions";
 // actions
-import {
-  setSignUpAddressDetails,
-  setSignUpStep,
-} from "src/store/auth/auth-actions";
+import { setSignUpDetails } from "src/store/auth/auth-actions";
 // selectors
 import { selectSignUpAddressDetails } from "src/store/auth/auth-selectors";
 // types
 import { AppDispatch } from "src/store/reducer-types";
 // constants
-import { TextField } from "src/components/common/CommonComponents";
+import { SIGN_UP_STATE } from "src/constants/authentication-constants";
 
 const SignUpAddress = (): JSX.Element => {
   // store
@@ -30,12 +27,15 @@ const SignUpAddress = (): JSX.Element => {
 
   // callbacks
   const onSave = (): void => {
+    const addressDetails = {
+      pinCode: pinCodeRef.current.value,
+    };
     dispatch(
-      setSignUpAddressDetails({
-        pinCode: pinCodeRef.current.value,
+      setSignUpDetails({
+        type: SIGN_UP_STATE.ADDRESS,
+        details: addressDetails,
       })
     );
-    dispatch(setSignUpStep(SIGN_UP_ACTION_TYPES.FORWARD));
   };
 
   const { pinCode } = storedAddressDetails;
