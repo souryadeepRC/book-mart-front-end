@@ -53,3 +53,25 @@ export const SIGN_UP_STEPS: SignUpStepsType[] = [
   },
 ];
 export const EMAIL_REGEX: RegExp = /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/;
+export const PASSWORD_VALIDATION_CONDITIONS = [
+  {
+    type: "uppercase",
+    label: "At least one uppercase letter.",
+  },
+  {
+    type: "lowercase",
+    label: "At least one lowercase letter.",
+  },
+  {
+    type: "digit",
+    label: "At least one digit letter.",
+  },
+  {
+    type: "specialChar",
+    label: "At least one special character.",
+  },
+  {
+    type: "length",
+    label: "Length between 8 and 16 characters.",
+  },
+];

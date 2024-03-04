@@ -28,7 +28,7 @@ export const mapSignUpDetails = (
   }
   const activeIndex = signUp.activeStepIndex;
   let savedStepIndexes = [...signUp.savedStepIndexes];
-  const modifiedSavedIndex = savedStepIndexes.splice(activeIndex, 1, true);
+  savedStepIndexes.splice(activeIndex, 1, true);
   return {
     ...signUp,
     details: {
@@ -36,7 +36,7 @@ export const mapSignUpDetails = (
       ...modifiedDetails,
     },
     activeStepIndex: activeIndex + 1,
-    savedStepIndexes: modifiedSavedIndex,
+    savedStepIndexes,
   };
 };
 

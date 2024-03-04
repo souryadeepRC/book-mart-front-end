@@ -51,3 +51,8 @@ export type SignUpType = {
   savedStepIndexes: boolean[];
   maxStep: number;
 };
+
+export type PasswordValidityType = {
+  isValid: boolean;
+  conditions: Record<string, boolean>;
+};
