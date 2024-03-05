@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+// icons
+import EmailIcon from "@mui/icons-material/Email";
 // common components
 import { TextField } from "src/components/common/CommonComponents";
 // components
@@ -24,6 +26,8 @@ import {
   SIGN_UP_STATE,
 } from "src/constants/authentication-constants";
 import { CHECK_SIGN_UP_EMAIL_SUCCESS } from "src/store/auth/auth-constants";
+// styles
+import formStyles from "./SignUpSteps.module.scss";
 
 const SignUpAccount = (): JSX.Element => {
   // store
@@ -107,8 +111,12 @@ const SignUpAccount = (): JSX.Element => {
   const emailErrorText: string = isInvalidEmail
     ? "Enter valid email address (e.g. abc@mail.com)"
     : authError ?? "Enter your email address";
+  const isSkipDisabled: boolean = storedAccountDetails.email === "";
   return (
-    <>
+    <section className={formStyles["sign-up-form"]}>
+      <label className={formStyles["form__label"]}>
+        <EmailIcon /> Email address & Username
+      </label>
       <TextField
         label="Email address"
         name="email"
@@ -126,8 +134,12 @@ const SignUpAccount = (): JSX.Element => {
         helperText={isActionTaken && !username && "Enter your username"}
         error={isActionTaken && !username}
       />
-      <SignUpActions isDisabled={isStepDisabled} onSave={onSave} />
-    </>
+      <SignUpActions
+        isSkipDisabled={isSkipDisabled}
+        isDisabled={isStepDisabled}
+        onSave={onSave}
+      />
+    </section>
   );
 };
 export { SignUpAccount };

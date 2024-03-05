@@ -48,7 +48,7 @@ export type SignUpDetailsPayloadType = {
 export type SignUpType = {
   details: SignUpDetailsType;
   activeStepIndex: number;
-  savedStepIndexes: boolean[];
+  stepStatus: string[];
   maxStep: number;
 };
 

@@ -1,4 +1,8 @@
 import { Button } from "src/components/common/CommonComponents";
+// icons
+import SaveIcon from "@mui/icons-material/Save";
+import SkipNextIcon from "@mui/icons-material/SkipNext";
+import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 // styles
 import { useDispatch, useSelector } from "react-redux";
 import { SIGN_UP_ACTION_TYPES } from "src/constants/authentication-constants";
@@ -12,10 +16,12 @@ import styles from "./SignUpActions.module.scss";
 
 type SignUpActionsProps = {
   isDisabled?: boolean;
+  isSkipDisabled?: boolean;
   onSave: () => void;
 };
 const SignUpActions = ({
   isDisabled = false,
+  isSkipDisabled = false,
   onSave,
 }: SignUpActionsProps): JSX.Element => {
   // store
@@ -23,6 +29,7 @@ const SignUpActions = ({
   const activeStepIndex: number = useSelector(selectSignUpActiveStepIndex);
   const maxStepCount: number = useSelector(selectSignUpMaxStep);
   const maxStepIndex: number = maxStepCount - 1;
+
   // callbacks
   const onBack = () => {
     dispatch(setSignUpStep(SIGN_UP_ACTION_TYPES.BACKWARD));
@@ -36,18 +43,18 @@ const SignUpActions = ({
       <div>
         {activeStepIndex !== 0 && (
           <Button variant="contained" onClick={onBack}>
-            Back
+            <SkipPreviousIcon /> Back
           </Button>
         )}
       </div>
       <div className={styles["action-next__container"]}>
-        <Button variant="contained" disabled={isDisabled} onClick={onSkip}>
-          {activeStepIndex === maxStepIndex ? "Skip & Finish" : "Skip"}
+        <Button variant="contained" disabled={isDisabled || isSkipDisabled} onClick={onSkip}>
+          {activeStepIndex === maxStepIndex ? "Skip & Finish" : "Skip"}{" "}
+          <SkipNextIcon />
         </Button>
         <Button variant="contained" disabled={isDisabled} onClick={onSave}>
-          {activeStepIndex === maxStepIndex
-            ? "Save & Finish"
-            : "Save & Continue"}
+          {activeStepIndex === maxStepIndex ? "Save & Finish" : "Save & Next"}
+          <SaveIcon />
         </Button>
       </div>
     </section>

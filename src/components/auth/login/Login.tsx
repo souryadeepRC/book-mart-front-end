@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 // library
-import Divider from "@mui/material/Divider";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 // icons
@@ -25,7 +24,7 @@ import {
 // types
 import { AppDispatch } from "src/store/reducer-types";
 // utils
-import { removeAllItemFromLS } from 'src/utils/storage-utils';
+import { removeAllItemFromLS } from "src/utils/storage-utils";
 // constants
 import { LOGIN_STATE } from "src/constants/authentication-constants";
 import { STATUS_CODES } from "src/constants/common-constants";
@@ -88,14 +87,12 @@ const Login = (): JSX.Element => {
           <OtpValidation onSubmit={onOtpSubmit} onOtpResend={onOtpResend} />
         </section>
       )}
-      <Divider className={styles["sign-up__divider"]}>
-        New to BookMart ?
-      </Divider>
-      <Link to="/auth/register">
-        <Button className={styles["sign-up__btn"]} variant="outlined">
-          Create your account
-        </Button>
-      </Link>
+      <section className={styles["sign-up-option"]}>
+        <span>New to BookMart ?</span>
+        <Link className={styles["sign-up__link"]} to="/auth/register">
+          Register
+        </Link>
+      </section>
     </div>
   );
 };

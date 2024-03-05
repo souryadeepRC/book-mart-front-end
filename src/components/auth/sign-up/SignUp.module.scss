@@ -22,72 +22,61 @@
       text-align: left;
     }
   }
+
   .sign-up-form__container {
     width: 85%;
     padding: 20px 26px;
     background-color: #ffffff;
     border: 1px #d5d5d5 solid;
     border-radius: 8px;
-    .form-steps__container {
-      padding: 20px 0;
-      width: 60%;
+    box-shadow: inset 1px 2px 4px 3px #061d3d57;
+    .sign-up-step__container {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: auto;
-      gap: 25px;
+      justify-content: space-between;
+      padding: 35px 25px;
+      align-items: stretch;
     }
   }
-  .disable-form {
-    pointer-events: none;
-    opacity: 0.5;
-  }
-
-  .sign-up__divider {
-    padding: 15px 0 10px;
-    font-size: fontSize(12);
-  }
-  .sign-up__btn {
-    &:global(.book-mart__button) {
+  .login-option {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    width: 70%;
+    background: #061d3d;
+    color: white;
+    border-radius: 0 0 45px 45px;
+    font-size: 14px; 
+    gap: 10px;
+    .login__link {
+      text-decoration: none;
+      padding: 5px 15px;
+      border-radius: 7px;
       background-color: $color-anti-flash-white;
       border-color: $color-gainsboro;
-      font-weight: normal;
-    }
-    &:global(.book-mart__button:hover) {
-      background-color: $color-light-gray;
-    }
-  }
-}
-@media screen and (max-width: $mobile-max-width) {
-  .sign-up__container {
-    .sign-up-error__container {
-      width: 65%;
-      font-size: fontSize(12);
-    }
-    .sign-up-form__container {
-      width: 60%;
-      max-width: 300px;
-      padding: 15px 18px;
-      .form-steps__container {
-        width: 90%;
-      }
+      color: $color-black;
     }
   }
 }
 @media screen and (max-width: $mobile-max-width) {
   .sign-up__container {
     :global(.MuiSvgIcon-root) {
-      width: 10px;
-      height: 10px;
+      width: 15px;
+      height: 15px;
     }
-  }
-}
-@media screen and (max-width: $tablet-max-width) and (min-width: $small-mobile-max-width) {
-  .sign-up__container {
     .sign-up-error__container {
-      width: 60%;
-      max-width: 300px;
+      width: 85%;
       font-size: fontSize(12);
+    }
+    .sign-up-form__container {
+      width: 85%;
+      padding: 15px 18px;
+
+      .sign-up-step__container {
+        flex-direction: column;
+        padding: 15px 5px;
+      }
     }
   }
 }

@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+// icons
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 // common components
 import { TextField } from "src/components/common/CommonComponents";
 // components
@@ -12,6 +14,8 @@ import { selectSignUpPersonalDetails } from "src/store/auth/auth-selectors";
 import { AppDispatch } from "src/store/reducer-types";
 // constants
 import { SIGN_UP_STATE } from "src/constants/authentication-constants";
+// styles
+import formStyles from "./SignUpSteps.module.scss";
 
 const SignUpPersonal = (): JSX.Element => {
   // store
@@ -46,7 +50,10 @@ const SignUpPersonal = (): JSX.Element => {
 
   const { firstName, middleName, lastName } = storedPersonalDetails.name;
   return (
-    <>
+    <section className={formStyles["sign-up-form"]}>
+      <label className={formStyles["form__label"]}>
+        <AccountCircleIcon /> Personal Details
+      </label>
       <TextField
         label="First Name"
         name="firstName"
@@ -66,7 +73,7 @@ const SignUpPersonal = (): JSX.Element => {
         inputRef={lastNameRef}
       />
       <SignUpActions onSave={onSave} />
-    </>
+    </section>
   );
 };
 export { SignUpPersonal };

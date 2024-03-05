@@ -52,6 +52,10 @@ export const SIGN_UP_STEPS: SignUpStepsType[] = [
     isRequired: false,
   },
 ];
+export const SIGN_UP_STATE_STATUS: Record<string, string> = {
+  SAVED: "saved",
+  SKIPPED: "skipped",
+};
 export const EMAIL_REGEX: RegExp = /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/;
 export const PASSWORD_VALIDATION_CONDITIONS = [
   {

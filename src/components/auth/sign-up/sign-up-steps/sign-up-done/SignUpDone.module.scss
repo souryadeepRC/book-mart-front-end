@@ -1,0 +1,28 @@
+@import "src/styles/variables.scss";
+
+.sign-up-done__container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+
+  .username {
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .email {
+    font-size: 20px;
+    font-style: italic;
+  }
+  .back-btn {
+    &:global(.book-mart__button.MuiButton-root) {
+      background-color: #eff0f3;
+      border-color: #dadce3;
+      font-weight: normal;
+    }
+  }
+  .sign-up {
+    width: 95%;
+    margin: 15px auto 0 auto;
+  }
+}

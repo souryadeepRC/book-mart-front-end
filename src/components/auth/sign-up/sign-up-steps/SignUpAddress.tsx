@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+// icons
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 // common components
 import { TextField } from "src/components/common/CommonComponents";
 // components
@@ -12,6 +14,8 @@ import { selectSignUpAddressDetails } from "src/store/auth/auth-selectors";
 import { AppDispatch } from "src/store/reducer-types";
 // constants
 import { SIGN_UP_STATE } from "src/constants/authentication-constants";
+// styles
+import formStyles from "./SignUpSteps.module.scss";
 
 const SignUpAddress = (): JSX.Element => {
   // store
@@ -40,7 +44,10 @@ const SignUpAddress = (): JSX.Element => {
 
   const { pinCode } = storedAddressDetails;
   return (
-    <>
+    <section className={formStyles["sign-up-form"]}>
+    <label className={formStyles["form__label"]}>
+        <LocationOnIcon /> Address
+      </label>
       <TextField
         label="Pin Code"
         name="pinCode"
@@ -49,7 +56,7 @@ const SignUpAddress = (): JSX.Element => {
       />
 
       <SignUpActions onSave={onSave} />
-    </>
+    </section>
   );
 };
 export { SignUpAddress };

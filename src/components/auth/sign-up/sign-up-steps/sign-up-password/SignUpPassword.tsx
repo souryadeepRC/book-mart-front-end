@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 // icons
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircle from "@mui/icons-material/CheckCircle";
+import LockIcon from "@mui/icons-material/Lock";
 // components
 import { PasswordField } from "src/components/auth/PasswordField";
 import { SignUpActions } from "../../sign-up-actions/SignUpActions";
@@ -22,6 +23,7 @@ import {
 // types
 import { PasswordValidityType } from "src/types/authentication-types";
 // styles
+import formStyles from "../SignUpSteps.module.scss";
 import styles from "./SignUpPassword.module.scss";
 
 const SignUpPassword = (): JSX.Element => {
@@ -53,6 +55,7 @@ const SignUpPassword = (): JSX.Element => {
     const { password: storedPassword } = storedPasswordDetails;
     if (storedPassword) {
       setPassword(storedPassword);
+      setPasswordValidity(validatePassword(storedPassword));
     }
   }, [storedPasswordDetails]);
 
@@ -75,14 +78,18 @@ const SignUpPassword = (): JSX.Element => {
     return;
   };
   const isStepDisabled: boolean = !passwordValidity.isValid;
+  const isSkipDisabled: boolean = storedPasswordDetails.password === "";
   return (
-    <>
+    <section className={formStyles["sign-up-form"]}>
+      <label className={formStyles["form__label"]}>
+        <LockIcon /> Password
+      </label>
       <PasswordField
         label="Password"
         name="password"
         value={password}
         onChange={onDetailsChange}
-        inputRef={passwordRef} 
+        inputRef={passwordRef}
       />
       <ul className={styles["password-checker-list"]}>
         {PASSWORD_VALIDATION_CONDITIONS?.map((condition, index) => {
@@ -101,8 +108,8 @@ const SignUpPassword = (): JSX.Element => {
           );
         })}
       </ul>
-      <SignUpActions isDisabled={isStepDisabled} onSave={onSave} />
-    </>
+      <SignUpActions isSkipDisabled={isSkipDisabled} isDisabled={isStepDisabled} onSave={onSave} />
+    </section>
   );
 };
 export { SignUpPassword };

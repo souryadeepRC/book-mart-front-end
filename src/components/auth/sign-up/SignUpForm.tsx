@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 // components
-import { SignUpStepper } from "./sign-up-stepper/SignUpStepper";
 import {
   SignUpAccount,
   SignUpAddress,
@@ -15,6 +14,8 @@ import { selectSignUpActiveStepIndex } from "src/store/auth/auth-selectors";
 import { SIGN_UP_STEP } from "src/constants/authentication-constants";
 // styles
 import styles from "./SignUp.module.scss";
+import { StepperProgress } from "./stepper-progress/StepperProgress";
+import { StepperTabs } from "./stepper-tabs/StepperTabs";
 const SignUpForm = (): JSX.Element => {
   // store
   const activeStepIndex: number = useSelector(selectSignUpActiveStepIndex);
@@ -38,8 +39,9 @@ const SignUpForm = (): JSX.Element => {
   };
   return (
     <div className={styles["sign-up-form__container"]}>
-      <SignUpStepper />
-      <section className={styles["form-steps__container"]}>
+      <StepperProgress />
+      <section className={styles["sign-up-step__container"]}>
+        <StepperTabs />
         {renderSignUpForm(activeStepIndex)}
       </section>
     </div>

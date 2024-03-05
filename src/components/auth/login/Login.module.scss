@@ -5,7 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%; 
+  width: 100%;
   .login-error__container {
     box-shadow: 0 0 0 4px $color-lavender-blush inset;
     display: flex;
@@ -29,6 +29,7 @@
     background-color: $color-white;
     border: 1px $color-light-gray solid;
     border-radius: 8px;
+    box-shadow: inset 1px 2px 4px 3px #061d3d57;
     .login-form {
       display: flex;
       flex-direction: column;
@@ -42,18 +43,25 @@
     opacity: 0.5;
   }
 
-  .sign-up__divider {
-    padding: 15px 0 10px;
-    font-size: fontSize(12);
-  }
-  .sign-up__btn {
-    &:global(.book-mart__button) {
+  .sign-up-option {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    width: 35%;
+    background: #061d3d;
+    color: white;
+    border-radius: 0 0 45px 45px;
+    font-size: 14px;
+    gap: 10px;
+    .sign-up__link {
+      text-decoration: none;
+      padding: 5px 15px;
+      border-radius: 7px;
       background-color: $color-anti-flash-white;
       border-color: $color-gainsboro;
-      font-weight: normal;
-    }
-    &:global(.book-mart__button:hover) {
-      background-color: $color-light-gray;
+      color: $color-black;
     }
   }
 }
@@ -64,19 +72,17 @@
       font-size: fontSize(12);
     }
     .login-form__container {
-      width: 60%;
-      max-width: 300px;
+      width: 80%;
+      max-width: 345px;
       padding: 15px 18px;
+    }
+
+    .sign-up-option {
+      width: 75%;
+      max-width: 337px;
+      font-size: 12px;
     }
   }
 }
 
-@media screen and (max-width: $tablet-max-width) and (min-width: $small-mobile-max-width) {
-  .login__container {
-    .login-error__container {
-      width: 60%;
-      max-width: 300px;
-      font-size: fontSize(12);
-    }
-  }
-}
+ 

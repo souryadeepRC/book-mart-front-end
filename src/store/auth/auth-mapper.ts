@@ -7,6 +7,7 @@ import {
 import {
   SIGN_UP_ACTION_TYPES,
   SIGN_UP_STATE,
+  SIGN_UP_STATE_STATUS,
 } from "src/constants/authentication-constants";
 
 export const mapSignUpDetails = (
@@ -27,8 +28,8 @@ export const mapSignUpDetails = (
     modifiedDetails = { contact: details };
   }
   const activeIndex = signUp.activeStepIndex;
-  let savedStepIndexes = [...signUp.savedStepIndexes];
-  savedStepIndexes.splice(activeIndex, 1, true);
+  let stepStatus = [...signUp.stepStatus];
+  stepStatus.splice(activeIndex, 1, SIGN_UP_STATE_STATUS.SAVED);
   return {
     ...signUp,
     details: {
@@ -36,7 +37,7 @@ export const mapSignUpDetails = (
       ...modifiedDetails,
     },
     activeStepIndex: activeIndex + 1,
-    savedStepIndexes,
+    stepStatus,
   };
 };
 
@@ -45,10 +46,12 @@ export const mapSignUpStepInfo = (
   payload: string
 ): SignUpType => {
   let activeIndex = signUp.activeStepIndex;
-  let savedStepIndexes = [...signUp.savedStepIndexes];
+  let stepStatus = [...signUp.stepStatus];
 
   if (payload === SIGN_UP_ACTION_TYPES.FORWARD) {
-    savedStepIndexes.splice(activeIndex, 1, true);
+    if (stepStatus[activeIndex] !== SIGN_UP_STATE_STATUS.SAVED) {
+      stepStatus.splice(activeIndex, 1, SIGN_UP_STATE_STATUS.SKIPPED);
+    }
     activeIndex = activeIndex + 1;
   } else {
     activeIndex = activeIndex - 1;
@@ -56,6 +59,24 @@ export const mapSignUpStepInfo = (
   return {
     ...signUp,
     activeStepIndex: activeIndex,
-    savedStepIndexes,
+    stepStatus,
+  };
+};
+
+export const mapMovedSignUpStep = (
+  signUp: SignUpType,
+  payload: number
+): SignUpType => {
+  const activeStepIndex = payload;
+  let stepStatus = [...signUp.stepStatus];
+  stepStatus.forEach((status: string, index: number) => {
+    if (index < activeStepIndex && !status) {
+      stepStatus.splice(index, 1, SIGN_UP_STATE_STATUS.SKIPPED);
+    }
+  });
+  return {
+    ...signUp,
+    activeStepIndex,
+    stepStatus,
   };
 };

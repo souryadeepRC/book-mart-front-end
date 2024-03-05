@@ -18,4 +18,8 @@
   }
 }
 
-
+@media screen and (max-width: $mobile-max-width) {
+  .app__container .app-content {
+    padding: 80px 0 70px 0;
+  }
+}

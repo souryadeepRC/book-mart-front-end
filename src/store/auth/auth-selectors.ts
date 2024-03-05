@@ -34,8 +34,8 @@ export const selectIsAccessTokenExist = (state: AppStoreType): boolean =>
 
 export const selectSignUpActiveStepIndex = (state: AppStoreType): number =>
   state?.auth?.signUp?.activeStepIndex;
-export const selectSignUpSavedStepIndexes = (state: AppStoreType): boolean[] =>
-  state?.auth?.signUp?.savedStepIndexes;
+export const selectSignUpStepStatus = (state: AppStoreType): string[] =>
+  state?.auth?.signUp?.stepStatus;
 export const selectSignUpMaxStep = (state: AppStoreType): number =>
   state?.auth?.signUp?.maxStep;
 export const selectSignUpDetails = (state: AppStoreType): SignUpDetailsType =>

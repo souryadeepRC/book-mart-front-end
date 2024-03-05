@@ -36,7 +36,7 @@ import {
   VERIFY_LOGIN_OTP_REQUEST,
   VERIFY_LOGIN_OTP_SUCCESS
 } from "src/store/auth/auth-constants";
-import { mapSignUpDetails, mapSignUpStepInfo } from "./auth-mapper";
+import { mapMovedSignUpStep, mapSignUpDetails, mapSignUpStepInfo } from "./auth-mapper";
 
 const initialState: AuthReducerType = {
   action: "",
@@ -75,7 +75,7 @@ const initialState: AuthReducerType = {
       },
     },
     activeStepIndex: 0,
-    savedStepIndexes: Array(5).fill(false),
+    stepStatus: Array(5).fill(''),
     maxStep: 5,
   },
 };
@@ -152,10 +152,7 @@ const AuthReducer = (
       return {
         ...state,
         action: type,
-        signUp: {
-          ...state.signUp,
-          activeStepIndex: payload,
-        },
+        signUp: mapMovedSignUpStep(state.signUp,payload)
       };
     case SET_SIGN_UP_DETAILS:
       return {

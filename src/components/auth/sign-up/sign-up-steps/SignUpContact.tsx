@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+// icons
+import ContactsIcon from '@mui/icons-material/Contacts';
 // common components
 import { TextField } from "src/components/common/CommonComponents";
 // components
@@ -12,6 +14,8 @@ import { selectSignUpContactDetails } from "src/store/auth/auth-selectors";
 import { AppDispatch } from "src/store/reducer-types";
 // constants
 import { SIGN_UP_STATE } from "src/constants/authentication-constants";
+// styles
+import formStyles from "./SignUpSteps.module.scss";
 
 const SignUpContact = (): JSX.Element => {
   // store
@@ -44,7 +48,12 @@ const SignUpContact = (): JSX.Element => {
 
   const { code, value } = storedContactDetails.primary;
   return (
-    <>
+    <section className={formStyles["sign-up-form"]}>
+    
+    <label className={formStyles["form__label"]}>
+        <ContactsIcon /> Contact Details
+      </label>
+
       <label>Primary Contact Number</label>
       <TextField
         label="Code"
@@ -60,7 +69,7 @@ const SignUpContact = (): JSX.Element => {
       />
 
       <SignUpActions onSave={onSave} />
-    </>
+    </section>
   );
 };
 export { SignUpContact };

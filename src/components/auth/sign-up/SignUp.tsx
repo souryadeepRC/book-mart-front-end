@@ -2,11 +2,9 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 // library
-import Divider from "@mui/material/Divider";
 // components
 import { SignUpForm } from "./SignUpForm";
 // common components
-import { Button } from "src/components/common/CommonComponents";
 // icons
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 // selectors
@@ -38,15 +36,12 @@ const SignUp = (): JSX.Element => {
         </section>
       )}
       <SignUpForm />
-
-      <Divider className={styles["sign-up__divider"]}>
-        Already have an account ?
-      </Divider>
-      <Link to="/auth/login">
-        <Button className={styles["sign-up__btn"]} variant="outlined">
+      <section className={styles["login-option"]}>
+        <span>Already have an account ?</span>
+        <Link className={styles["login__link"]} to="/auth/login">
           Login
-        </Button>
-      </Link>
+        </Link>
+      </section>
     </div>
   );
 };

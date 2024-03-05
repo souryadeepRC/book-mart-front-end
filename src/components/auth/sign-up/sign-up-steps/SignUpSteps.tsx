@@ -1,8 +1,8 @@
 import { SignUpAccount } from "./SignUpAccount";
 import { SignUpAddress } from "./SignUpAddress";
 import { SignUpContact } from "./SignUpContact";
-import { SignUpDone } from "./SignUpDone";
 import { SignUpPersonal } from "./SignUpPersonal";
+import { SignUpDone } from "./sign-up-done/SignUpDone";
 import { SignUpPassword } from "./sign-up-password/SignUpPassword";
 
 export {
