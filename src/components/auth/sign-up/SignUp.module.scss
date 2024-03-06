@@ -1,0 +1,82 @@
+@import "src/styles/variables.scss";
+
+.sign-up__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  .sign-up-error__container {
+    box-shadow: 0 0 0 4px $color-lavender-blush inset;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 0;
+    padding: 10px;
+    background-color: $color-white;
+    border: 1px solid $app-error-primary;
+    border-radius: 5px;
+    .sign-up-error__message {
+      width: 100%;
+      color: $app-error-primary;
+      text-align: left;
+    }
+  }
+
+  .sign-up-form__container {
+    width: 85%;
+    padding: 20px 26px;
+    background-color: #ffffff;
+    border: 1px #d5d5d5 solid;
+    border-radius: 8px;
+    box-shadow: inset 1px 2px 4px 3px #061d3d57;
+    .sign-up-step__container {
+      display: flex;
+      justify-content: space-between;
+      padding: 35px 25px;
+      align-items: stretch;
+    }
+  }
+  .login-option {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    width: 70%;
+    background: #061d3d;
+    color: white;
+    border-radius: 0 0 45px 45px;
+    font-size: 14px; 
+    gap: 10px;
+    .login__link {
+      text-decoration: none;
+      padding: 5px 15px;
+      border-radius: 7px;
+      background-color: $color-anti-flash-white;
+      border-color: $color-gainsboro;
+      color: $color-black;
+    }
+  }
+}
+@media screen and (max-width: $mobile-max-width) {
+  .sign-up__container {
+    :global(.MuiSvgIcon-root) {
+      width: 15px;
+      height: 15px;
+    }
+    .sign-up-error__container {
+      width: 85%;
+      font-size: fontSize(12);
+    }
+    .sign-up-form__container {
+      width: 85%;
+      padding: 15px 18px;
+
+      .sign-up-step__container {
+        flex-direction: column;
+        padding: 15px 5px;
+      }
+    }
+  }
+}

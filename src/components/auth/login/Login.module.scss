@@ -1,0 +1,88 @@
+@import "src/styles/variables.scss";
+
+.login__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  .login-error__container {
+    box-shadow: 0 0 0 4px $color-lavender-blush inset;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 0;
+    padding: 10px;
+    background-color: $color-white;
+    border: 1px solid $app-error-primary;
+    border-radius: 5px;
+    .login-error__message {
+      width: 100%;
+      color: $app-error-primary;
+      text-align: left;
+    }
+  }
+  .login-form__container {
+    width: 50%;
+    max-width: 500px;
+    padding: 20px 26px;
+    background-color: $color-white;
+    border: 1px $color-light-gray solid;
+    border-radius: 8px;
+    box-shadow: inset 1px 2px 4px 3px #061d3d57;
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
+      padding: 20px 0;
+    }
+  }
+  .disable-form {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  .sign-up-option {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    width: 35%;
+    background: #061d3d;
+    color: white;
+    border-radius: 0 0 45px 45px;
+    font-size: 14px;
+    gap: 10px;
+    .sign-up__link {
+      text-decoration: none;
+      padding: 5px 15px;
+      border-radius: 7px;
+      background-color: $color-anti-flash-white;
+      border-color: $color-gainsboro;
+      color: $color-black;
+    }
+  }
+}
+@media screen and (max-width: $mobile-max-width) {
+  .login__container {
+    .login-error__container {
+      width: 65%;
+      font-size: fontSize(12);
+    }
+    .login-form__container {
+      width: 80%;
+      max-width: 345px;
+      padding: 15px 18px;
+    }
+
+    .sign-up-option {
+      width: 75%;
+      max-width: 337px;
+      font-size: 12px;
+    }
+  }
+}
+
+ 

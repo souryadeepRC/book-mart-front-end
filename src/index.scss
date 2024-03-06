@@ -1,0 +1,28 @@
+@import 'src/styles/variables.scss';
+// Import the Roboto font
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap");
+
+// Apply the Roboto font to the body
+body {
+  margin: 0;
+  font-family: "Roboto Condensed", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $color-bg-secondary;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $color-bg-primary;
+  border-radius: 10px;
+}

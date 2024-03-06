@@ -1,0 +1,40 @@
+// =========== Color Codes =================
+
+// --- Background
+$color-bg-primary: #061d3d;
+$color-bg-secondary: #dadce3;
+// -- Buttons
+$color-btn-primary: #f7da46;
+$color-btn-secondary: #f19c09;
+// -- Others
+$color-item-link: #007185;
+$color-price-notification: #b12704;
+$color-nav-link: #ffc262;
+
+$color-item-success: #136913;
+$color-item-warning:#b17e25;
+
+$color-white: #ffffff;
+$color-black: #000000;
+
+$app-error-primary: #b12704;
+$app-error-secondary: #ffc262;
+
+$color-anti-flash-white: #eff0f3;
+$color-gainsboro: #dadce3;
+$color-light-gray: #d5d5d5;
+$color-lavender-blush: #fcf4f4;
+
+$color-success:#8df38f;
+
+// ============= Font ==========
+$font-weight-700: 700;
+
+@function fontSize($fontSize) {
+  @return #{$fontSize}px;
+}
+
+/* ========== Media Resolution =============== */
+$mobile-max-width: 769px;
+$tablet-max-width: 1024px;
+$small-mobile-max-width: 460px;

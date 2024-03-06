@@ -1,0 +1,79 @@
+@import "src/styles/variables.scss";
+
+.book-card {
+  display: flex;
+  width: 100%;
+  margin: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .book-cover-image {
+    width: 150px;
+    height: auto;
+  }
+  .book__content {
+    font-family: "Roboto Condensed", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    .book__ad {
+      color: #565959;
+      font-size: 12px;
+    }
+    .book__title {
+      font-size: 20px;
+      font-weight: bold;
+      font-family: "Roboto Condensed", sans-serif;
+    }
+    .book_details {
+      display: flex;
+      gap: 10px;
+      font-size: 14px;
+      justify-content: center;
+      align-items: center;
+      .book__author {
+        color: $color-item-link;
+      }
+      .book__publish-date {
+        color: #565959;
+      }
+    }
+    .book__type {
+      font-weight: bold;
+      color: $color-item-link;
+    }
+    .book__offer {
+      background: $color-price-notification;
+      padding: 7px;
+      color: $color-white;
+      border-radius: 5px;
+    }
+    .book__price {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      .book__offer-price {
+        font-size: 30px;
+        display: inline-block;
+        .currency {
+          font-size: 0.8em; /* Adjust font size as needed */
+          vertical-align: top;
+        }
+
+        .amount {
+          font-size: 1.2em; /* Adjust font size as needed */
+          vertical-align: top;
+        }
+      }
+      .book__actual-price {
+        color: #565959;
+        .amount {
+          text-decoration: line-through;
+        }
+      }
+      .book__saved-price {
+        font-size: 14px;
+      }
+    }
+  }
+}

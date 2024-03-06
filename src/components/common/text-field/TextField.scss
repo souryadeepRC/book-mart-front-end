@@ -1,0 +1,53 @@
+@import "src/styles/variables.scss";
+.book-mart__text-field {
+  &.MuiTextField-root {
+    width: 100%;
+    .MuiInputLabel-root {
+      color: $color-bg-primary;
+      font-family: "Roboto Condensed", sans-serif;
+      top: -3px;
+      font-size: 14;
+    }
+    .MuiOutlinedInput-input {
+      font-size: fontSize(14);
+      color: $color-bg-primary;
+      padding: 12px 15px;
+      font-family: "Roboto Condensed", sans-serif;
+    }
+    .MuiInputAdornment-root {
+      color: $color-bg-primary;
+      font-weight: $font-weight-700;
+      cursor: pointer;
+    }
+    .MuiOutlinedInput-notchedOutline {
+      border-color: $color-bg-primary;
+    }
+    .Mui-error {
+      color: $app-error-primary;
+      .MuiInputAdornment-root {
+        color: $app-error-primary;
+      }
+      .MuiOutlinedInput-input {
+        color: $app-error-primary;
+      }
+      .MuiOutlinedInput-notchedOutline {
+        border-color: $app-error-primary;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $mobile-max-width) {
+  .book-mart__text-field {
+    &.MuiTextField-root {
+      .MuiInputLabel-root {
+        font-size: fontSize(12);
+        top: -5px;
+      }
+      .MuiOutlinedInput-input {
+        font-size: fontSize(12);
+        padding: 10px 15px;
+      }
+    }
+  }
+}
