@@ -1,29 +1,12 @@
-import { Link, Navigate, Route, Routes, useParams } from "react-router-dom";
+import { Navigate, Route, Routes, useParams } from "react-router-dom";
 // components
+import { CommunityPosts } from "src/components/engagement/community-post/CommunityPosts";
 import { EngagementNavigation } from "src/components/engagement/engagement-navigation/EngagementNavigation";
-const EngagementPage = () => {
-  const CommunityFeed = (): JSX.Element => {
-    return (
-      <section>
-        <section>
-          Community Harry Potter
-          <span>
-            <Link to="com-harry-potter">Details</Link>
-          </span>
-        </section>
-        <section>
-          Community Game of Thrones
-          <span>
-            <Link to="com-game-of-thrones">Details</Link>
-          </span>
-        </section>
-      </section>
-    );
-  };
 
+const EngagementPage = () => {
   const CommunityDetails = (): JSX.Element => {
-    console.log('CommunityDetails');
-    
+    console.log("CommunityDetails");
+
     const { communityId } = useParams();
     return <section>Community Harry Potter Community ID {communityId}</section>;
   };
@@ -31,7 +14,7 @@ const EngagementPage = () => {
     return (
       <Routes>
         <Route path="" element={<Navigate to="community" />} />
-        <Route path="community" element={<CommunityFeed />} />
+        <Route path="community" element={<CommunityPosts />} />
         <Route path="community/:communityId" element={<CommunityDetails />} />
         <Route path="buddy" element={<span>My Buddies</span>} />
         <Route path="message" element={<span>Messages</span>} />

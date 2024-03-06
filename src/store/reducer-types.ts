@@ -2,6 +2,7 @@
 import { rootStore } from "src/store/root-store";
 import { SignUpType } from "src/types/authentication-types";
 import { BookType } from "src/types/book-types";
+import { CommunityPostType } from "src/types/engagement-types";
 // types
 
 export type ScreenReducerType = {
@@ -9,7 +10,12 @@ export type ScreenReducerType = {
   appTheme: string;
   notifications: any[] | [];
 };
-
+export type EngagementReducerType = {
+  action: string;
+  isLoading: boolean;
+  error: string;
+  communityPosts: CommunityPostType[] | [];
+};
 export type BookReducerType = {
   action: string;
   isLoading: boolean;
@@ -64,6 +70,7 @@ export type AppStoreType = {
   auth: AuthReducerType;
   user: UserReducerType;
   book: BookReducerType;
+  engagement: EngagementReducerType;
 };
 
 export type AppDispatch = typeof rootStore.dispatch;

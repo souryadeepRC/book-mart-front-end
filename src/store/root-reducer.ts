@@ -12,6 +12,7 @@ import {
   USER_LOGOUT_FAILURE,
   USER_LOGOUT_SUCCESS,
 } from "./auth/auth-constants";
+import { EngagementReducer } from "./engagement/engagement-reducer";
 
 // Define your reducers
 const combinedReducers = combineReducers({
@@ -19,6 +20,7 @@ const combinedReducers = combineReducers({
   auth: AuthReducer,
   user: UserReducer,
   book: BookReducer,
+  engagement: EngagementReducer
 });
 const rootReducer = (state: any, action: any) => {
   if (action.type === RESET_USER_AUTH || action.type === USER_LOGOUT_SUCCESS) {
