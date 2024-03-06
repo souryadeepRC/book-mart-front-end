@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-// library
 // selectors
 import { selectIsUserAuthenticated } from "src/store/auth/auth-selectors";
 
@@ -16,12 +15,7 @@ const PrivateLayout = ({
   if (!isUserAuthenticated) {
     return <Navigate to="/" />;
   }
-  return (
-    <div className="private">
-      <span>Private</span>
-      {<Component />}
-    </div>
-  );
+  return <>{<Component />}</>;
 };
 export { PrivateLayout };
 

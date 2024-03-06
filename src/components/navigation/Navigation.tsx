@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 // icon library
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 // common components
-import { NavLink } from "src/components/common/nav-link/NavLink";
+import { NavLink } from "src/components/common/CommonComponents";
 // selectors
 import { selectIsUserAuthenticated } from "src/store/auth/auth-selectors";
 import { selectUserName } from "src/store/user/user-selectors";

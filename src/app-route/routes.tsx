@@ -11,6 +11,11 @@ import { PrivateLayout } from "./layout/PrivateLayout";
 // common components
 import { Loader } from "src/components/common/CommonComponents";
 // components
+const EngagementPage: any = lazy(() =>
+import("src/pages/EngagementPage").then(({ EngagementPage }) => ({
+    default: EngagementPage,
+  }))
+);
 const CartPage: any = lazy(() =>
 import("src/pages/CartPage").then(({ CartPage }) => ({
     default: CartPage,
@@ -37,6 +42,7 @@ const AppRoutes = (): JSX.Element => {
         {!isAccessTokenExist && <Route path="auth">{AuthRoutes()}</Route>}
         <Route path="books" element={<BooksPage />} />
         {/* Private routes ---for  AUTHENTICATED */}
+        <Route path="engagement/*" element={<PrivateLayout component={EngagementPage} />} />
         <Route path="cart" element={<PrivateLayout component={CartPage} />} />
         <Route
           path="account"
