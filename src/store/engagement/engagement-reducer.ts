@@ -5,35 +5,35 @@ import {
 } from "src/store/reducer-types";
 // constants
 import {
-  FETCH_COMMUNITY_POSTS_FAILURE,
-  FETCH_COMMUNITY_POSTS_REQUEST,
-  FETCH_COMMUNITY_POSTS_SUCCESS,
+  FETCH_COMMUNITIES_FAILURE,
+  FETCH_COMMUNITIES_REQUEST,
+  FETCH_COMMUNITIES_SUCCESS,
 } from "src/store/engagement/engagement-constants";
 
 const initialState: EngagementReducerType = {
   action: "",
   isLoading: false,
   error: "",
-  communityPosts: [],
+  communities: [],
 };
 const EngagementReducer = (
   state = initialState,
   { type, payload }: ReducerActionPayloadType
 ) => {
   switch (type) {
-    case FETCH_COMMUNITY_POSTS_REQUEST:
+    case FETCH_COMMUNITIES_REQUEST:
       return { ...state, isLoading: true, action: type };
 
-    case FETCH_COMMUNITY_POSTS_SUCCESS: {
+    case FETCH_COMMUNITIES_SUCCESS: {
       return {
         ...state,
         isLoading: false,
         error: "",
         action: type,
-        communityPosts: payload,
+        communities: payload,
       };
     }
-    case FETCH_COMMUNITY_POSTS_FAILURE:
+    case FETCH_COMMUNITIES_FAILURE:
       return {
         ...state,
         isLoading: false,

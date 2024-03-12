@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
 // components
-import { CommunityPosts } from "src/components/engagement/community-post/CommunityPosts";
+import { CommunityBanners } from "src/components/engagement/community-banner/CommunityBanners";
 import { EngagementNavigation } from "src/components/engagement/engagement-navigation/EngagementNavigation";
 
 const EngagementPage = () => {
@@ -14,7 +14,7 @@ const EngagementPage = () => {
     return (
       <Routes>
         <Route path="" element={<Navigate to="community" />} />
-        <Route path="community" element={<CommunityPosts />} />
+        <Route path="community" element={<CommunityBanners />} />
         <Route path="community/:communityId" element={<CommunityDetails />} />
         <Route path="buddy" element={<span>My Buddies</span>} />
         <Route path="message" element={<span>Messages</span>} />

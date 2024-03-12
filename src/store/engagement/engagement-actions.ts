@@ -1,10 +1,10 @@
 // types
 import { ReducerActionPayloadType } from "src/store/reducer-types";
 // constants
-import { FETCH_COMMUNITY_POSTS } from "./engagement-constants";
+import { FETCH_COMMUNITIES } from "./engagement-constants";
 
-export const fetchCommunityPosts = (): ReducerActionPayloadType => {
+export const fetchCommunities = (): ReducerActionPayloadType => {
   return {
-    type: FETCH_COMMUNITY_POSTS,
+    type: FETCH_COMMUNITIES,
   };
 };

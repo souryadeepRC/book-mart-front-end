@@ -2,10 +2,10 @@ import { put, takeEvery } from "redux-saga/effects";
 // api
 // constants
 import {
-  FETCH_COMMUNITY_POSTS,
-  FETCH_COMMUNITY_POSTS_FAILURE,
-  FETCH_COMMUNITY_POSTS_REQUEST,
-  FETCH_COMMUNITY_POSTS_SUCCESS,
+  FETCH_COMMUNITIES,
+  FETCH_COMMUNITIES_FAILURE,
+  FETCH_COMMUNITIES_REQUEST,
+  FETCH_COMMUNITIES_SUCCESS,
 } from "./engagement-constants";
 function generateRandomString() {
   const characters =
@@ -37,60 +37,66 @@ function formatNumber(number:number) {
       return number.toString();
   }
 }
+const getEngagementData = () => {
+  let data = [];
+  for (let index = 0; index < 5; index++) {
+    data.push({
+      _id: `123-${index}`,
+      title: "Hogwarts warrior Hogwarts warrior Hogwarts warrior Hogwarts warrior Hogwarts warrior",
+      author: "J.K.RowlingJ.K.RowlingJ.K.RowlingJ.K.RowlingJ.K.RowlingJ.K.RowlingJ.K.RowlingJ.K.Rowling",
+      description: "Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world Let's magic the world ",
+      followersCount:formatNumber(547247),
+      postsCount:formatNumber(94747),
+      topActiveMembers: getPostMembers(5),
+      isMoreFollowers: true
+    })
+    data.push({
+      _id: `124-${index}`,
+      title: "Feluda Gang",
+      author: "Sounak Roy",
+      description: "Detective hunters",
+      followersCount:formatNumber(1254),
+      postsCount:formatNumber(94747),
+      topActiveMembers: getPostMembers(5),
+      isMoreFollowers: true
+    })
+    data.push({
+      _id:`125-${index}`,
+      title: "Avengers",
+      author: "Sounak Roy",
+      description: "Detective hunters",
+      followersCount:formatNumber(12547),
+      postsCount:formatNumber(94747),
+      topActiveMembers: getPostMembers(5),
+      isMoreFollowers: true
+    })
+    data.push({
+      _id: `126-${index}`,
+      title: "Game of Throne Gang",
+      author: "Sounak Roy",
+      description: "Detective hunters",
+      followersCount:formatNumber(3),
+      postsCount:formatNumber(94747),
+      topActiveMembers: getPostMembers(3),
+      isMoreFollowers: false
+    })
+    
+  }
+  return data;
+}
 function* fetchCommunityPostsSaga(): any {
-  yield put({ type: FETCH_COMMUNITY_POSTS_REQUEST });
+  yield put({ type: FETCH_COMMUNITIES_REQUEST });
   try {
     const response = {
-      data: [
-        {
-          _id: "123",
-          title: "Hogwarts warrior",
-          author: "J.K.Rowling",
-          description: "Let's magic the world",
-          followersCount:formatNumber(547247),
-          postsCount:formatNumber(94747),
-          topActiveMembers: getPostMembers(5),
-          isMoreFollowers: true
-        },
-        {
-          _id: "124",
-          title: "Feluda Gang",
-          author: "Sounak Roy",
-          description: "Detective hunters",
-          followersCount:formatNumber(1254),
-          postsCount:formatNumber(94747),
-          topActiveMembers: getPostMembers(5),
-          isMoreFollowers: true
-        },
-        {
-          _id: "124",
-          title: "Avengers",
-          author: "Sounak Roy",
-          description: "Detective hunters",
-          followersCount:formatNumber(12547),
-          postsCount:formatNumber(94747),
-          topActiveMembers: getPostMembers(5),
-          isMoreFollowers: true
-        },
-        {
-          _id: "124",
-          title: "Game of Throne Gang",
-          author: "Sounak Roy",
-          description: "Detective hunters",
-          followersCount:formatNumber(3),
-          postsCount:formatNumber(94747),
-          topActiveMembers: getPostMembers(3),
-          isMoreFollowers: false
-        },
-      ],
+      data: getEngagementData(),
     };
     yield put({
-      type: FETCH_COMMUNITY_POSTS_SUCCESS,
+      type: FETCH_COMMUNITIES_SUCCESS,
       payload: response.data,
     });
   } catch (error: any) {
     yield put({
-      type: FETCH_COMMUNITY_POSTS_FAILURE,
+      type: FETCH_COMMUNITIES_FAILURE,
       payload:
         error?.response?.data?.error_description ||
         "Sorry! network issue detected",
@@ -99,5 +105,5 @@ function* fetchCommunityPostsSaga(): any {
 }
 
 export function* engagementSaga() {
-  yield takeEvery(FETCH_COMMUNITY_POSTS, fetchCommunityPostsSaga);
+  yield takeEvery(FETCH_COMMUNITIES, fetchCommunityPostsSaga);
 }

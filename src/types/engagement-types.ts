@@ -7,7 +7,7 @@ export type EngagementActiveMemberType = {
   username: string;
   stageName: string;
 };
-export type CommunityPostType = {
+export type CommunityType = {
   _id: string;
   title: string;
   author: string;

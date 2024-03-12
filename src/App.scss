@@ -16,12 +16,14 @@
   }
   .app-content {
     width: 100%;
-    padding: 80px 0 0 0;
+    padding: 60px 0 0 0;
   }
 }
 
 @media screen and (max-width: $mobile-max-width) {
   .app__container .app-content {
-    padding: 80px 0 70px 0;
+    padding: 60px 0 70px 0;
+    height: calc(100% - 49px);
+    box-sizing: border-box;
   }
 }

@@ -3,32 +3,31 @@ import { useDispatch, useSelector } from "react-redux";
 // Common Components
 import { Loader } from "src/components/common/CommonComponents";
 // components
-import { CommunityPost } from "./CommunityPost";
+import { CommunityBanner } from "./CommunityBanner";
 // actions
-import { fetchCommunityPosts } from "src/store/engagement/engagement-actions";
+import { fetchCommunities } from "src/store/engagement/engagement-actions";
 // selectors
 import {
-  selectCommunityPosts,
+  selectCommunities,
   selectEngagementIsLoading,
 } from "src/store/engagement/engagement-selectors";
 // types
 import { AppDispatch } from "src/store/reducer-types";
-import { CommunityPostType } from "src/types/engagement-types";
+import { CommunityType } from "src/types/engagement-types";
 // styles
-import styles from "./CommunityPosts.module.scss";
+import styles from "./CommunityBanners.module.scss";
 
-const CommunityPosts = () => {
+const CommunityBanners = () => {
   // store
   const dispatch: AppDispatch = useDispatch();
   const isLoading: boolean = useSelector(selectEngagementIsLoading);
-  const communityPosts: CommunityPostType[] | [] =
-    useSelector(selectCommunityPosts);
+  const communities: CommunityType[] | [] = useSelector(selectCommunities);
   // ref
   const isDataLoadedRef = useRef<boolean>(false);
   // effects
   useEffect(() => {
     if (!isDataLoadedRef.current) {
-      dispatch(fetchCommunityPosts());
+      dispatch(fetchCommunities());
       isDataLoadedRef.current = true;
     }
   }, [dispatch]);
@@ -36,13 +35,13 @@ const CommunityPosts = () => {
   return (
     <>
       <Loader loading={isLoading} />
-      <section className={styles["community-posts__container"]}>
-        {communityPosts?.map((post: CommunityPostType, index) => {
-          return <CommunityPost key={index} post={post} />;
+      <section className={styles["communities__container"]}>
+        {communities?.map((community: CommunityType, index: number) => {
+          return <CommunityBanner key={index} community={community} />;
         })}
       </section>
     </>
   );
 };
-export { CommunityPosts };
+export { CommunityBanners };
 
