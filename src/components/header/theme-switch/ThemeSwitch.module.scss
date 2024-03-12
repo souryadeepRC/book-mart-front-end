@@ -1,0 +1,26 @@
+.theme-switch {
+  &:global(.MuiSwitch-root) {
+    width: 48px;
+    height: 24px;
+    padding: 0;
+    :global(.MuiSwitch-thumb) {
+      width: 20px;
+      height: 20px;
+      background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIrrVv2XWruUv1NXJ3yZoacngYbSOMVjR4aA&usqp=CAU");
+      background-size: cover;
+    }
+    :global(.MuiSwitch-switchBase) {
+      padding: 2px;
+    }
+    :global(.MuiSwitch-track) {
+      opacity: 1;
+      background: linear-gradient(273deg, #f3f3ef, #9fbee9);
+      border-radius: 12px;
+    }
+    :global(.Mui-checked) {
+      :global(.MuiSwitch-thumb) {
+        background-image: url("https://i.pinimg.com/564x/1c/22/43/1c22433b8d3aec799fd8187ca3030193.jpg");
+      }
+    }
+  }
+}

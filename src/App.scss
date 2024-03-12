@@ -1,7 +1,9 @@
 @import "src/styles/variables.scss";
+
 .app__container {
   width: 100vw;
   height: 100vh;
+  background-color: var(--background-color);
   .app-header {
     display: flex;
     justify-content: space-between;

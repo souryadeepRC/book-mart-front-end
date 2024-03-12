@@ -15,17 +15,22 @@ import { useMediaQuery } from "src/hooks/useMediaQuery";
 // actions
 import { setScreenType } from "src/store/screen/screen-actions";
 // selectors
-import { selectScreenType } from "./store/screen/screen-selectors";
+import {
+  selectAppTheme,
+  selectScreenType,
+} from "./store/screen/screen-selectors";
 // types
 import { AppDispatch } from "./store/reducer-types";
 // constants
 import { MEDIA_TYPES } from "./constants/screen-constants";
 // styles
 import "./App.scss";
+import "./styles/theme-variables.scss";
 const App = (): JSX.Element => {
   // store
   const dispatch: AppDispatch = useDispatch();
   const screenType: string = useSelector(selectScreenType);
+  const appTheme: string = useSelector(selectAppTheme);
   // hooks
   useLocalStorage();
   const mediaType: string = useMediaQuery();
@@ -41,7 +46,7 @@ const App = (): JSX.Element => {
   // render fns
   return (
     <StackedNotification>
-      <section className="app__container">
+      <section className="app__container" data-theme={appTheme}>
         <header className="app-header">
           <Header />
           {screenType !== MEDIA_TYPES.MOBILE && <Navigation />}
