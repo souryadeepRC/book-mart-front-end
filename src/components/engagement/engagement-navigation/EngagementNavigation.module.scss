@@ -7,6 +7,7 @@
   margin: 0 auto;
   padding: 0;
   list-style-type: none;
+  height: 44px;
   .navigation__item {
     width: calc(100% / 4);
     height: inherit;
@@ -28,6 +29,7 @@
 }
 @media screen and (max-width: $mobile-max-width) {
   .engagement-navigation__list {
+    height: 39px;
     flex-wrap: wrap;
     width: 95%;
     font-size: 12px;

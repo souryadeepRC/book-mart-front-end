@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 // common components
 import { Button } from "src/components/common/CommonComponents";
 // library
@@ -19,6 +20,7 @@ const CommunityBanner = ({ community }: CommunityBannerProps) => {
   // store
   const screenType: string = useSelector(selectScreenType);
   const {
+    _id,
     title,
     author,
     description,
@@ -27,9 +29,12 @@ const CommunityBanner = ({ community }: CommunityBannerProps) => {
     followersCount,
     postsCount,
   } = community;
+  // hooks
+  const navigate: NavigateFunction = useNavigate();
+  // calculate
   const isMobile: boolean = screenType === MEDIA_TYPES.MOBILE;
   return (
-    <div className={styles["community"]}>
+    <div className={styles["community"]} onClick={() => navigate(`${_id}`)}>
       <section className={styles["community-details"]}>
         <span className={styles["community__title"]}> {title}</span>
         <span className={styles["community__author"]}>By {author}</span>

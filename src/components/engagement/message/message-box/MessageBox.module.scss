@@ -1,0 +1,62 @@
+@import "src/styles/variables.scss";
+
+.message-box__container {
+  width: 75%;
+  height: 100%;
+  .message__recipient {
+    padding: 10px 15px;
+    background: linear-gradient(348deg, #8cb3e9, transparent);
+    font-weight: bold;
+    font-size: 25px;
+  }
+  .message__box {
+    height: calc(100% - 50px);
+    .message__list {
+      height: calc(100% - 44px);
+      background: #f9f9f9;
+      overflow: hidden auto;
+      gap: 10px;
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      box-sizing: border-box;
+
+      .message {
+        background-color: #cff39b;
+        border-radius: 0 5px 5px 5px;
+        max-width: 60%;
+        width: fit-content;
+        height: fit-content;
+        padding: 6px 10px;
+        font-size: 12px;
+        position: relative;
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          transform: translateX(-50%);
+          width: 0;
+          height: 0;
+          border-left: 5px solid transparent;
+          border-right: 5px solid transparent;
+          border-top: 10px solid #cff39b;
+        }
+        &.sender {
+          background-color: #d2dff1;
+          align-self: flex-end;
+          border-radius: 5px 0 5px 5px;
+          &::after {
+            left: unset;
+            right: 0;
+            transform: translateX(50%);
+            border-top-color: #d2dff1;
+          }
+        }
+      }
+    }
+    :global(.book-mart__text-field.MuiTextField-root){
+        height: 44px;
+    }
+  }
+}

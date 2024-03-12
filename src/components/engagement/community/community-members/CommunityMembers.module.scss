@@ -1,0 +1,74 @@
+@import "src/styles/variables.scss";
+
+.community-members__container {
+  display: flex;
+  max-height: 90%;
+  overflow: hidden auto;
+  flex-wrap: wrap;
+  gap: 7px;
+  justify-content: space-evenly;
+  .member-details__container {
+    background: #ebebeb;
+    width: 30vw;
+    padding: 10px 15px;
+    border-radius: 15px;
+    display: flex;
+    gap: 10px;
+    box-sizing: border-box;
+    align-items: center;
+    .member__initial {
+      display: flex;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(241, 156, 9, 0.3490196078);
+      align-items: center;
+      justify-content: center;
+      font-size: 49px;
+      color: #f19c09;
+      box-sizing: border-box;
+    }
+    .member__details {
+      width: calc(100% - 70px);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      .title {
+        font-size: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+      }
+      .info {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        font-size: 12px;
+        font-style: italic;
+        flex-wrap: wrap;
+      }
+      :global(.book-mart__button.MuiButton-root) {
+        margin-top: auto;
+        background: #061d3d;
+        color: white;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $mobile-max-width) {
+  .community-members__container {
+    max-height: 80%;
+    padding: 12px;
+    .member-details__container {
+      width: 45vw;
+    }
+  }
+}
+@media screen and (max-width: $small-mobile-max-width) {
+  .community-members__container {
+    .member-details__container {
+      width: 95vw;
+    }
+  }
+}
