@@ -2,6 +2,7 @@
 .book-mart__text-field {
   &.MuiTextField-root {
     width: 100%;
+    background: $color-white;
     .MuiInputLabel-root {
       color: $color-bg-primary;
       font-family: "Roboto Condensed", sans-serif;

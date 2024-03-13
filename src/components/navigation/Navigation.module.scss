@@ -1,7 +1,7 @@
 @import "src/styles/variables.scss";
 
 .navigation__list ul{ 
-  @include flexBox($justifyContent: space-between, $gap: 15px);
+  @include flexBox($justifyContent: space-between, $gap: 15px, $alignItems: center);
   margin: 0;
   padding: 10px 25px;
   list-style-type: none;

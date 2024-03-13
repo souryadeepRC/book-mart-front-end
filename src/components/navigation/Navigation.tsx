@@ -27,6 +27,15 @@ const Navigation = (): JSX.Element => {
         {isUserAuthenticated ? (
           <>
             <li>
+              <NavLink
+                tabIndex={0}
+                to="engagement"
+                aria-label="book mart engagement"
+              >
+                Engagement
+              </NavLink>
+            </li>
+            <li>
               <NavLink tabIndex={0} to="cart" aria-label="book mart cart">
                 Cart
               </NavLink>

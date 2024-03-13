@@ -1,0 +1,30 @@
+@import "src/styles/variables.scss";
+.message-style {
+  @include setDimension($width: fit-content, $height: fit-content);
+  @include borderRadius($radius: 0 5px 5px 5px);
+  position: relative;
+  max-width: 60%;
+  padding: 6px 10px;
+  background-color: $recipient-message-bg-color;
+  font-size: 12px;
+  &::after {
+    @include setPosition($position: absolute, $top: 0, $left: 0);
+    @include setDimension($width: 0, $height: 0);
+    content: "";
+    transform: translateX(-50%);
+    border-top: 10px solid $recipient-message-bg-color;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+  }
+  &.sender {
+    @include borderRadius($radius: 5px 0 5px 5px);
+    align-self: flex-end;
+    background-color: $user-message-bg-color;
+    &::after {
+      left: unset;
+      right: 0;
+      transform: translateX(50%);
+      border-top-color: $user-message-bg-color;
+    }
+  }
+}

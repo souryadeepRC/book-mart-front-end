@@ -1,62 +1,50 @@
 @import "src/styles/variables.scss";
+@import "./Message.module.scss";
 
 .message-box__container {
-  width: 75%;
-  height: 100%;
+  @include setDimension($width: 75%, $height: 100%);
+
   .message__recipient {
+    @include flexBox($gap: 10px, $alignItems: center);
     padding: 10px 15px;
-    background: linear-gradient(348deg, #8cb3e9, transparent);
-    font-weight: bold;
+    background: $message-recipient-header-color;
     font-size: 25px;
+    font-weight: bold;
+    .buddy__image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      width: 25px;
+      height: 25px;
+      background: rgba(241, 156, 9, 0.3490196078);
+      border-radius: 50%;
+      font-size: 49px;
+      color: #f19c09;
+    }
   }
   .message__box {
     height: calc(100% - 50px);
     .message__list {
-      height: calc(100% - 44px);
-      background: #f9f9f9;
+      @include flexBox($direction: column, $gap: 10px);
       overflow: hidden auto;
-      gap: 10px;
-      display: flex;
-      flex-direction: column;
-      padding: 15px;
       box-sizing: border-box;
-
+      height: calc(100% - 44px);
+      padding: 15px;
+      background: var(--message-box-bg-color);
       .message {
-        background-color: #cff39b;
-        border-radius: 0 5px 5px 5px;
-        max-width: 60%;
-        width: fit-content;
-        height: fit-content;
-        padding: 6px 10px;
-        font-size: 12px;
-        position: relative;
-        &::after {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          transform: translateX(-50%);
-          width: 0;
-          height: 0;
-          border-left: 5px solid transparent;
-          border-right: 5px solid transparent;
-          border-top: 10px solid #cff39b;
-        }
-        &.sender {
-          background-color: #d2dff1;
-          align-self: flex-end;
-          border-radius: 5px 0 5px 5px;
-          &::after {
-            left: unset;
-            right: 0;
-            transform: translateX(50%);
-            border-top-color: #d2dff1;
-          }
-        }
+        @extend .message-style;
       }
     }
-    :global(.book-mart__text-field.MuiTextField-root){
-        height: 44px;
+    :global(.book-mart__text-field.MuiTextField-root) {
+      height: 44px;
+      :global(.MuiOutlinedInput-notchedOutline) {
+        border: none;
+      }
+      :global(.MuiInputAdornment-disablePointerEvents .MuiSvgIcon-root) {
+        cursor: not-allowed;
+        color: $disable-color;
+      }
     }
   }
 }

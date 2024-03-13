@@ -15,6 +15,11 @@ export type EngagementReducerType = {
   isLoading: boolean;
   error: string;
   communities: CommunityType[] | [];
+  messageBuddies: { _id: string; imageUrl: string; name: string }[];
+  activeBuddyMessage: {
+    buddy: { _id: string; name: string };
+    messages: { _id: string; userId: string; message: string }[];
+  };
 };
 export type BookReducerType = {
   action: string;

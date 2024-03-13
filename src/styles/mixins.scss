@@ -1,15 +1,47 @@
 /* ============== Mixins =====================*/
 
-@mixin border-radius($radius) {
+@mixin borderRadius($radius) {
   border-radius: $radius;
   -webkit-border-radius: $radius;
   -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  -o-border-radius: $radius;
 }
-
+@mixin setDimension($width, $height) {
+  width: $width;
+  height: $height;
+}
+@mixin setPosition(
+  $position: relative,
+  $top: "",
+  $right: "",
+  $bottom: "",
+  $left: ""
+) {
+  position: $position;
+  @if $top != "" {
+    top: $top;
+  }
+  @if $right != "" {
+    right: $right;
+  }
+  @if $bottom != "" {
+    bottom: $bottom;
+  }
+  @if $left != "" {
+    left: $left;
+  }
+}
+@mixin addEllipsis($width) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: $width;
+}
 @mixin flexBox(
   $direction: row,
-  $justifyContent: flex-start,
-  $alignItems: center,
+  $justifyContent: "",
+  $alignItems: "",
   $wrap: "",
   $gap: ""
 ) {
@@ -18,8 +50,12 @@
   @if $wrap != "" {
     flex-wrap: $wrap;
   }
-  justify-content: $justifyContent;
-  align-items: $alignItems;
+  @if $justifyContent != "" {
+    justify-content: $justifyContent;
+  }
+  @if $alignItems != "" {
+    align-items: $alignItems;
+  }
   @if $gap != "" {
     gap: $gap;
   }

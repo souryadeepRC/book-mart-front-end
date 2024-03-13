@@ -6,6 +6,9 @@
   --primary-bg-color: #{$primary-bg-color-light};
   --primary-text-color: #{$primary-text-color-light};
   --secondary-text-color: #{$secondary-text-color-light};
+   
+  --message-box-bg-color : #{$message-box-bg-color-light};
+  --highlight-msg-color: #{$highlight-msg-color-light};
 }
 
 // Theme variables for dark theme
@@ -14,4 +17,7 @@
   --primary-bg-color: #{$primary-bg-color-dark};
   --primary-text-color: #{$primary-text-color-dark};
   --secondary-text-color: #{$secondary-text-color-dark};
+   
+  --message-box-bg-color : #{$message-box-bg-color-dark};
+  --highlight-msg-color: #{$highlight-msg-color-dark};
 }

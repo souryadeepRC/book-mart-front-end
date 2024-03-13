@@ -5,11 +5,10 @@ import { Button } from "src/components/common/CommonComponents";
 // library
 import { ReactTyped } from "react-typed";
 // selectors
-import { selectScreenType } from "src/store/screen/screen-selectors";
+import { selectIsMobile } from "src/store/screen/screen-selectors";
 // types
 import { CommunityType } from "src/types/engagement-types";
 // constants
-import { MEDIA_TYPES } from "src/constants/screen-constants";
 // styles
 import styles from "./CommunityBanners.module.scss";
 
@@ -18,7 +17,7 @@ type CommunityBannerProps = {
 };
 const CommunityBanner = ({ community }: CommunityBannerProps) => {
   // store
-  const screenType: string = useSelector(selectScreenType);
+  const isMobile: boolean = useSelector(selectIsMobile);
   const {
     _id,
     title,
@@ -31,8 +30,6 @@ const CommunityBanner = ({ community }: CommunityBannerProps) => {
   } = community;
   // hooks
   const navigate: NavigateFunction = useNavigate();
-  // calculate
-  const isMobile: boolean = screenType === MEDIA_TYPES.MOBILE;
   return (
     <div className={styles["community"]} onClick={() => navigate(`${_id}`)}>
       <section className={styles["community-details"]}>
