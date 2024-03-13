@@ -9,6 +9,8 @@ export const selectUserAction = (state: AppStoreType): string =>
 export const selectUserError = (state: AppStoreType): string =>
   state?.user?.error;
 
+export const selectUserId = (state: AppStoreType): string =>
+  state?.user?.userId;
 export const selectUserName = (state: AppStoreType): string =>
   state?.user?.username;
 export const selectUserEmail = (state: AppStoreType): string =>

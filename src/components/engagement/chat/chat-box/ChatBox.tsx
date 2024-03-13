@@ -1,39 +1,46 @@
 import { useEffect, useRef } from "react";
-// components
-import { MessageInput } from "./MessageInput";
-// styles
 import { useDispatch, useSelector } from "react-redux";
-import { setActiveBuddyMessage } from "src/store/engagement/engagement-actions";
+// components
+import { ChatInput } from "./ChatInput";
+// actions
 import {
-  selectActiveBuddy,
+  sendMessage,
+  setActiveBuddyMessage,
+} from "src/store/engagement/engagement-actions";
+// selectors
+import {
   selectActiveBuddyMessages,
+  selectActiveChat,
 } from "src/store/engagement/engagement-selectors";
-import styles from "./MessageBox.module.scss";
+import { selectUserId } from "src/store/user/user-selectors";
+// types
+import { ActiveChatType } from "src/types/engagement-types";
+// styles
+import styles from "./ChatBox.module.scss";
 
-const MessageBox = (): JSX.Element => {
+const ChatBox = (): JSX.Element => {
   // store
   const dispatch = useDispatch();
-  const activeBuddy = useSelector(selectActiveBuddy);
+  const activeChat: ActiveChatType = useSelector(selectActiveChat);
   const messages = useSelector(selectActiveBuddyMessages);
-
-  const profileUserId = "4567";
+  const profileUserId: string = useSelector(selectUserId);
 
   /* const [messages, setMessages] = useState(messagesDummy); */
   const receiveMessage = () => {
     dispatch(
       setActiveBuddyMessage({
-        _id: "12",
-        userId: activeBuddy._id,
+        userId: activeChat.buddy?._id,
         message: Array(12).fill("Welcome ").join(""),
       })
     );
   };
-  const sendMessage = (message: string) => {
+  const sendChatMessage = (message: string) => {
     if (!message) return;
     dispatch(
-      setActiveBuddyMessage({
-        _id: "12",
-        userId: profileUserId,
+      sendMessage({
+        roomId: activeChat.roomId,
+        sender: profileUserId,
+        receiver: activeChat?.buddy?._id || "",
         message: message,
       })
     );
@@ -50,20 +57,21 @@ const MessageBox = (): JSX.Element => {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   };
-  if (!activeBuddy._id) {
+  if (!activeChat.roomId) {
     <section className={styles["message-box__container"]}>
       <span></span>
     </section>;
   }
+  const { buddy: activeBuddy } = activeChat;
   return (
     <section className={styles["message-box__container"]}>
       <div className={styles["message__recipient"]} onClick={receiveMessage}>
         <img
-          alt={activeBuddy.name}
+          alt={activeBuddy?.username}
           className={styles["buddy__image"]}
-          src={activeBuddy.imageUrl}
+          src={activeBuddy?.imageUrl}
         />
-        <span>{activeBuddy.name}</span>
+        <span>{activeBuddy?.username}</span>
       </div>
       <section className={styles["message__box"]}>
         <section className={styles["message__list"]}>
@@ -80,10 +88,10 @@ const MessageBox = (): JSX.Element => {
           })}
           <div ref={messagesEndRef} />
         </section>
-        <MessageInput sendPropsMessage={sendMessage} />
+        <ChatInput sendPropsMessage={sendChatMessage} />
       </section>
     </section>
   );
 };
-export { MessageBox };
+export { ChatBox };
 

@@ -15,6 +15,7 @@ const initialState: UserReducerType = {
   isLoading: false,
   action: "",
   error: "",
+  userId: "",
   username: "",
   email: "",
   personal: {
@@ -40,12 +41,13 @@ const UserReducer = (
     case FETCH_USER_DETAILS_REQUEST:
       return { ...state, isLoading: true, action: type };
     case FETCH_USER_DETAILS_SUCCESS: {
-      const { username, email, personal, contact } = payload;
+      const { _id: userId, username, email, personal, contact } = payload;
       return {
         ...state,
         isLoading: false,
         error: "",
         action: type,
+        userId,
         username,
         email,
         personal,

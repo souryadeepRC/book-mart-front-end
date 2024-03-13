@@ -1,16 +1,20 @@
 import { put, takeEvery } from "redux-saga/effects";
 // api
 // constants
-import { getMessageBuddies } from "src/api/engagement-api";
+import { getChatBuddies, postSendChatMessage } from "src/api/engagement-api";
 import {
+  FETCH_CHAT_BUDDIES,
+  FETCH_CHAT_BUDDIES_FAILURE,
+  FETCH_CHAT_BUDDIES_REQUEST,
+  FETCH_CHAT_BUDDIES_SUCCESS,
   FETCH_COMMUNITIES,
   FETCH_COMMUNITIES_FAILURE,
   FETCH_COMMUNITIES_REQUEST,
   FETCH_COMMUNITIES_SUCCESS,
-  FETCH_MESSAGE_BUDDIES,
-  FETCH_MESSAGE_BUDDIES_FAILURE,
-  FETCH_MESSAGE_BUDDIES_REQUEST,
-  FETCH_MESSAGE_BUDDIES_SUCCESS,
+  SEND_MESSAGE,
+  SEND_MESSAGE_FAILURE,
+  SEND_MESSAGE_REQUEST,
+  SEND_MESSAGE_SUCCESS,
 } from "./engagement-constants";
 function generateRandomString() {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -109,14 +113,31 @@ function* fetchCommunityPostsSaga(): any {
     });
   }
 }
-function* fetchMessageBuddies(): any {
-  yield put({ type: FETCH_MESSAGE_BUDDIES_REQUEST });
+function* fetchChatBuddies(): any {
+  yield put({ type: FETCH_CHAT_BUDDIES_REQUEST });
   try {
-    const response = yield getMessageBuddies();
-    yield put({ type: FETCH_MESSAGE_BUDDIES_SUCCESS, payload: response.data });
+    const response = yield getChatBuddies();
+    yield put({ type: FETCH_CHAT_BUDDIES_SUCCESS, payload: response.data });
   } catch (error: any) {
     yield put({
-      type: FETCH_MESSAGE_BUDDIES_FAILURE,
+      type: FETCH_CHAT_BUDDIES_FAILURE,
+      payload:
+        error?.response?.data?.error_description ||
+        "Sorry! network issue detected",
+    });
+  }
+}
+function* sendMessageSaga({ payload }: any): any {
+  yield put({ type: SEND_MESSAGE_REQUEST });
+  try {
+    const response = yield postSendChatMessage(payload);
+    console.log(response);
+    
+    yield put({ type: SEND_MESSAGE_SUCCESS, payload: response.data });
+  } catch (error: any) {
+    console.log(error);
+    yield put({
+      type: SEND_MESSAGE_FAILURE,
       payload:
         error?.response?.data?.error_description ||
         "Sorry! network issue detected",
@@ -125,5 +146,6 @@ function* fetchMessageBuddies(): any {
 }
 export function* engagementSaga() {
   yield takeEvery(FETCH_COMMUNITIES, fetchCommunityPostsSaga);
-  yield takeEvery(FETCH_MESSAGE_BUDDIES, fetchMessageBuddies);
+  yield takeEvery(FETCH_CHAT_BUDDIES, fetchChatBuddies);
+  yield takeEvery(SEND_MESSAGE, sendMessageSaga);
 }

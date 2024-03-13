@@ -1,6 +1,6 @@
 @import "src/styles/variables.scss";
 
-.message-page__container {
+.chat-page__container {
   @include flexBox;
   @include setDimension($width: 100%, $height: calc(100% - 44px));
 }

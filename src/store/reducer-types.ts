@@ -2,7 +2,11 @@
 import { rootStore } from "src/store/root-store";
 import { SignUpType } from "src/types/authentication-types";
 import { BookType } from "src/types/book-types";
-import { CommunityType } from "src/types/engagement-types";
+import {
+  ActiveChatType,
+  ChatBuddyType,
+  CommunityType,
+} from "src/types/engagement-types";
 // types
 
 export type ScreenReducerType = {
@@ -16,10 +20,8 @@ export type EngagementReducerType = {
   error: string;
   communities: CommunityType[] | [];
   messageBuddies: { _id: string; imageUrl: string; name: string }[];
-  activeBuddyMessage: {
-    buddy: { _id: string; name: string };
-    messages: { _id: string; userId: string; message: string }[];
-  };
+  chatBuddies: ChatBuddyType[] | [];
+  activeChat: ActiveChatType;
 };
 export type BookReducerType = {
   action: string;
@@ -44,6 +46,7 @@ export type UserReducerType = {
   isLoading: boolean;
   action: string;
   error: string;
+  userId: string;
   username: string;
   email: string;
   personal: {

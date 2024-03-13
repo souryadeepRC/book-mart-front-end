@@ -1,7 +1,10 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 // selectors
-import { selectIsUserAuthenticated } from "src/store/auth/auth-selectors";
+import {
+  selectAuthIsLoading,
+  selectIsUserAuthenticated,
+} from "src/store/auth/auth-selectors";
 
 type PrivateLayoutProps = {
   component: any;
@@ -11,8 +14,10 @@ const PrivateLayout = ({
 }: PrivateLayoutProps): React.ReactElement | null => {
   // store
   const isUserAuthenticated: boolean = useSelector(selectIsUserAuthenticated);
+  const isAuthLoading: boolean = useSelector(selectAuthIsLoading);
+  console.log({ isUserAuthenticated, isAuthLoading });
 
-  if (!isUserAuthenticated) {
+  if (!isUserAuthenticated && !isAuthLoading) {
     return <Navigate to="/" />;
   }
   return <>{<Component />}</>;

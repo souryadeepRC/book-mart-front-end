@@ -13,7 +13,34 @@ export type CommunityType = {
   author: string;
   description: string;
   followersCount: string;
-  postsCount:string;
-  isMoreFollowers:boolean;
+  postsCount: string;
+  isMoreFollowers: boolean;
   topActiveMembers: EngagementActiveMemberType[] | [];
+};
+
+export type ChatRoomType = {
+  _id: string;
+  latestMessage: string;
+  updated_ts: Date;
+};
+export type ChatBuddyType = {
+  _id: string;
+  buddy: BuddyType;
+  chatRoom: ChatRoomType;
+};
+export type BuddyType = {
+  _id: string;
+  username: string;
+  imageUrl: string;
+};
+export type ActiveChatType = {
+  buddy: BuddyType | undefined;
+  roomId: string;
+};
+
+export type ChatMessageType = {
+  roomId?: string;
+  sender: string;
+  receiver: string;
+  message: string;
 };

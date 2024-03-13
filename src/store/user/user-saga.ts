@@ -37,5 +37,5 @@ function* sendMessageSaga({payload}:any): any {
 
 export function* userSaga() {
   yield takeEvery(FETCH_USER_DETAILS, fetchUserDetails);
-  yield takeEvery('SEND_MESSAGE', sendMessageSaga);
+  yield takeEvery('SEND_MESSAGE_SOCKET', sendMessageSaga);
 }

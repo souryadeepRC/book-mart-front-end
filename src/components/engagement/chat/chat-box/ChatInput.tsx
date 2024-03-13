@@ -6,7 +6,7 @@ import SendIcon from "@mui/icons-material/Send";
 // common components
 import { TextField } from "src/components/common/CommonComponents";
 
-const MessageInput = ({ sendPropsMessage }: any): JSX.Element => {
+const ChatInput = ({ sendPropsMessage }: any): JSX.Element => {
   // state
   const [message, setMessage] = useState<string>("");
   // callbacks
@@ -46,5 +46,5 @@ const MessageInput = ({ sendPropsMessage }: any): JSX.Element => {
     />
   );
 };
-export { MessageInput };
+export { ChatInput };
 

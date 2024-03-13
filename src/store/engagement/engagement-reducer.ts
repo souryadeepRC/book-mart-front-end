@@ -5,14 +5,14 @@ import {
 } from "src/store/reducer-types";
 // constants
 import {
+  FETCH_CHAT_BUDDIES_FAILURE,
+  FETCH_CHAT_BUDDIES_REQUEST,
+  FETCH_CHAT_BUDDIES_SUCCESS,
   FETCH_COMMUNITIES_FAILURE,
   FETCH_COMMUNITIES_REQUEST,
   FETCH_COMMUNITIES_SUCCESS,
-  FETCH_MESSAGE_BUDDIES_FAILURE,
-  FETCH_MESSAGE_BUDDIES_REQUEST,
-  FETCH_MESSAGE_BUDDIES_SUCCESS,
-  SET_ACTIVE_BUDDY,
   SET_ACTIVE_BUDDY_MESSAGE,
+  SET_ACTIVE_CHAT,
 } from "src/store/engagement/engagement-constants";
 
 const initialState: EngagementReducerType = {
@@ -21,9 +21,10 @@ const initialState: EngagementReducerType = {
   error: "",
   communities: [],
   messageBuddies: [],
-  activeBuddyMessage: {
-    buddy: { _id: "", name: "" },
-    messages: [],
+  chatBuddies: [],
+  activeChat: {
+    buddy: undefined,
+    roomId: "",
   },
 };
 const EngagementReducer = (
@@ -32,7 +33,7 @@ const EngagementReducer = (
 ) => {
   switch (type) {
     case FETCH_COMMUNITIES_REQUEST:
-    case FETCH_MESSAGE_BUDDIES_REQUEST:
+    case FETCH_CHAT_BUDDIES_REQUEST:
       return { ...state, isLoading: true, action: type };
 
     case FETCH_COMMUNITIES_SUCCESS: {
@@ -44,70 +45,36 @@ const EngagementReducer = (
         communities: payload,
       };
     }
-    case FETCH_MESSAGE_BUDDIES_SUCCESS: {
+    case FETCH_CHAT_BUDDIES_SUCCESS: {
       return {
         ...state,
-        messageBuddies: [
-          {
-            _id: 101,
-            imageUrl:
-              "https://wallpapers.com/images/hd/random-person-on-a-bridge-7np8sxqy5phik5cc.jpg",
-            name: "Sumita",
-            lastMessage: "Welcome",
-          },
-          {
-            _id: 102,
-            imageUrl:
-              "https://wallpapers.com/images/hd/random-person-on-a-bridge-7np8sxqy5phik5cc.jpg",
-            name: "Dipak",
-            lastMessage: "Welcome",
-          },
-          {
-            _id: 103,
-            imageUrl:
-              "https://wallpapers.com/images/hd/random-person-on-a-bridge-7np8sxqy5phik5cc.jpg",
-            name: "Sona",
-            lastMessage: "Welcome",
-          },
-          {
-            _id: 104,
-            imageUrl:
-              "https://wallpapers.com/images/hd/random-person-on-a-bridge-7np8sxqy5phik5cc.jpg",
-            name: "Riju",
-            lastMessage: "Welcome",
-          },
-        ],
-        activeBuddyMessage: {
-          buddy: {
-            _id: 101,
-            imageUrl:
-              "https://wallpapers.com/images/hd/random-person-on-a-bridge-7np8sxqy5phik5cc.jpg",
-            name: "Sumita",
-          },
-          messages: [],
+        isLoading: false,
+        error: "",
+        action: type,
+        chatBuddies: payload,
+        activeChat: {
+          buddy: payload?.[0]?.buddy || undefined,
+          roomId: payload?.[0]?.chatRoom?._id || "",
         },
       };
     }
-    case SET_ACTIVE_BUDDY: {
+    case SET_ACTIVE_CHAT: {
+      const { buddy, roomId } = payload;
       return {
         ...state,
-        activeBuddyMessage: {
-          buddy: payload,
-          messages: [],
+        activeChat: {
+          buddy,
+          roomId,
         },
       };
     }
     case SET_ACTIVE_BUDDY_MESSAGE: {
       return {
         ...state,
-        activeBuddyMessage: {
-          ...state.activeBuddyMessage,
-          messages: [...state.activeBuddyMessage.messages, payload],
-        },
       };
     }
     case FETCH_COMMUNITIES_FAILURE:
-    case FETCH_MESSAGE_BUDDIES_FAILURE:
+    case FETCH_CHAT_BUDDIES_FAILURE:
       return {
         ...state,
         isLoading: false,
