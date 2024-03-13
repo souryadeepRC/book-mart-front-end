@@ -5,7 +5,7 @@ import { BookType } from "src/types/book-types";
 // types
 
 export type ScreenReducerType = {
-  screenType: string;
+  mediaType: string;
   appTheme: string;
   notifications: any[] | [];
 };

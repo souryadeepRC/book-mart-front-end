@@ -10,12 +10,12 @@ import { THEME_TYPES } from "src/constants/screen-constants";
 import {
   ADD_NOTIFICATION,
   REMOVE_NOTIFICATION,
-  SET_SCREEN_TYPE,
+  SET_MEDIA_TYPE,
   TOGGLE_APP_THEME,
 } from "./screen-constants";
 
 const initialState: ScreenReducerType = {
-  screenType: "",
+  mediaType: "",
   appTheme: THEME_TYPES.LIGHT,
   notifications: [],
 };
@@ -24,8 +24,8 @@ const ScreenReducer = (
   { type, payload }: ReducerActionPayloadType
 ): ScreenReducerType => {
   switch (type) {
-    case SET_SCREEN_TYPE:
-      return { ...state, screenType: payload };
+    case SET_MEDIA_TYPE:
+      return { ...state, mediaType: payload };
     case TOGGLE_APP_THEME:
       return {
         ...state,

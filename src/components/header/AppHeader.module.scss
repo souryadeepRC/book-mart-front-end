@@ -1,0 +1,17 @@
+@import "src/styles/variables.scss";
+.app-header {
+  @include flexBox($justifyContent: space-between);
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  width: 100%;
+  background-color: var(--primary-color);
+  .header__content {
+    @include flexBox($justifyContent: center);
+    .header__text {
+      margin: 0;
+      padding: 10px 25px;
+      color: $color-white;
+    }
+  }
+}

@@ -11,12 +11,14 @@ import { selectUserName } from "src/store/user/user-selectors";
 import styles from "./Navigation.module.scss";
 
 const Navigation = (): JSX.Element => {
+  // store
   const isUserAuthenticated: boolean = useSelector(selectIsUserAuthenticated);
   const username: string = useSelector(selectUserName);
+
   return (
-    <nav>
-      <ul className={styles["navigation__list"]}>
-        <li className={styles["navigation__item"]}>
+    <nav className={styles["navigation__list"]}>
+      <ul>
+        <li>
           <NavLink tabIndex={0} to="/books" aria-label="book mart books">
             Books
           </NavLink>
@@ -24,19 +26,15 @@ const Navigation = (): JSX.Element => {
 
         {isUserAuthenticated ? (
           <>
-            <li className={styles["navigation__item"]}>
-              <NavLink
-                tabIndex={0}
-                to={`cart`}
-                aria-label="book mart cart"
-              >
+            <li>
+              <NavLink tabIndex={0} to="cart" aria-label="book mart cart">
                 Cart
               </NavLink>
             </li>
-            <li className={styles["navigation__item"]}>
+            <li>
               <NavLink
                 tabIndex={0}
-                to={`account`}
+                to="account"
                 aria-label="book mart app logout"
               >
                 <AccountCircleIcon />
@@ -45,7 +43,7 @@ const Navigation = (): JSX.Element => {
             </li>
           </>
         ) : (
-          <li className={styles["navigation__item"]}>
+          <li>
             <NavLink
               tabIndex={0}
               to="/auth/login"

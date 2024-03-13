@@ -1,16 +1,10 @@
 @import "src/styles/variables.scss";
 
-.navigation__list {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
+.navigation__list ul{ 
+  @include flexBox($justifyContent: space-between, $gap: 15px);
   margin: 0;
   padding: 10px 25px;
   list-style-type: none;
-  .navigation__item {
-    color: $color-white;
-  }
 }
 
 @media screen and (max-width: $mobile-max-width) {
@@ -22,6 +16,6 @@
     left: 0;
     width: 100%;
     padding: 10px 0;
-    background-color: $color-bg-primary;
+    background-color: var(--primary-color);
   }
 }

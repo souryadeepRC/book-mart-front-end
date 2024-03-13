@@ -1,3 +1,6 @@
+
+@import "src/styles/theme-variables.scss";
+@import "src/styles/mixins.scss";
 // =========== Color Codes =================
 
 // --- Background
@@ -39,33 +42,6 @@ $mobile-max-width: 769px;
 $tablet-max-width: 1024px;
 $small-mobile-max-width: 460px;
 
-/* ============== Mixins =====================*/
-
-@mixin border-radius($radius) {
-  border-radius: $radius;
-  -webkit-border-radius: $radius;
-  -moz-border-radius: $radius;
-}
-
-@mixin flexBox(
-  $direction: row,
-  $justifyContent: flex-start,
-  $alignItems: center,
-  $wrap: wrap
-) {
-  display: flex;
-  flex-direction: $direction;
-  flex-wrap: $wrap;
-  justify-content: $justifyContent;
-  align-items: $alignItems;
-}
-/* --Example --> 
-.element {
-  @include border-radius(5px);
-  
-  @include flexBox; -- no param
-  @include flexBox($alignItems: black); -- skip
-} */
 /* ============== Extend/Inheritance =====================*/
 .error {
   border: 1px solid red;
