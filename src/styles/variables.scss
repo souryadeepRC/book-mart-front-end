@@ -1,3 +1,6 @@
+
+@import "src/styles/theme-variables.scss";
+@import "src/styles/mixins.scss";
 // =========== Color Codes =================
 
 // --- Background
@@ -12,7 +15,7 @@ $color-price-notification: #b12704;
 $color-nav-link: #ffc262;
 
 $color-item-success: #136913;
-$color-item-warning:#b17e25;
+$color-item-warning: #b17e25;
 
 $color-white: #ffffff;
 $color-black: #000000;
@@ -25,7 +28,7 @@ $color-gainsboro: #dadce3;
 $color-light-gray: #d5d5d5;
 $color-lavender-blush: #fcf4f4;
 
-$color-success:#8df38f;
+$color-success: #8df38f;
 
 // ============= Font ==========
 $font-weight-700: 700;
@@ -38,3 +41,15 @@ $font-weight-700: 700;
 $mobile-max-width: 769px;
 $tablet-max-width: 1024px;
 $small-mobile-max-width: 460px;
+
+/* ============== Extend/Inheritance =====================*/
+.error {
+  border: 1px solid red;
+  color: red;
+}
+
+/* --Example --> 
+.alert {
+  @extend .error;
+  background-color: yellow;
+}*/

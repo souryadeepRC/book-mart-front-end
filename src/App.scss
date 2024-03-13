@@ -1,7 +1,9 @@
 @import "src/styles/variables.scss";
+
 .app__container {
   width: 100vw;
   height: 100vh;
+  background-color: var(--primary-bg-color);
   .app-header {
     display: flex;
     justify-content: space-between;
@@ -10,7 +12,7 @@
     z-index: 2;
     top: 0;
     width: 100%;
-    background-color: $color-bg-primary;
+    background-color: var(--primary-color);
   }
   .app-content {
     width: 100%;

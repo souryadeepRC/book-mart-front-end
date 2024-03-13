@@ -1,0 +1,17 @@
+@import "src/styles/light-theme-variables.scss";
+@import "src/styles/dark-theme-variables.scss";
+// Theme variables for light theme
+:root {
+  --primary-color: #{$primary-color-light};
+  --primary-bg-color: #{$primary-bg-color-light};
+  --primary-text-color: #{$primary-text-color-light};
+  --secondary-text-color: #{$secondary-text-color-light};
+}
+
+// Theme variables for dark theme
+[data-theme="dark"] {
+  --primary-color: #{$primary-color-dark};
+  --primary-bg-color: #{$primary-bg-color-dark};
+  --primary-text-color: #{$primary-text-color-dark};
+  --secondary-text-color: #{$secondary-text-color-dark};
+}

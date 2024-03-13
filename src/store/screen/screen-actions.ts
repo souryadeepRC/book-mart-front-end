@@ -4,21 +4,20 @@ import { ReducerActionPayloadType } from "src/store/reducer-types";
 import {
   ADD_NOTIFICATION,
   REMOVE_NOTIFICATION,
-  SET_SCREEN_THEME,
-  SET_SCREEN_TYPE,
+  SET_MEDIA_TYPE,
+  TOGGLE_APP_THEME,
 } from "./screen-constants";
 
-export const setScreenType = (payload: string): ReducerActionPayloadType => {
+export const setMediaType = (payload: string): ReducerActionPayloadType => {
   return {
-    type: SET_SCREEN_TYPE,
+    type: SET_MEDIA_TYPE,
     payload,
   };
 };
 
-export const setScreenTheme = (payload: string): ReducerActionPayloadType => {
+export const toggleAppTheme = (): ReducerActionPayloadType => {
   return {
-    type: SET_SCREEN_THEME,
-    payload,
+    type: TOGGLE_APP_THEME,
   };
 };
 

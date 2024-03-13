@@ -1,13 +1,10 @@
 @import "src/styles/variables.scss";
 
 .link__text {
-  color: $color-white;
+  @include flexBox($justifyContent: space-between, $gap: 5px);
+  color: var(--primary-text-color);
   text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 5px;
   &.active {
-    color: $color-nav-link;
+    color: var(--secondary-text-color);
   }
 }

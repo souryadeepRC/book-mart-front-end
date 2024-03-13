@@ -1,0 +1,33 @@
+/* ============== Mixins =====================*/
+
+@mixin border-radius($radius) {
+  border-radius: $radius;
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+}
+
+@mixin flexBox(
+  $direction: row,
+  $justifyContent: flex-start,
+  $alignItems: center,
+  $wrap: "",
+  $gap: ""
+) {
+  display: flex;
+  flex-direction: $direction;
+  @if $wrap != "" {
+    flex-wrap: $wrap;
+  }
+  justify-content: $justifyContent;
+  align-items: $alignItems;
+  @if $gap != "" {
+    gap: $gap;
+  }
+}
+/* --Example --> 
+  .element {
+    @include border-radius(5px);
+    
+    @include flexBox; -- no param
+    @include flexBox($alignItems: black); -- skip
+  } */

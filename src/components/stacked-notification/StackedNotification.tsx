@@ -20,6 +20,7 @@ const StackedNotification = ({ children }: StackedNotificationProps) => {
   const handleClose = (id: string) => () => {
     dispatch(removeNotifications(id));
   };
+  if (notifications?.length <= 0) return <>{children}</>;
   return (
     <>
       <div>

@@ -49,8 +49,4 @@ export const validatePassword = (password: string): PasswordValidityType => {
     isValid,
     conditions,
   };
-};
-
-// Example usage
-console.log(validatePassword("ValidPassword123!")); // Output: true
-console.log(validatePassword("weak")); // Output: false
+}; 
