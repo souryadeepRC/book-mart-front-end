@@ -5,14 +5,17 @@ import {
 } from "src/store/reducer-types";
 // constants
 import {
+  ADD_ACTIVE_CHAT_MESSAGE,
   FETCH_CHAT_BUDDIES_FAILURE,
   FETCH_CHAT_BUDDIES_REQUEST,
   FETCH_CHAT_BUDDIES_SUCCESS,
   FETCH_COMMUNITIES_FAILURE,
   FETCH_COMMUNITIES_REQUEST,
   FETCH_COMMUNITIES_SUCCESS,
+  SEND_MESSAGE_FAILURE,
+  SEND_MESSAGE_SUCCESS,
   SET_ACTIVE_BUDDY_MESSAGE,
-  SET_ACTIVE_CHAT,
+  SET_ACTIVE_CHAT
 } from "src/store/engagement/engagement-constants";
 
 const initialState: EngagementReducerType = {
@@ -26,6 +29,7 @@ const initialState: EngagementReducerType = {
     buddy: undefined,
     roomId: "",
   },
+  activeChatMessages: [],
 };
 const EngagementReducer = (
   state = initialState,
@@ -73,8 +77,27 @@ const EngagementReducer = (
         ...state,
       };
     }
+    case SEND_MESSAGE_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        error: "",
+        action: type,
+        activeChatMessages: [...state.activeChatMessages, payload],
+      };
+    }
+    case ADD_ACTIVE_CHAT_MESSAGE: {
+      return {
+        ...state,
+        isLoading: false,
+        error: "",
+        action: type,
+        activeChatMessages: [...state.activeChatMessages, payload],
+      };
+    }
     case FETCH_COMMUNITIES_FAILURE:
     case FETCH_CHAT_BUDDIES_FAILURE:
+    case SEND_MESSAGE_FAILURE:
       return {
         ...state,
         isLoading: false,

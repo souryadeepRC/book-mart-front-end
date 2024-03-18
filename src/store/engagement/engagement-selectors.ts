@@ -3,6 +3,7 @@ import { AppStoreType } from "src/store/reducer-types";
 import {
   ActiveChatType,
   ChatBuddyType,
+  ChatMessageType,
   CommunityType,
 } from "src/types/engagement-types";
 
@@ -22,5 +23,6 @@ export const selectIsChatBuddyPresent = (state: AppStoreType): boolean =>
 export const selectActiveChat = (state: AppStoreType): ActiveChatType =>
   state?.engagement?.activeChat;
 
-export const selectActiveBuddyMessages = (state: AppStoreType): any[] | [] =>
-  state?.engagement?.chatBuddies;
+export const selectActiveChatMessages = (
+  state: AppStoreType
+): ChatMessageType[] | [] => state?.engagement?.activeChatMessages;

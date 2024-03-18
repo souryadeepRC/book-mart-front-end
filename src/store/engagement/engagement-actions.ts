@@ -3,6 +3,7 @@ import { ReducerActionPayloadType } from "src/store/reducer-types";
 // constants
 import { ChatMessageType } from "src/types/engagement-types";
 import {
+  ADD_ACTIVE_CHAT_MESSAGE,
   FETCH_CHAT_BUDDIES,
   FETCH_COMMUNITIES,
   SEND_MESSAGE,
@@ -35,9 +36,19 @@ export const setActiveBuddyMessage = (
     payload,
   };
 };
-export const sendMessage = (payload: ChatMessageType): ReducerActionPayloadType => {
+export const sendMessage = (
+  payload: ChatMessageType
+): ReducerActionPayloadType => {
   return {
     type: SEND_MESSAGE,
+    payload,
+  };
+};
+export const addActiveChatMessage = (
+  payload: ChatMessageType
+): ReducerActionPayloadType => {
+  return {
+    type: ADD_ACTIVE_CHAT_MESSAGE,
     payload,
   };
 };

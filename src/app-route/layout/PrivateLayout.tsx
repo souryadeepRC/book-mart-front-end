@@ -15,7 +15,6 @@ const PrivateLayout = ({
   // store
   const isUserAuthenticated: boolean = useSelector(selectIsUserAuthenticated);
   const isAuthLoading: boolean = useSelector(selectAuthIsLoading);
-  console.log({ isUserAuthenticated, isAuthLoading });
 
   if (!isUserAuthenticated && !isAuthLoading) {
     return <Navigate to="/" />;

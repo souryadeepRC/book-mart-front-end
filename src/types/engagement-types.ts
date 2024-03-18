@@ -39,6 +39,7 @@ export type ActiveChatType = {
 };
 
 export type ChatMessageType = {
+  _id?: string;
   roomId?: string;
   sender: string;
   receiver: string;

@@ -131,7 +131,6 @@ function* sendMessageSaga({ payload }: any): any {
   yield put({ type: SEND_MESSAGE_REQUEST });
   try {
     const response = yield postSendChatMessage(payload);
-    console.log(response);
     
     yield put({ type: SEND_MESSAGE_SUCCESS, payload: response.data });
   } catch (error: any) {

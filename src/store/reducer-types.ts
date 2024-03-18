@@ -5,6 +5,7 @@ import { BookType } from "src/types/book-types";
 import {
   ActiveChatType,
   ChatBuddyType,
+  ChatMessageType,
   CommunityType,
 } from "src/types/engagement-types";
 // types
@@ -22,6 +23,7 @@ export type EngagementReducerType = {
   messageBuddies: { _id: string; imageUrl: string; name: string }[];
   chatBuddies: ChatBuddyType[] | [];
   activeChat: ActiveChatType;
+  activeChatMessages: ChatMessageType[] | [];
 };
 export type BookReducerType = {
   action: string;

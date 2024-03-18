@@ -20,3 +20,5 @@ export const SEND_MESSAGE: string = "SEND_MESSAGE";
 export const SEND_MESSAGE_REQUEST: string = "SEND_MESSAGE_REQUEST";
 export const SEND_MESSAGE_SUCCESS: string = "SEND_MESSAGE_SUCCESS";
 export const SEND_MESSAGE_FAILURE: string = "SEND_MESSAGE_FAILURE";
+
+export const ADD_ACTIVE_CHAT_MESSAGE: string = "ADD_ACTIVE_CHAT_MESSAGE";
