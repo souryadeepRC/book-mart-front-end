@@ -4,7 +4,6 @@ import { Buddies } from "src/components/engagement/buddies/Buddies";
 import { ChatPage } from "src/components/engagement/chat/ChatPage";
 import { CommunityBanners } from "src/components/engagement/community-banner/CommunityBanners";
 import { Community } from "src/components/engagement/community/Community";
-import { EngagementNavigation } from "src/components/engagement/engagement-navigation/EngagementNavigation";
 // hooks
 import useEngagementSocket from "src/hooks/useEngagementSocket";
 
@@ -24,12 +23,7 @@ const EngagementPage = () => {
     );
   };
 
-  return (
-    <>
-      <EngagementNavigation />
-      {EngagementRoutes()}
-    </>
-  );
+  return <>{EngagementRoutes()}</>;
 };
 export { EngagementPage };
 

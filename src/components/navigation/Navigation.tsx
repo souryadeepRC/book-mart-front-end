@@ -3,10 +3,12 @@ import { useSelector } from "react-redux";
 // icon library
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 // common components
-import { NavLink } from "src/components/common/CommonComponents";
+import { MenuBar, NavLink } from "src/components/common/CommonComponents";
 // selectors
 import { selectIsUserAuthenticated } from "src/store/auth/auth-selectors";
 import { selectUserName } from "src/store/user/user-selectors";
+// constants
+import { ENGAGEMENT_NAVIGATION } from "src/constants/engagement-constants";
 // styles
 import styles from "./Navigation.module.scss";
 
@@ -27,13 +29,11 @@ const Navigation = (): JSX.Element => {
         {isUserAuthenticated ? (
           <>
             <li>
-              <NavLink
-                tabIndex={0}
-                to="engagement"
-                aria-label="book mart engagement"
-              >
-                Engagement
-              </NavLink>
+              <MenuBar
+                label="Engagement"
+                basePath="engagement"
+                menuItems={ENGAGEMENT_NAVIGATION}
+              />
             </li>
             <li>
               <NavLink tabIndex={0} to="cart" aria-label="book mart cart">
