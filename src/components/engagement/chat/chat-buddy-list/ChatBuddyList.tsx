@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 // icons
 import ChatIcon from "@mui/icons-material/Chat";
 // actions
-import { setActiveChat } from "src/store/engagement/engagement-actions";
+import { resetActiveChat, setActiveChat } from "src/store/engagement/engagement-actions";
 // selectors
 import { selectChatBuddies } from "src/store/engagement/engagement-selectors";
 // types
@@ -16,7 +16,7 @@ import {
 // styles
 import styles from "./ChatBuddyList.module.scss";
 
-const ChatBuddyList = (): JSX.Element => {
+const ChatBuddyList = memo((): JSX.Element => {
   // store
   const dispatch: AppDispatch = useDispatch();
   const chatBuddies: ChatBuddyType[] | [] = useSelector(selectChatBuddies);
@@ -25,6 +25,7 @@ const ChatBuddyList = (): JSX.Element => {
     (activeChat: ActiveChatType): (() => void) =>
     (): void => {
       dispatch(setActiveChat(activeChat));
+      dispatch(resetActiveChat());
     };
 
   type BuddyProps = {
@@ -57,7 +58,7 @@ const ChatBuddyList = (): JSX.Element => {
         const { buddy, chatRoom, _id } = chatBuddy;
         return (
           <Buddy
-            roomId={chatRoom._id}
+            roomId={chatRoom?._id}
             key={_id}
             buddy={buddy}
             latestMessage={chatRoom?.latestMessage}
@@ -66,6 +67,7 @@ const ChatBuddyList = (): JSX.Element => {
       })}
     </section>
   );
-};
+});
+ChatBuddyList.displayName = "ChatBuddyList";
 export { ChatBuddyList };
 

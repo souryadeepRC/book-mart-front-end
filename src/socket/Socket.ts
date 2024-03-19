@@ -5,6 +5,8 @@ let socket: any = undefined;
 const establishConnection = (userId: string) => {
   socket = io(`${process.env.REACT_APP_SOCKET_API_BASE_URL}`);
   socket.emit("setup", userId);
+  console.log('establishConnection');
+  
   return socket;
 };
 const closeConnection = () => {

@@ -44,4 +44,16 @@ export type ChatMessageType = {
   sender: string;
   receiver: string;
   message: string;
+  timestamp?: string;
+};
+export type ActiveChatMessageType = {
+  isLastPage: boolean;
+  page: number;
+  pageSize: number;
+  messages: ChatMessageType[] | [];
+};
+export type ChatMessageFilterType = {
+  roomId: string;
+  page: number;
+  pageSize: number;
 };

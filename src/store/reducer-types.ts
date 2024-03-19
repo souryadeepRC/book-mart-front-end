@@ -3,10 +3,10 @@ import { rootStore } from "src/store/root-store";
 import { SignUpType } from "src/types/authentication-types";
 import { BookType } from "src/types/book-types";
 import {
+  ActiveChatMessageType,
   ActiveChatType,
   ChatBuddyType,
-  ChatMessageType,
-  CommunityType,
+  CommunityType
 } from "src/types/engagement-types";
 // types
 
@@ -23,7 +23,7 @@ export type EngagementReducerType = {
   messageBuddies: { _id: string; imageUrl: string; name: string }[];
   chatBuddies: ChatBuddyType[] | [];
   activeChat: ActiveChatType;
-  activeChatMessages: ChatMessageType[] | [];
+  activeChatMessage: ActiveChatMessageType;
 };
 export type BookReducerType = {
   action: string;

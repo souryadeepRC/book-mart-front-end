@@ -25,15 +25,18 @@
   }
   .message__box {
     height: calc(100% - 50px);
-    .message__list {
-      @include flexBox($direction: column, $gap: 10px);
-      overflow: hidden auto;
-      box-sizing: border-box;
+    :global(.infinite-scroll-component__outerdiv) {
       height: calc(100% - 44px);
-      padding: 15px;
-      background: var(--message-box-bg-color);
-      .message {
-        @extend .message-style;
+      .message__list {
+        @include flexBox($direction: column-reverse, $gap: 10px);
+        overflow: hidden auto;
+        box-sizing: border-box;
+        height: 100% !important;
+        padding: 15px;
+        background: var(--message-box-bg-color);
+        .message {
+          @extend .message-style;
+        }
       }
     }
     :global(.book-mart__text-field.MuiTextField-root) {

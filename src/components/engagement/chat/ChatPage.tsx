@@ -18,8 +18,7 @@ import { AppDispatch } from "src/store/reducer-types";
 // styles
 import styles from "./ChatPage.module.scss";
 
-const ChatPage = (): JSX.Element => { 
-  
+const ChatPage = (): JSX.Element => {
   // store
   const dispatch: AppDispatch = useDispatch();
   const isLoading: boolean = useSelector(selectEngagementIsLoading);
@@ -36,12 +35,10 @@ const ChatPage = (): JSX.Element => {
     }
   }, [dispatch]);
 
-  if (isLoading) {
-    return <Loader loading={isLoading} />;
-  }
-  if (!isBuddyPresent) {
+  const renderEmptyBuddyPage = () => {
     return (
       <section className={styles["empty-record-msg"]}>
+        <Loader loading={isLoading} />
         <span>You haven't send any message to your buddy</span>
         <Button
           variant="contained"
@@ -51,14 +48,20 @@ const ChatPage = (): JSX.Element => {
         </Button>
       </section>
     );
-  }
-
-  return (
-    <>
+  };
+  const renderBuddyPage = () => {
+    return (
       <section className={styles["chat-page__container"]}>
         <ChatBuddyList />
         <ChatBox />
       </section>
+    );
+  };
+
+  return (
+    <>
+      <Loader loading={isLoading} />
+      {isBuddyPresent ? renderBuddyPage() : renderEmptyBuddyPage()}
     </>
   );
 };
