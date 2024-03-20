@@ -3,9 +3,8 @@ import { rootStore } from "src/store/root-store";
 import { SignUpType } from "src/types/authentication-types";
 import { BookType } from "src/types/book-types";
 import {
-  ActiveChatMessageType,
-  ActiveChatType,
-  ChatBuddyType,
+  ActiveChatRoomType,
+  ChatBuddiesType,
   CommunityType
 } from "src/types/engagement-types";
 // types
@@ -21,9 +20,8 @@ export type EngagementReducerType = {
   error: string;
   communities: CommunityType[] | [];
   messageBuddies: { _id: string; imageUrl: string; name: string }[];
-  chatBuddies: ChatBuddyType[] | [];
-  activeChat: ActiveChatType;
-  activeChatMessage: ActiveChatMessageType;
+  activeChatRoom: ActiveChatRoomType;
+  chatBuddies: ChatBuddiesType; 
 };
 export type BookReducerType = {
   action: string;

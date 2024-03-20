@@ -7,7 +7,6 @@ import { Button, Loader } from "src/components/common/CommonComponents";
 import { ChatBox } from "./chat-box/ChatBox";
 import { ChatBuddyList } from "./chat-buddy-list/ChatBuddyList";
 // actions
-import { fetchChatBuddies } from "src/store/engagement/engagement-actions";
 // selectors
 import {
   selectEngagementIsLoading,
@@ -30,7 +29,7 @@ const ChatPage = (): JSX.Element => {
   // effects
   useEffect(() => {
     if (!initialRenderRef.current) {
-      dispatch(fetchChatBuddies());
+     //  dispatch(fetchChatBuddies());
       initialRenderRef.current = true;
     }
   }, [dispatch]);

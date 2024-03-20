@@ -4,9 +4,7 @@ import AppHTTP from "./http/app";
 export const getLoggedInUserDetails = () => {
   return AppHTTP.get(`/api/book-mart/account/user/me`);
 };
-export const sendMessage = (payload: any) => {
-  console.log(payload);
-  
+export const sendMessage = (payload: any) => { 
   return AppHTTP.post(
     `/api/book-mart/message/send-message`,
     qs.stringify(payload),

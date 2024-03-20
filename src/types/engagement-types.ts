@@ -25,17 +25,32 @@ export type ChatRoomType = {
 };
 export type ChatBuddyType = {
   _id: string;
-  buddy: BuddyType;
-  chatRoom: ChatRoomType;
+  members: BuddyType[];
+  latestMessage: string;
+  updated_ts: string;
 };
 export type BuddyType = {
   _id: string;
   username: string;
   imageUrl: string;
 };
-export type ActiveChatType = {
-  buddy: BuddyType | undefined;
+export type ActiveChatRoomType = {
+  members: BuddyType[] | [];
   roomId: string;
+  isLastPage: boolean;
+  page: number;
+  pageSize: number;
+  messages: ChatMessageType[] | [];
+};
+export type PrevMessagePayloadType = {
+  roomDetails: {
+    members: BuddyType[] | [];
+    roomId: string;
+  };
+  isLastPage: boolean;
+  page: number;
+  pageSize: number;
+  messages: ChatMessageType[] | [];
 };
 
 export type ChatMessageType = {
@@ -46,11 +61,11 @@ export type ChatMessageType = {
   message: string;
   timestamp?: string;
 };
-export type ActiveChatMessageType = {
+export type ChatBuddiesType = {
   isLastPage: boolean;
   page: number;
   pageSize: number;
-  messages: ChatMessageType[] | [];
+  buddies: ChatBuddyType[] | [];
 };
 export type ChatMessageFilterType = {
   roomId: string;

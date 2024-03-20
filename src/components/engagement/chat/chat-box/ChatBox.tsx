@@ -1,128 +1,96 @@
-import { memo, useCallback, useEffect, useRef } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { useDispatch, useSelector } from "react-redux";
+import { memo, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
+import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
 // components
-import { ChatInput } from "./ChatInput";
 // actions
-import {
-  fetchMessages,
-  resetActiveChat,
-  sendMessage,
-} from "src/store/engagement/engagement-actions";
 // selectors
-import {
-  selectActiveChat,
-  selectActiveChatMessage
-} from "src/store/engagement/engagement-selectors";
 import { selectUserId } from "src/store/user/user-selectors";
 // types
-import { AppDispatch } from "src/store/reducer-types";
 import {
-  ActiveChatMessageType,
-  ActiveChatType,
-  ChatMessageType,
+  BuddyType,
+  ChatMessageType
 } from "src/types/engagement-types";
 // styles
+import {
+  AutoScrollRecords,
+  Loader,
+} from "src/components/common/CommonComponents";
+import { useChatMessages } from "src/hooks/engagement/useChatMessages";
 import styles from "./ChatBox.module.scss";
+import { ChatInput } from "./chat-input/ChatInput";
 
-const ChatBox = memo((): JSX.Element => {
-  console.log("ChatBox Rendered");
-
+const ChatBox = memo((): JSX.Element => { 
   // store
-  const dispatch: AppDispatch = useDispatch();
-  const { roomId, buddy }: ActiveChatType = useSelector(selectActiveChat); 
-  const { page, pageSize, isLastPage, messages }: ActiveChatMessageType =
-    useSelector(selectActiveChatMessage);
   const profileUserId: string = useSelector(selectUserId);
-  // state
-
-  const sendChatMessage = (message: string) => {
-    if (!message) return;
-    dispatch(
-      sendMessage({
-        roomId: roomId,
-        sender: profileUserId,
-        receiver: buddy?._id || "",
-        message: message,
-      })
-    );
+  // router
+  const { roomId = "" } = useParams();
+  // ref
+  const contentRefs = {
+    childRef: useRef<HTMLDivElement>(null),
+    parentRef: useRef<HTMLDivElement>(null),
   };
- 
-  const initialMessageLoadRef = useRef<boolean>(false);
+  // hooks
+  const navigate: NavigateFunction = useNavigate();
+  const {
+    fetchPrevMessages,
+    messages,
+    members,
+    isLastPage,
+    isInitialRendered,
+  } = useChatMessages(roomId, contentRefs);
 
-  const loadMessages = useCallback(
-    (roomId: string, page: number, pageSize: number) => {
-      dispatch(
-        fetchMessages({
-          roomId,
-          page,
-          pageSize,
-        })
-      );
-    },
-    [dispatch]
-  );
-  const fetchNextRecords = () => {
-    console.log("fetchNextRecords");
-    loadMessages(roomId, page + 1, pageSize);
-  };
+  // effects
   useEffect(() => {
-    console.log({ ref: initialMessageLoadRef.current });
-
-    loadMessages(roomId, 1, pageSize);
-  }, [roomId]); // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    if (!initialMessageLoadRef.current) {
-      loadMessages(roomId, 1, pageSize);
-      initialMessageLoadRef.current = true;
-    }
     return () => {
-      console.log("Clean-up function executed");
-      dispatch(resetActiveChat());
+      console.log("reset activeChat Details");
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
+  const onBack = () => {
+    navigate(-1);
+  }; 
 
-  const containerRef = useRef<any>(null);
+  if (!isInitialRendered) {
+    return <Loader />;
+  }
+  const EmptyMessagePage = (): JSX.Element => {
+    return <span>No Message</span>;
+  }; 
 
+  const {
+    username = "",
+    imageUrl = "",
+    _id: buddyId = "",
+  }: BuddyType = members[0];
   return (
     <section className={styles["message-box__container"]}>
       <div className={styles["message__recipient"]}>
-        <img
-          alt={buddy?.username}
-          className={styles["buddy__image"]}
-          src={buddy?.imageUrl}
-        />
-        <span>{buddy?.username}</span>
+        <span onClick={onBack}>Back</span>
+        <img alt={username} className={styles["buddy__image"]} src={imageUrl} />
+        <span>{username}</span>
       </div>
-      <section ref={containerRef} className={styles["message__box"]}>
-        <InfiniteScroll
-          dataLength={messages?.length || 0}
-          next={fetchNextRecords}
-          hasMore={!isLastPage}
-          loader={<h4>Loading...</h4>}
-          scrollThreshold={0.9}
-          height={"100%"}
-          className={styles["message__list"]}
-          inverse={true}
-        >
-          {messages?.map(
-            ({ _id, message, sender }: ChatMessageType, index: number) => {
-              const isSent: boolean = profileUserId === sender;
-              return (
-                <div
-                  key={index}
-                  className={`${styles["message"]} ${
-                    isSent && styles["sender"]
-                  }`}
-                >
-                  {message}
-                </div>
-              );
-            }
-          )}
-        </InfiniteScroll>
-        <ChatInput sendPropsMessage={sendChatMessage} />
-      </section>
+      <AutoScrollRecords
+        refs={contentRefs}
+        className={styles["message__list"]}
+        records={messages}
+        fetchNextRecords={fetchPrevMessages}
+        hasMore={!isLastPage}
+        emptyRecordPage={EmptyMessagePage}
+      >
+        {messages?.map(
+          ({ _id, message, sender }: ChatMessageType, index: number) => {
+            const isSent: boolean = profileUserId === sender;
+            return (
+              <div
+                key={index}
+                className={`${styles["message"]} ${isSent && styles["sender"]}`}
+              >
+                {message}
+              </div>
+            );
+          }
+        )}
+      </AutoScrollRecords>
+      <ChatInput buddyId={buddyId} />
     </section>
   );
 });

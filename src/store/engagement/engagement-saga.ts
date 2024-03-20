@@ -121,10 +121,10 @@ function* fetchCommunityPostsSaga(): any {
     });
   }
 }
-function* fetchChatBuddies(): any {
+function* fetchChatBuddies({payload}:any): any {
   yield put({ type: FETCH_CHAT_BUDDIES_REQUEST });
   try {
-    const response = yield getChatBuddies();
+    const response = yield getChatBuddies(payload);
     yield put({ type: FETCH_CHAT_BUDDIES_SUCCESS, payload: response.data });
   } catch (error: any) {
     yield put({

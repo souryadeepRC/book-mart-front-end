@@ -1,0 +1,18 @@
+@import "src/styles/variables.scss";
+.chat-input__message {
+  :global(.book-mart__text-field.MuiTextField-root) {
+    height: 44px;
+    position: absolute;
+    width: 80%;
+    bottom: 35px;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    :global(.MuiOutlinedInput-notchedOutline) {
+      border: none;
+    }
+    :global(.MuiInputAdornment-disablePointerEvents .MuiSvgIcon-root) {
+      cursor: not-allowed;
+      color: $disable-color;
+    }
+  }
+}

@@ -1,0 +1,89 @@
+@import "src/styles/variables.scss";
+
+.buddy-image {
+  @include setDimension($width: 70px, $height: 70px);
+  @include borderRadius($radius: 50%);
+  @include flexBox($justifyContent: center, $alignItems: center);
+  box-sizing: border-box;
+  font-size: 49px;
+
+  @media screen and (max-width: $mobile-max-width) {
+    @include setDimension($width: 35px, $height: 35px);
+  }
+}
+.buddy-header {
+  width: 100%;
+  @include flexBox(
+    $alignItems: flex-start,
+    $justifyContent: space-between,
+    $wrap: wrap
+  );
+  .title {
+    font-size: 22px;
+    font-weight: bold;
+    @include addEllipsis($width: 80%);
+  }
+  .msg-date {
+    text-align: right;
+    font-size: 13px;
+    font-style: italic;
+  }
+  @media screen and (max-width: $mobile-max-width) {
+    .title {
+      font-size: 16px;
+    }
+    .msg-date {
+      font-size: 10px;
+    }
+  }
+}
+.buddy-message {
+  @include flexBox($alignItems: center, $gap: 3px);
+  color: var(--highlight-msg-color);
+  width: 100%;
+  :global(.MuiSvgIcon-root) {
+    @include setDimension($width: 15px, $height: 15px);
+  }
+  span {
+    @include addEllipsis($width: 100%);
+    font-size: 18px;
+    font-style: italic;
+  }
+  @media screen and (max-width: $mobile-max-width) {
+    :global(.MuiSvgIcon-root) {
+      @include setDimension($width: 10px, $height: 10px);
+    }
+    span {
+      font-size: 12px;
+    }
+  }
+}
+.buddy-style {
+  @include flexBox($gap: 10px);
+  @include setDimension($width: 100%, $height: fit-content);
+  padding: 15px;
+  background-color: var(--buddy-box-bg-color);
+  box-sizing: border-box;
+  cursor: pointer;
+  border-bottom: 3px solid $disable-color;
+  color: var(--primary-color);
+  @include borderRadius(15px);
+  img {
+    @extend .buddy-image;
+  }
+  article {
+    @include flexBox(
+      $direction: column,
+      $alignItems: flex-start,
+      $justifyContent: space-around,
+      $gap: 5px
+    );
+    width: calc(100% - 80px);
+    header {
+      @extend .buddy-header;
+    }
+    .last__message {
+      @extend .buddy-message;
+    }
+  }
+}

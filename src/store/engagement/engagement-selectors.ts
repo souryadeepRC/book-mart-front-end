@@ -1,9 +1,8 @@
 // types
 import { AppStoreType } from "src/store/reducer-types";
 import {
-  ActiveChatMessageType,
-  ActiveChatType,
-  ChatBuddyType,
+  ActiveChatRoomType,
+  ChatBuddiesType,
   CommunityType
 } from "src/types/engagement-types";
 
@@ -16,13 +15,13 @@ export const selectEngagementError = (state: AppStoreType): string =>
 
 export const selectCommunities = (state: AppStoreType): CommunityType[] | [] =>
   state?.engagement?.communities;
-export const selectChatBuddies = (state: AppStoreType): ChatBuddyType[] | [] =>
+export const selectChatBuddies = (state: AppStoreType): ChatBuddiesType =>
   state?.engagement?.chatBuddies;
 export const selectIsChatBuddyPresent = (state: AppStoreType): boolean =>
-  state?.engagement?.chatBuddies.length > 0;
-export const selectActiveChat = (state: AppStoreType): ActiveChatType =>
-  state?.engagement?.activeChat;
+  state?.engagement?.chatBuddies.buddies.length > 0;
+export const selectActiveChatroom = (state: AppStoreType): ActiveChatRoomType =>
+  state?.engagement?.activeChatRoom;
 
-export const selectActiveChatMessage = (
+export const selectActiveChatRoom = (
   state: AppStoreType
-): ActiveChatMessageType => state?.engagement?.activeChatMessage;
+): ActiveChatRoomType => state?.engagement?.activeChatRoom;

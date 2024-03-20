@@ -1,71 +1,105 @@
-import { memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { memo, useRef } from "react";
+import {
+  Location,
+  NavigateFunction,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 // icons
 import ChatIcon from "@mui/icons-material/Chat";
-// actions
-import { resetActiveChat, setActiveChat } from "src/store/engagement/engagement-actions";
-// selectors
-import { selectChatBuddies } from "src/store/engagement/engagement-selectors";
-// types
-import { AppDispatch } from "src/store/reducer-types";
+// Common Components
 import {
-  ActiveChatType,
-  BuddyType,
-  ChatBuddyType,
-} from "src/types/engagement-types";
+  AutoScrollRecords,
+  Button,
+  Loader,
+  NavLink,
+} from "src/components/common/CommonComponents";
+// hooks
+import { useChatBuddies } from "src/hooks/engagement/useChatBuddies";
+// selectors
+import { selectEngagementIsLoading } from "src/store/engagement/engagement-selectors";
+// types
+import { ChatBuddyType } from "src/types/engagement-types";
+// utils
+import { formatStringToDate } from "src/utils/date-utils";
 // styles
+import { useSelector } from "react-redux";
 import styles from "./ChatBuddyList.module.scss";
 
-const ChatBuddyList = memo((): JSX.Element => {
-  // store
-  const dispatch: AppDispatch = useDispatch();
-  const chatBuddies: ChatBuddyType[] | [] = useSelector(selectChatBuddies);
-
-  const handleBuddyClick =
-    (activeChat: ActiveChatType): (() => void) =>
-    (): void => {
-      dispatch(setActiveChat(activeChat));
-      dispatch(resetActiveChat());
-    };
-
-  type BuddyProps = {
-    roomId: string;
-    buddy: BuddyType;
-    latestMessage: string;
+const ChatBuddyList = memo((): JSX.Element => { 
+  // router
+  const location: Location = useLocation();
+  // ref
+  const contentRefs = {
+    childRef: useRef<HTMLDivElement>(null),
+    parentRef: useRef<HTMLDivElement>(null),
   };
-  const Buddy = memo(({ buddy, latestMessage, roomId }: BuddyProps) => {
-    const { username, imageUrl } = buddy;
+  // hooks
+  const navigate: NavigateFunction = useNavigate();
+  const { fetchNextBuddies, buddies, isLastPage, isInitialRendered } =
+    useChatBuddies(contentRefs);
+
+  const Buddy = memo(
+    ({ chatBuddy }: { chatBuddy: ChatBuddyType }): JSX.Element => {
+      const { _id: roomId, updated_ts, members, latestMessage } = chatBuddy;
+      const { username = "", imageUrl = "" } = members?.[0];
+      const lastMessageDate: string = formatStringToDate(updated_ts);
+      return (
+        <NavLink to={`${location.pathname}/${roomId}`}>
+          <section className={styles["buddy"]}>
+            <img alt={username} src={imageUrl} />
+            <article>
+              <header>
+                <span className={styles["title"]}>{username}</span>
+                <span className={styles["msg-date"]}>{lastMessageDate}</span>
+              </header>
+              <div className={styles["last__message"]}>
+                <ChatIcon />
+                <span>{latestMessage}</span>
+              </div>
+            </article>
+          </section>
+        </NavLink>
+      );
+    }
+  );
+  const EmptyBuddyPage = (): JSX.Element => {
+    const isLoading: boolean = useSelector(selectEngagementIsLoading);
     return (
-      <section
-        className={styles["buddy"]}
-        onClick={handleBuddyClick({ buddy, roomId })}
-      >
-        <img alt={username} className={styles["buddy__image"]} src={imageUrl} />
-        <section className={styles["buddy__details"]}>
-          <div className={styles["buddy__title"]}>{username}</div>
-          <span className={styles["last__message"]}>
-            <ChatIcon />
-            {latestMessage}
-          </span>
-        </section>
-      </section>
+      <>
+        <Loader loading={isLoading} />
+        {!isLoading && (
+          <section className={styles["empty-record-msg"]}>
+            <span>You haven't send any message to your buddy</span>
+            <Button
+              variant="contained"
+              onClick={() => navigate("/engagement/buddy")}
+            >
+              Message your Buddy
+            </Button>
+          </section>
+        )}
+      </>
     );
-  });
+  };
+
+  if (!isInitialRendered) {
+    return <Loader />;
+  }
 
   return (
-    <section className={styles["buddy-list"]}>
-      {chatBuddies?.map((chatBuddy: ChatBuddyType, index: number) => {
-        const { buddy, chatRoom, _id } = chatBuddy;
-        return (
-          <Buddy
-            roomId={chatRoom?._id}
-            key={_id}
-            buddy={buddy}
-            latestMessage={chatRoom?.latestMessage}
-          />
-        );
+    <AutoScrollRecords
+      refs={contentRefs}
+      className={styles["buddy__list"]}
+      records={buddies}
+      fetchNextRecords={fetchNextBuddies}
+      hasMore={!isLastPage}
+      emptyRecordPage={EmptyBuddyPage}
+    >
+      {buddies?.map((chatBuddy: ChatBuddyType, index: number) => {
+        return <Buddy key={index} chatBuddy={chatBuddy} />;
       })}
-    </section>
+    </AutoScrollRecords>
   );
 });
 ChatBuddyList.displayName = "ChatBuddyList";

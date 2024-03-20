@@ -1,45 +1,37 @@
 @import "src/styles/variables.scss";
+@import "./ChatBuddy.module.scss";
 
-.buddy-list {
-  @include setDimension($width: 30%, $height: 100%);
-  overflow: hidden auto;
-  .empty-record-msg {
-    display: block;
-    padding: 30px 0;
-    font-style: italic;
-    color: var(--primary-color);
-    text-align: center;
-  }
-  .buddy {
-    @include flexBox($gap: 10px);
-    padding: 10px;
-    background-color: var(--message-box-bg-color);
-    cursor: pointer;
-    border-bottom: 3px solid $disable-color;
-    color: var(--primary-color);
-    .buddy__image {
-      @include setDimension($width: 25px, $height: 25px);
-      @include borderRadius($radius: 50%);
-      @include flexBox($justifyContent: center, $alignItems: center);
-      box-sizing: border-box;
-      font-size: 49px;
+.empty-record-msg {
+  @include flexBox($direction: column, $alignItems: center, $gap: 10px);
+  padding: 30px 0;
+  font-style: italic;
+  color: var(--primary-color);
+}
+.buddy__list {
+  padding: 10px 0;
+  box-sizing: border-box;
+  :global(.infinite-scroll-component) {
+    @include setDimension($width: 75%, $height: 100%);
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+    :global(.scroll__element) {
+      margin: 0 auto;
+      @include setDimension($width: 100%, $height: fit-content);
+      @include flexBox($direction: column, $gap: 10px);
+      background: var(--message-box-bg-color);
+      .buddy {
+        @extend .buddy-style;
+      }
     }
-    .buddy__details {
-      @include flexBox($direction: column, $alignItems: flex-start);
-      width: calc(100% - 35px);
-      .buddy__title {
-        @include addEllipsis($width: 100%);
-      }
-      .last__message {
-        @include flexBox($alignItems: center, $gap: 3px);
-        @include addEllipsis($width: 100%);
-        font-size: 10px;
-        font-style: italic;
-        color: var(--highlight-msg-color);
-        :global(.MuiSvgIcon-root) {
-          @include setDimension($width: 10px, $height: 10px);
-        }
-      }
+  }
+}
+
+@media screen and (max-width: $mobile-max-width) {
+  .buddy__list {
+    :global(.infinite-scroll-component) {
+      width: 95%;
     }
   }
 }

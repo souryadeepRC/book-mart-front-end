@@ -21,9 +21,9 @@ export const fetchCommunities = (): ReducerActionPayloadType => {
     type: FETCH_COMMUNITIES,
   };
 };
-export const fetchChatBuddies = (): ReducerActionPayloadType => {
+export const fetchChatBuddies = (payload:any): ReducerActionPayloadType => {
   return {
-    type: FETCH_CHAT_BUDDIES,
+    type: FETCH_CHAT_BUDDIES,payload
   };
 };
 
@@ -67,6 +67,6 @@ export const fetchMessages = (
   };
 };
 
-export const resetActiveChat = (): ReducerActionPayloadType => {
+export const resetActiveChatRoom = (): ReducerActionPayloadType => {
   return { type: RESET_ACTIVE_CHAT };
 };

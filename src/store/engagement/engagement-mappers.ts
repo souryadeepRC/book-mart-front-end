@@ -1,40 +1,60 @@
 import {
-  ActiveChatMessageType,
-  ActiveChatType,
+  ActiveChatRoomType,
+  ChatBuddiesType,
   ChatBuddyType,
   ChatMessageType,
+  PrevMessagePayloadType,
 } from "src/types/engagement-types";
 
-export const mapChatBuddies = (chatBuddies: ChatBuddyType[] | []) => {
-  let activeChat: ActiveChatType = {
-    buddy: undefined,
-    roomId: "",
-  };
+export const mapChatBuddies = (
+  existingBuddies: ChatBuddyType[] | [],
+  chatBuddies: ChatBuddiesType
+) => {
+  const { page, pageSize, isLastPage, buddies: nextBuddies } = chatBuddies;
 
-  if (chatBuddies?.length > 0) {
-    const latestChatBuddy: ChatBuddyType = chatBuddies[0];
-    activeChat = {
-      buddy: latestChatBuddy?.buddy || undefined,
-      roomId: latestChatBuddy?.chatRoom?._id || "",
-    };
-  }
   return {
-    chatBuddies,
-    activeChat,
+    chatBuddies: {
+      page,
+      pageSize,
+      isLastPage,
+      buddies: [...existingBuddies, ...nextBuddies],
+    },
   };
 };
 
 export const mapNewChatMessage = (
-  activeChatMessage: ActiveChatMessageType,
+  activeChatRoom: ActiveChatRoomType,
   newChatMessage: ChatMessageType
 ) => {
-  const activeMessages = [...activeChatMessage.messages];
-  const modifiedActiveChatMessage = {
-    ...activeChatMessage,
-    messages: [newChatMessage, ...activeMessages],
+  const activeMessages = [...activeChatRoom.messages];
+  return {
+    activeChatRoom: {
+      ...activeChatRoom,
+      messages: [newChatMessage, ...activeMessages],
+    },
   };
+};
+
+export const mapPrevChatMessage = (
+  activeChatRoom: ActiveChatRoomType,
+  payload: PrevMessagePayloadType
+) => {
+  const {
+    messages: fetchedMessages,
+    isLastPage,
+    page,
+    pageSize,
+    roomDetails,
+  } = payload; 
 
   return {
-    activeChatMessage: modifiedActiveChatMessage,
+    activeChatRoom: {
+      ...activeChatRoom,
+      isLastPage,
+      page,
+      pageSize,
+      messages: [...activeChatRoom.messages, ...fetchedMessages],
+      ...{ ...roomDetails },
+    },
   };
 };

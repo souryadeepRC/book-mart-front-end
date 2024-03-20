@@ -2,14 +2,18 @@
 @import "./Chat.module.scss";
 
 .message-box__container {
-  @include setDimension($width: 75%, $height: 100%);
-
+  padding: 10px 0;
+  box-sizing: border-box;
+  @include setDimension($width: 85%, $height: 100%);
+  margin: 0 auto;
+  position: relative;
   .message__recipient {
     @include flexBox($gap: 10px, $alignItems: center);
     padding: 10px 15px;
     background: $message-recipient-header-color;
     font-size: 25px;
     font-weight: bold;
+    border-radius: 15px;
     .buddy__image {
       display: flex;
       justify-content: center;
@@ -23,30 +27,25 @@
       color: #f19c09;
     }
   }
-  .message__box {
-    height: calc(100% - 50px);
+  .message__list {
+    height: calc(100% - 85px);
+
     :global(.infinite-scroll-component__outerdiv) {
       height: calc(100% - 44px);
-      .message__list {
-        @include flexBox($direction: column-reverse, $gap: 10px);
-        overflow: hidden auto;
-        box-sizing: border-box;
-        height: 100% !important;
-        padding: 15px;
-        background: var(--message-box-bg-color);
-        .message {
-          @extend .message-style;
+      :global(.infinite-scroll-component) {
+        border-radius: 15px;  
+        margin: 3px 0;
+        :global(.scroll__element) {
+          @include flexBox($direction: column-reverse, $gap: 10px);
+          overflow: hidden auto;
+          box-sizing: border-box;
+          height: 100% !important;
+          padding: 15px;
+          background-color: var(--buddy-box-bg-color);
+          .message {
+            @extend .message-style;
+          }
         }
-      }
-    }
-    :global(.book-mart__text-field.MuiTextField-root) {
-      height: 44px;
-      :global(.MuiOutlinedInput-notchedOutline) {
-        border: none;
-      }
-      :global(.MuiInputAdornment-disablePointerEvents .MuiSvgIcon-root) {
-        cursor: not-allowed;
-        color: $disable-color;
       }
     }
   }

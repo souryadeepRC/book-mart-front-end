@@ -4,7 +4,11 @@ import {
   ReducerActionPayloadType,
 } from "src/store/reducer-types";
 // mappers
-import { mapChatBuddies, mapNewChatMessage } from "./engagement-mappers";
+import {
+  mapChatBuddies,
+  mapNewChatMessage,
+  mapPrevChatMessage,
+} from "./engagement-mappers";
 // constants
 import {
   ADD_ACTIVE_CHAT_MESSAGE,
@@ -20,8 +24,6 @@ import {
   RESET_ACTIVE_CHAT,
   SEND_MESSAGE_FAILURE,
   SEND_MESSAGE_SUCCESS,
-  SET_ACTIVE_BUDDY_MESSAGE,
-  SET_ACTIVE_CHAT,
 } from "src/store/engagement/engagement-constants";
 
 const initialState: EngagementReducerType = {
@@ -30,16 +32,19 @@ const initialState: EngagementReducerType = {
   error: "",
   communities: [],
   messageBuddies: [],
-  chatBuddies: [],
-  activeChat: {
-    buddy: undefined,
+  activeChatRoom: {
+    members: [],
     roomId: "",
-  },
-  activeChatMessage: {
     isLastPage: false,
     page: 0,
     pageSize: 10,
     messages: [],
+  },
+  chatBuddies: {
+    isLastPage: false,
+    page: 0,
+    pageSize: 10,
+    buddies: [],
   },
 };
 const EngagementReducer = (
@@ -67,67 +72,41 @@ const EngagementReducer = (
         isLoading: false,
         error: "",
         action: type,
-        ...mapChatBuddies(payload),
-      };
-    }
-    case SET_ACTIVE_CHAT: {
-      const { buddy, roomId } = payload;
-      return {
-        ...state,
-        activeChat: {
-          buddy,
-          roomId,
-        },
-      };
-    }
-    case SET_ACTIVE_BUDDY_MESSAGE: {
-      return {
-        ...state,
+        ...mapChatBuddies(state.chatBuddies.buddies, payload),
       };
     }
     case SEND_MESSAGE_SUCCESS: {
-      const { activeChatMessage } = state;
-
       return {
         ...state,
         isLoading: false,
         error: "",
         action: type,
-        ...mapNewChatMessage(activeChatMessage, payload),
+        ...mapNewChatMessage(state.activeChatRoom, payload),
       };
     }
     case ADD_ACTIVE_CHAT_MESSAGE: {
-      const { activeChatMessage } = state;
       return {
         ...state,
         isLoading: false,
         error: "",
         action: type,
-        ...mapNewChatMessage(activeChatMessage, payload),
+        ...mapNewChatMessage(state.activeChatRoom, payload),
       };
     }
     case FETCH_MESSAGE_SUCCESS: {
-      const { activeChatMessage } = state;
-      const { messages: fetchedMessages, isLastPage, page, pageSize } = payload;
-      const existingMessages = [...activeChatMessage.messages];
       return {
         ...state,
         isLoading: false,
         error: "",
         action: type,
-        activeChatMessage: {
-          isLastPage,
-          page,
-          pageSize,
-          messages: [...existingMessages, ...fetchedMessages],
-        },
+        ...mapPrevChatMessage(state.activeChatRoom, payload),
       };
     }
     case RESET_ACTIVE_CHAT: {
       return {
         ...state,
         action: type,
-        activeChatMessage: initialState.activeChatMessage,
+        activeChatRoom: initialState.activeChatRoom,
       };
     }
     case FETCH_COMMUNITIES_FAILURE:

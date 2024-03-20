@@ -7,3 +7,13 @@ export const formatDate = (date: Date): string => {
     year: "numeric",
   }).format(date);
 };
+
+// Output: "24 Feb 2024" (for example)
+export const formatStringToDate = (date: string): string => {
+  if (!date) return "";
+  return new Intl.DateTimeFormat("en-US", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }).format(new Date(date));
+};
