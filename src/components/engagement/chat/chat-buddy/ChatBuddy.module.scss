@@ -1,0 +1,28 @@
+@import "src/styles/variables.scss";
+
+.buddies__container {
+  @include setDimension($width: 30%, $height: 100%);
+  @include flexBox($direction: column, $gap: 5px);
+  padding: 10px 0;
+  box-sizing: border-box;
+  :global(.book-mart__button.MuiButton-root) {
+    width: 80%;
+    align-self: center;
+    font-size: 12px;
+    :global(.MuiSvgIcon-root) {
+      @include setDimension($width: 12px, $height: 12px);
+    }
+  }
+  :global(.book-mart-search-box) {
+    width: 95%;
+    align-self: center;
+    :global(.book-mart__text-field.MuiTextField-root) {
+      :global(.MuiSvgIcon-root) {
+        color: #7a949d;
+      }
+      :global(.MuiOutlinedInput-notchedOutline) {
+        border-color: lightblue;
+      }
+    }
+  }
+}

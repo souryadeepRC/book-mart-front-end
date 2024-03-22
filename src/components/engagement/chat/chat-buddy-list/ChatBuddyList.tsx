@@ -1,4 +1,5 @@
 import { memo, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Location,
   NavigateFunction,
@@ -11,22 +12,23 @@ import ChatIcon from "@mui/icons-material/Chat";
 import {
   AutoScrollRecords,
   Button,
-  Loader,
-  NavLink,
+  Loader
 } from "src/components/common/CommonComponents";
 // hooks
 import { useChatBuddies } from "src/hooks/engagement/useChatBuddies";
 // selectors
 import { selectEngagementIsLoading } from "src/store/engagement/engagement-selectors";
 // types
+import { AppDispatch } from "src/store/reducer-types";
 import { ChatBuddyType } from "src/types/engagement-types";
 // utils
 import { formatStringToDate } from "src/utils/date-utils";
 // styles
-import { useSelector } from "react-redux";
 import styles from "./ChatBuddyList.module.scss";
 
-const ChatBuddyList = memo((): JSX.Element => { 
+const ChatBuddyList = memo((): JSX.Element => {
+  // store
+  const dispatch: AppDispatch = useDispatch();
   // router
   const location: Location = useLocation();
   // ref
@@ -39,27 +41,32 @@ const ChatBuddyList = memo((): JSX.Element => {
   const { fetchNextBuddies, buddies, isLastPage, isInitialRendered } =
     useChatBuddies(contentRefs);
 
+  const setActiveChatRoom = (roomId: string) => () => {
+    dispatch(setActiveChatRoom(roomId));
+  };
+
   const Buddy = memo(
     ({ chatBuddy }: { chatBuddy: ChatBuddyType }): JSX.Element => {
       const { _id: roomId, updated_ts, members, latestMessage } = chatBuddy;
       const { username = "", imageUrl = "" } = members?.[0];
       const lastMessageDate: string = formatStringToDate(updated_ts);
       return (
-        <NavLink to={`${location.pathname}/${roomId}`}>
-          <section className={styles["buddy"]}>
-            <img alt={username} src={imageUrl} />
-            <article>
-              <header>
-                <span className={styles["title"]}>{username}</span>
-                <span className={styles["msg-date"]}>{lastMessageDate}</span>
-              </header>
-              <div className={styles["last__message"]}>
-                <ChatIcon />
-                <span>{latestMessage}</span>
-              </div>
-            </article>
-          </section>
-        </NavLink>
+        <section
+          className={styles["buddy"]}
+          onClick={setActiveChatRoom(roomId)}
+        >
+          <img alt={username} src={imageUrl} />
+          <article>
+            <header>
+              <span className={styles["title"]}>{username}</span>
+              {/* <span className={styles["msg-date"]}>{lastMessageDate}</span> */}
+            </header>
+            <div className={styles["last__message"]}>
+              <ChatIcon />
+              <span>{latestMessage}</span>
+            </div>
+          </article>
+        </section>
       );
     }
   );

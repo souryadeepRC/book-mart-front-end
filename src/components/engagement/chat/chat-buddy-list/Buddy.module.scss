@@ -1,7 +1,7 @@
 @import "src/styles/variables.scss";
 
 .buddy-image {
-  @include setDimension($width: 70px, $height: 70px);
+  @include setDimension($width: 30px, $height: 30px);
   @include borderRadius($radius: 50%);
   @include flexBox($justifyContent: center, $alignItems: center);
   box-sizing: border-box;
@@ -19,8 +19,7 @@
     $wrap: wrap
   );
   .title {
-    font-size: 22px;
-    font-weight: bold;
+    @include font($size: 15px, $weight: bold);
     @include addEllipsis($width: 80%);
   }
   .msg-date {
@@ -42,12 +41,11 @@
   color: var(--highlight-msg-color);
   width: 100%;
   :global(.MuiSvgIcon-root) {
-    @include setDimension($width: 15px, $height: 15px);
+    @include setDimension($width: 12px, $height: 12px);
   }
   span {
+    @include font($size: 10px, $style: italic);
     @include addEllipsis($width: 100%);
-    font-size: 18px;
-    font-style: italic;
   }
   @media screen and (max-width: $mobile-max-width) {
     :global(.MuiSvgIcon-root) {
@@ -61,13 +59,13 @@
 .buddy-style {
   @include flexBox($gap: 10px);
   @include setDimension($width: 100%, $height: fit-content);
-  padding: 15px;
+  padding: 10px;
   background-color: var(--buddy-box-bg-color);
   box-sizing: border-box;
   cursor: pointer;
   border-bottom: 3px solid $disable-color;
   color: var(--primary-color);
-  @include borderRadius(15px);
+  @include borderRadius(5px);
   img {
     @extend .buddy-image;
   }
@@ -78,7 +76,7 @@
       $justifyContent: space-around,
       $gap: 5px
     );
-    width: calc(100% - 80px);
+    width: calc(100% - 40px);
     header {
       @extend .buddy-header;
     }

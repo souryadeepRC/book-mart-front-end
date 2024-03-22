@@ -6,20 +6,14 @@ import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
 // selectors
 import { selectUserId } from "src/store/user/user-selectors";
 // types
-import {
-  BuddyType,
-  ChatMessageType
-} from "src/types/engagement-types";
+import { BuddyType, ChatMessageType } from "src/types/engagement-types";
 // styles
-import {
-  AutoScrollRecords,
-  Loader,
-} from "src/components/common/CommonComponents";
+import { AutoScrollRecords } from "src/components/common/CommonComponents";
 import { useChatMessages } from "src/hooks/engagement/useChatMessages";
 import styles from "./ChatBox.module.scss";
 import { ChatInput } from "./chat-input/ChatInput";
 
-const ChatBox = memo((): JSX.Element => { 
+const ChatBox = memo((): JSX.Element => {
   // store
   const profileUserId: string = useSelector(selectUserId);
   // router
@@ -37,7 +31,7 @@ const ChatBox = memo((): JSX.Element => {
     members,
     isLastPage,
     isInitialRendered,
-  } = useChatMessages(roomId, contentRefs);
+  } = useChatMessages(contentRefs);
 
   // effects
   useEffect(() => {
@@ -47,14 +41,14 @@ const ChatBox = memo((): JSX.Element => {
   }, []);
   const onBack = () => {
     navigate(-1);
-  }; 
+  };
 
   if (!isInitialRendered) {
-    return <Loader />;
+    return <span>Select Chat</span>;
   }
   const EmptyMessagePage = (): JSX.Element => {
     return <span>No Message</span>;
-  }; 
+  };
 
   const {
     username = "",

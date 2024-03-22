@@ -1,6 +1,6 @@
 @import "src/styles/variables.scss";
 .scroll__container {
-  height: calc(100% - 15px);
+  height: 100%;
   .infinite-scroll-component__outerdiv {
     height: 100%;
   }

@@ -16,6 +16,7 @@ import {
 import { AppDispatch } from "src/store/reducer-types";
 // styles
 import styles from "./ChatPage.module.scss";
+import { ChatBuddy } from "./chat-buddy/ChatBuddy";
 
 const ChatPage = (): JSX.Element => {
   // store
@@ -29,7 +30,7 @@ const ChatPage = (): JSX.Element => {
   // effects
   useEffect(() => {
     if (!initialRenderRef.current) {
-     //  dispatch(fetchChatBuddies());
+      //  dispatch(fetchChatBuddies());
       initialRenderRef.current = true;
     }
   }, [dispatch]);
@@ -58,10 +59,10 @@ const ChatPage = (): JSX.Element => {
   };
 
   return (
-    <>
-      <Loader loading={isLoading} />
-      {isBuddyPresent ? renderBuddyPage() : renderEmptyBuddyPage()}
-    </>
+    <section className={styles["chat-page__container"]}>
+      <ChatBuddy />
+      <ChatBox />
+    </section>
   );
 };
 export { ChatPage };

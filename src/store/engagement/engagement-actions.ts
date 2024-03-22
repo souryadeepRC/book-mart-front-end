@@ -27,7 +27,7 @@ export const fetchChatBuddies = (payload:any): ReducerActionPayloadType => {
   };
 };
 
-export const setActiveChat = (payload: any): ReducerActionPayloadType => {
+export const setActiveChatRoom = (payload: any): ReducerActionPayloadType => {
   return {
     type: SET_ACTIVE_CHAT,
     payload,

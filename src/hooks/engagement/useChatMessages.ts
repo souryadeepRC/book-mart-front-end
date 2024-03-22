@@ -26,13 +26,18 @@ type contentRefsType = {
   parentRef?: RefObject<HTMLDivElement>;
 };
 export const useChatMessages = (
-  roomId: string,
   contentRefs: contentRefsType
 ): useChatMessagesReturnType => {
   // store
   const dispatch: AppDispatch = useDispatch();
-  const { messages, members, isLastPage, page, pageSize }: ActiveChatRoomType =
-    useSelector(selectActiveChatroom);
+  const {
+    roomId,
+    messages,
+    members,
+    isLastPage,
+    page,
+    pageSize,
+  }: ActiveChatRoomType = useSelector(selectActiveChatroom);
   // ref
   const initialRenderRef = useRef<boolean>(false);
 
@@ -60,7 +65,10 @@ export const useChatMessages = (
       loadMessages(roomId, 1, pageSize);
       initialRenderRef.current = true;
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    return () => {
+      initialRenderRef.current = false;
+    }
+  }, [roomId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (
@@ -77,7 +85,7 @@ export const useChatMessages = (
     fetchPrevMessages,
   ]);
 
-  const isInitialRendered: boolean = page !== 0; 
+  const isInitialRendered: boolean = page !== 0;
 
   return {
     fetchPrevMessages,

@@ -24,6 +24,7 @@ import {
   RESET_ACTIVE_CHAT,
   SEND_MESSAGE_FAILURE,
   SEND_MESSAGE_SUCCESS,
+  SET_ACTIVE_CHAT,
 } from "src/store/engagement/engagement-constants";
 
 const initialState: EngagementReducerType = {
@@ -100,6 +101,15 @@ const EngagementReducer = (
         error: "",
         action: type,
         ...mapPrevChatMessage(state.activeChatRoom, payload),
+      };
+    }
+    case SET_ACTIVE_CHAT: {
+      return {
+        ...state,
+        activeChatRoom: {
+          ...state.activeChatRoom,
+          roomId: payload,
+        },
       };
     }
     case RESET_ACTIVE_CHAT: {

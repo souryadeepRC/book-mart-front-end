@@ -1,5 +1,5 @@
 @import "src/styles/variables.scss";
-@import "./ChatBuddy.module.scss";
+@import "./Buddy.module.scss";
 
 .empty-record-msg {
   @include flexBox($direction: column, $alignItems: center, $gap: 10px);
@@ -8,21 +8,22 @@
   color: var(--primary-color);
 }
 .buddy__list {
-  padding: 10px 0;
-  box-sizing: border-box;
-  :global(.infinite-scroll-component) {
-    @include setDimension($width: 75%, $height: 100%);
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 15px;
-    box-sizing: border-box;
-    :global(.scroll__element) {
+  &:global(.scroll__container) {
+    height: calc(100% - 45px);
+    :global(.infinite-scroll-component) {
+      @include setDimension($width: 100%, $height: 100%);
+      max-width: 800px;
       margin: 0 auto;
-      @include setDimension($width: 100%, $height: fit-content);
-      @include flexBox($direction: column, $gap: 10px);
-      background: var(--message-box-bg-color);
-      .buddy {
-        @extend .buddy-style;
+      padding: 0 5px;
+      box-sizing: border-box;
+      :global(.scroll__element) {
+        margin: 0 auto;
+        @include setDimension($width: 100%, $height: fit-content);
+        @include flexBox($direction: column, $gap: 3px);
+        background: var(--message-box-bg-color);
+        .buddy {
+          @extend .buddy-style;
+        }
       }
     }
   }

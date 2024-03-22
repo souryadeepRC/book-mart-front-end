@@ -1,0 +1,8 @@
+@import "src/styles/variables.scss";
+.book-mart-search-box {
+  .book-mart__text-field {
+    &.MuiTextField-root {
+      border-radius: 6px;
+    }
+  }
+}
