@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 // library
 import { InputAdornment } from "@mui/material";
 // icons
@@ -9,6 +8,8 @@ import SendIcon from "@mui/icons-material/Send";
 import { TextField } from "src/components/common/CommonComponents";
 // actions
 import { sendMessage } from "src/store/engagement/engagement-actions";
+// selectors
+import { selectActiveChatRoomId } from "src/store/engagement/engagement-selectors";
 import { selectUserId } from "src/store/user/user-selectors";
 // types
 import { AppDispatch } from "src/store/reducer-types";
@@ -18,9 +19,8 @@ import styles from "./ChatInput.module.scss";
 const ChatInput = ({ buddyId }: { buddyId: string }): JSX.Element => {
   // store
   const dispatch: AppDispatch = useDispatch();
-  const profileUserId: string = useSelector(selectUserId);
-  // router
-  const { roomId = "" } = useParams();
+  const userId: string = useSelector(selectUserId);
+  const roomId: string = useSelector(selectActiveChatRoomId);
   // state
   const [message, setMessage] = useState<string>("");
   // callbacks
@@ -34,8 +34,8 @@ const ChatInput = ({ buddyId }: { buddyId: string }): JSX.Element => {
     setMessage("");
     dispatch(
       sendMessage({
-        roomId: roomId,
-        sender: profileUserId,
+        roomId,
+        sender: userId,
         receiver: buddyId,
         message: message,
       })

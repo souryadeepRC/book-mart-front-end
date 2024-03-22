@@ -1,18 +1,18 @@
 import { RefObject, useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // actions
-import { fetchChatBuddies } from "src/store/engagement/engagement-actions";
+import { fetchChatRooms } from "src/store/engagement/engagement-actions";
 // selectors
-import { selectChatBuddies } from "src/store/engagement/engagement-selectors";
+import { selectChatRooms } from "src/store/engagement/engagement-selectors";
 // types
 import { AppDispatch } from "src/store/reducer-types";
-import { ChatBuddiesType, ChatBuddyType } from "src/types/engagement-types";
+import { ChatRoomStoreType, ChatRoomType } from "src/types/engagement-types";
 // utils
 import { isSpaceAvailable } from "src/utils/common-utils";
 
 type useChatBuddiesReturnType = {
-  fetchNextBuddies: () => void;
-  buddies: ChatBuddyType[] | [];
+  fetchNexRooms: () => void;
+  rooms: ChatRoomType[] | [];
   isLastPage: boolean;
   isInitialRendered: boolean;
 };
@@ -20,19 +20,21 @@ type contentRefsType = {
   childRef: RefObject<HTMLDivElement>;
   parentRef?: RefObject<HTMLDivElement>;
 };
-export const useChatBuddies = (contentRefs: contentRefsType): useChatBuddiesReturnType => {
+export const useChatRooms = (
+  contentRefs: contentRefsType
+): useChatBuddiesReturnType => {
   // store
   const dispatch: AppDispatch = useDispatch();
-  const { buddies, isLastPage, page, pageSize }: ChatBuddiesType =
-    useSelector(selectChatBuddies);
+  const { rooms, isLastPage, page, pageSize }: ChatRoomStoreType =
+    useSelector(selectChatRooms);
   // ref
   const initialRenderRef = useRef<boolean>(false);
 
   // callbacks
-  const loadChatBuddies = useCallback(
+  const loadChatRooms = useCallback(
     (page: number, pageSize: number): void => {
       dispatch(
-        fetchChatBuddies({
+        fetchChatRooms({
           page,
           pageSize,
         })
@@ -41,14 +43,14 @@ export const useChatBuddies = (contentRefs: contentRefsType): useChatBuddiesRetu
     [dispatch]
   );
 
-  const fetchNextBuddies = useCallback((): void => {
-    loadChatBuddies(page + 1, pageSize);
-  }, [loadChatBuddies, page, pageSize]);
+  const fetchNexRooms = useCallback((): void => {
+    loadChatRooms(page + 1, pageSize);
+  }, [loadChatRooms, page, pageSize]);
 
   // effects
   useEffect(() => {
     if (!initialRenderRef.current) {
-      loadChatBuddies(1, pageSize);
+      loadChatRooms(1, pageSize);
       initialRenderRef.current = true;
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -58,16 +60,16 @@ export const useChatBuddies = (contentRefs: contentRefsType): useChatBuddiesRetu
       !isLastPage &&
       isSpaceAvailable(contentRefs.childRef, contentRefs.parentRef)
     ) {
-      fetchNextBuddies();
+      fetchNexRooms();
     }
   }, [
-    buddies,
+    rooms,
     isLastPage,
     contentRefs.childRef,
     contentRefs.parentRef,
-    fetchNextBuddies,
+    fetchNexRooms,
   ]);
 
   const isInitialRendered: boolean = page !== 0;
-  return { fetchNextBuddies, buddies, isLastPage, isInitialRendered };
+  return { fetchNexRooms, rooms, isLastPage, isInitialRendered };
 };

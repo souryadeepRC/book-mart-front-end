@@ -38,12 +38,14 @@ export const useChatMessages = (
     page,
     pageSize,
   }: ActiveChatRoomType = useSelector(selectActiveChatroom);
+
   // ref
   const initialRenderRef = useRef<boolean>(false);
 
   // callbacks
   const loadMessages = useCallback(
     (roomId: string, page: number, pageSize: number): void => {
+      if (!roomId) return;
       dispatch(
         fetchMessages({
           roomId,
@@ -67,18 +69,19 @@ export const useChatMessages = (
     }
     return () => {
       initialRenderRef.current = false;
-    }
+    };
   }, [roomId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (
+      page > 0 &&
       !isLastPage &&
       isSpaceAvailable(contentRefs.childRef, contentRefs.parentRef)
     ) {
       fetchPrevMessages();
     }
   }, [
-    messages,
+    page,
     isLastPage,
     contentRefs.childRef,
     contentRefs.parentRef,

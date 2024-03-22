@@ -1,24 +1,33 @@
 import {
   ActiveChatRoomType,
-  ChatBuddiesType,
-  ChatBuddyType,
   ChatMessageType,
+  ChatRoomStoreType,
   PrevMessagePayloadType,
 } from "src/types/engagement-types";
 
-export const mapChatBuddies = (
-  existingBuddies: ChatBuddyType[] | [],
-  chatBuddies: ChatBuddiesType
+export const mapChatRooms = (
+  existingChatRooms: ChatRoomStoreType,
+  activeChatRoom: ActiveChatRoomType,
+  payload: ChatRoomStoreType
 ) => {
-  const { page, pageSize, isLastPage, buddies: nextBuddies } = chatBuddies;
+  const { page, pageSize, isLastPage, rooms: nextRooms } = payload;
+
+  let modifiedChatRoom = undefined;
+  if (page === 1 && nextRooms?.length > 0) {
+    modifiedChatRoom = {
+      ...activeChatRoom,
+      roomId: nextRooms[0]._id,
+    };
+  }
 
   return {
-    chatBuddies: {
+    chatRooms: {
       page,
       pageSize,
       isLastPage,
-      buddies: [...existingBuddies, ...nextBuddies],
+      rooms: [...existingChatRooms.rooms, ...nextRooms],
     },
+    ...(modifiedChatRoom ? { activeChatRoom: modifiedChatRoom } : {}),
   };
 };
 
@@ -45,7 +54,7 @@ export const mapPrevChatMessage = (
     page,
     pageSize,
     roomDetails,
-  } = payload; 
+  } = payload;
 
   return {
     activeChatRoom: {

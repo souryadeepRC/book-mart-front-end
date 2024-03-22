@@ -11,6 +11,9 @@
   --message-box-bg-color : #{$message-box-bg-color-light};
   --highlight-msg-color: #{$highlight-msg-color-light};
   --buddy-box-bg-color : #{$buddy-box-bg-color-light};
+
+  --chat-box-bg-image : #{$chat-box-bg-image-light};
+  --chat-input-bg-color: #{$chat-input-bg-color-light};
 }
 
 // Theme variables for dark theme
@@ -24,4 +27,7 @@
   --message-box-bg-color : #{$message-box-bg-color-dark};
   --highlight-msg-color: #{$highlight-msg-color-dark};
   --buddy-box-bg-color : #{$buddy-box-bg-color-dark};
+
+  --chat-box-bg-image : #{$chat-box-bg-image-dark};
+  --chat-input-bg-color: #{$chat-input-bg-color-dark};
 }

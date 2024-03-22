@@ -29,11 +29,7 @@ const AutoScrollRecords = ({
   loader: Loader,
   emptyRecordPage: EmptyRecordPage,
   refs,
-}: AutoScrollRecordsProps): JSX.Element => {
-  // empty record logic
-  if (records?.length === 0) {
-    return <EmptyRecordPage />;
-  }
+}: AutoScrollRecordsProps): JSX.Element => { 
 
   return (
     <section className={`scroll__container ${className}`} ref={refs.parentRef}>
@@ -42,12 +38,13 @@ const AutoScrollRecords = ({
         next={fetchNextRecords}
         hasMore={hasMore}
         loader={Loader ? <Loader /> : <></>}
-        scrollThreshold={0.5}
+        scrollThreshold={0.9}
         height={"100%"}
         inverse={inverse}
+        className="scroll__ele"
       >
         <section ref={refs.childRef} className="scroll__element">
-          {children}
+          {records?.length > 0 ? children : <EmptyRecordPage />}
         </section>
       </InfiniteScroll>
     </section>

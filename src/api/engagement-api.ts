@@ -10,9 +10,9 @@ const API_BASE_URL_ENGAGEMENT: string = "/api/book-mart/engagement";
 const ApiRequestConfig = {
   "Content-Type": "application/json",
 };
-export const getChatBuddies = (payload: any) => {
+export const getChatRooms = (payload: any) => {
   return AppHTTP.post(
-    `${API_BASE_URL_ENGAGEMENT}/message/buddies`,
+    `${API_BASE_URL_ENGAGEMENT}/message/chat-rooms`,
     qs.stringify(payload),
     ApiRequestConfig
   );

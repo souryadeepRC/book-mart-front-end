@@ -1,12 +1,18 @@
 @import "src/styles/variables.scss";
 .chat-input__message {
+  width: 95%;
+  margin: 0 auto;
+  border-radius: 10px;
   :global(.book-mart__text-field.MuiTextField-root) {
-    height: 44px;
-    position: absolute;
-    width: 80%;
-    bottom: 35px;
-    transform: translate(-50%, -50%);
-    left: 50%;
+    background-color: var(--chat-input-bg-color);
+    border-radius: 10px;
+    font-weight: bold;
+    :global(.MuiOutlinedInput-root) {
+      padding: 12px;
+      :global(.MuiOutlinedInput-input) {
+        padding: 0;
+      }
+    }
     :global(.MuiOutlinedInput-notchedOutline) {
       border: none;
     }

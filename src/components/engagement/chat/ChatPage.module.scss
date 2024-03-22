@@ -2,7 +2,7 @@
 
 .chat-page__container {
   @include flexBox;
-  @include setDimension($width: 100%, $height: calc(100% - 44px));
+  @include setDimension($width: 100%, $height: calc(100% - 17px));
 }
 .empty-record-msg {
   @include flexBox(

@@ -56,7 +56,7 @@
     }
   }
 }
-.buddy-style {
+.room-style {
   @include flexBox($gap: 10px);
   @include setDimension($width: 100%, $height: fit-content);
   padding: 10px;

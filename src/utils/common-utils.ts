@@ -7,7 +7,7 @@ export const isSpaceAvailable = (childRef: any, parentRef?: any): boolean => {
   const contentHeight: number = childRef?.current?.clientHeight;
   const parentHeight: number = parentRef
     ? parentRef?.current?.clientHeight
-    : window?.innerHeight;
-
+    : window?.innerHeight; 
+  
   return contentHeight <= parentHeight;
 };

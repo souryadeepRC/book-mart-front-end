@@ -1,30 +1,29 @@
-import { memo, useEffect, useRef } from "react";
+import { memo, useRef } from "react";
 import { useSelector } from "react-redux";
-import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
+// icons
+import ChatIcon from "@mui/icons-material/Chat";
+// Common Components
+import { AutoScrollRecords } from "src/components/common/CommonComponents";
 // components
-// actions
+import { ChatInput } from "./chat-input/ChatInput";
+// hooks
+import { useChatMessages } from "src/hooks/engagement/useChatMessages";
 // selectors
 import { selectUserId } from "src/store/user/user-selectors";
 // types
 import { BuddyType, ChatMessageType } from "src/types/engagement-types";
 // styles
-import { AutoScrollRecords } from "src/components/common/CommonComponents";
-import { useChatMessages } from "src/hooks/engagement/useChatMessages";
 import styles from "./ChatBox.module.scss";
-import { ChatInput } from "./chat-input/ChatInput";
 
 const ChatBox = memo((): JSX.Element => {
   // store
   const profileUserId: string = useSelector(selectUserId);
-  // router
-  const { roomId = "" } = useParams();
   // ref
   const contentRefs = {
     childRef: useRef<HTMLDivElement>(null),
     parentRef: useRef<HTMLDivElement>(null),
   };
   // hooks
-  const navigate: NavigateFunction = useNavigate();
   const {
     fetchPrevMessages,
     messages,
@@ -33,33 +32,27 @@ const ChatBox = memo((): JSX.Element => {
     isInitialRendered,
   } = useChatMessages(contentRefs);
 
-  // effects
-  useEffect(() => {
-    return () => {
-      console.log("reset activeChat Details");
-    };
-  }, []);
-  const onBack = () => {
-    navigate(-1);
-  };
-
   if (!isInitialRendered) {
-    return <span>Select Chat</span>;
+    return (
+      <section className={styles["empty-chat-box"]}>
+        <ChatIcon />
+        <span>Chat with your buddy</span>
+      </section>
+    );
   }
   const EmptyMessagePage = (): JSX.Element => {
-    return <span>No Message</span>;
+    return <></>;
   };
 
   const {
     username = "",
     imageUrl = "",
     _id: buddyId = "",
-  }: BuddyType = members[0];
+  }: BuddyType = members?.[0];
   return (
     <section className={styles["message-box__container"]}>
       <div className={styles["message__recipient"]}>
-        <span onClick={onBack}>Back</span>
-        <img alt={username} className={styles["buddy__image"]} src={imageUrl} />
+        <img alt={username} src={imageUrl} />
         <span>{username}</span>
       </div>
       <AutoScrollRecords
@@ -69,6 +62,7 @@ const ChatBox = memo((): JSX.Element => {
         fetchNextRecords={fetchPrevMessages}
         hasMore={!isLastPage}
         emptyRecordPage={EmptyMessagePage}
+        inverse={true}
       >
         {messages?.map(
           ({ _id, message, sender }: ChatMessageType, index: number) => {

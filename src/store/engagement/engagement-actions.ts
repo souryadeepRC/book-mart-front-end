@@ -7,7 +7,7 @@ import {
 } from "src/types/engagement-types";
 import {
   ADD_ACTIVE_CHAT_MESSAGE,
-  FETCH_CHAT_BUDDIES,
+  FETCH_CHAT_ROOMS,
   FETCH_COMMUNITIES,
   FETCH_MESSAGE,
   RESET_ACTIVE_CHAT,
@@ -21,9 +21,10 @@ export const fetchCommunities = (): ReducerActionPayloadType => {
     type: FETCH_COMMUNITIES,
   };
 };
-export const fetchChatBuddies = (payload:any): ReducerActionPayloadType => {
+export const fetchChatRooms = (payload: any): ReducerActionPayloadType => {
   return {
-    type: FETCH_CHAT_BUDDIES,payload
+    type: FETCH_CHAT_ROOMS,
+    payload,
   };
 };
 

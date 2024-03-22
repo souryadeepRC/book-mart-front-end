@@ -1,5 +1,5 @@
 @import "src/styles/variables.scss";
-@import "./Buddy.module.scss";
+@import "./Room.module.scss";
 
 .empty-record-msg {
   @include flexBox($direction: column, $alignItems: center, $gap: 10px);
@@ -7,9 +7,9 @@
   font-style: italic;
   color: var(--primary-color);
 }
-.buddy__list {
+.chat-room__list {
   &:global(.scroll__container) {
-    height: calc(100% - 45px);
+    height: calc(100% - 77px);
     :global(.infinite-scroll-component) {
       @include setDimension($width: 100%, $height: 100%);
       max-width: 800px;
@@ -21,8 +21,8 @@
         @include setDimension($width: 100%, $height: fit-content);
         @include flexBox($direction: column, $gap: 3px);
         background: var(--message-box-bg-color);
-        .buddy {
-          @extend .buddy-style;
+        .chat-room {
+          @extend .room-style;
         }
       }
     }
@@ -30,7 +30,7 @@
 }
 
 @media screen and (max-width: $mobile-max-width) {
-  .buddy__list {
+  .chat-room__list {
     :global(.infinite-scroll-component) {
       width: 95%;
     }

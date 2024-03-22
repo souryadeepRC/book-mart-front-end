@@ -1,8 +1,9 @@
 // icons
 import ChatIcon from "@mui/icons-material/Chat";
-// components
+// common components
 import { Button, SearchBox } from "src/components/common/CommonComponents";
-import { ChatBuddyList } from "../chat-buddy-list/ChatBuddyList";
+// components
+import { ChatRooms } from "../chat-rooms/ChatRooms";
 // styles
 import styles from "./ChatBuddy.module.scss";
 
@@ -10,10 +11,11 @@ const ChatBuddy = () => {
   return (
     <section className={styles["buddies__container"]}>
       <Button variant="contained">
-        <ChatIcon /> New Chat
+        <ChatIcon />
+        &nbsp;New Chat
       </Button>
-      <SearchBox placeholder="search buddy"/>
-      <ChatBuddyList />
+      <SearchBox placeholder="search buddy" />
+      <ChatRooms />
     </section>
   );
 };

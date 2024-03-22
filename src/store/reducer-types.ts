@@ -4,7 +4,7 @@ import { SignUpType } from "src/types/authentication-types";
 import { BookType } from "src/types/book-types";
 import {
   ActiveChatRoomType,
-  ChatBuddiesType,
+  ChatRoomStoreType,
   CommunityType
 } from "src/types/engagement-types";
 // types
@@ -21,7 +21,7 @@ export type EngagementReducerType = {
   communities: CommunityType[] | [];
   messageBuddies: { _id: string; imageUrl: string; name: string }[];
   activeChatRoom: ActiveChatRoomType;
-  chatBuddies: ChatBuddiesType; 
+  chatRooms: ChatRoomStoreType; 
 };
 export type BookReducerType = {
   action: string;

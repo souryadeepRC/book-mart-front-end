@@ -1,47 +1,62 @@
 @import "src/styles/variables.scss";
 @import "./Chat.module.scss";
 
+.empty-chat-box {
+  background-image: var(--chat-box-bg-image);
+  @include flexBox(
+    $direction: column,
+    $justifyContent: center,
+    $alignItems: center
+  );
+  @include setDimension($width: 70%, $height: 100%);
+  @include font($size: 30px, $weight: bold);
+  margin: 0 auto; 
+  text-align: center;
+  color: var(--primary-color);
+  :global(.MuiSvgIcon-root) {
+    @include setDimension($width: 60px, $height: 60px);
+  }
+}
 .message-box__container {
-  padding: 10px 0;
+  padding: 10px;
   box-sizing: border-box;
-  @include setDimension($width: 85%, $height: 100%);
+  @include setDimension($width: 70%, $height: 100%);
   margin: 0 auto;
-  position: relative;
+  background-image: var(--chat-box-bg-image);
+
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   .message__recipient {
     @include flexBox($gap: 10px, $alignItems: center);
     padding: 10px 15px;
     background: $message-recipient-header-color;
-    font-size: 25px;
-    font-weight: bold;
-    border-radius: 15px;
-    .buddy__image {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    border-radius: 15px 15px 0 15px;
+    span {
+      @include font($size: 15px, $weight: bold);
+      @include addEllipsis($width: 80%);
+      @include font($size: 25px, $weight: bold);
+    }
+    img {
+      @include setDimension($width: 25px, $height: 25px);
       box-sizing: border-box;
-      width: 25px;
-      height: 25px;
-      background: rgba(241, 156, 9, 0.3490196078);
       border-radius: 50%;
-      font-size: 49px;
-      color: #f19c09;
     }
   }
   .message__list {
-    height: calc(100% - 85px);
-
+    height: calc(100% - 115px); 
     :global(.infinite-scroll-component__outerdiv) {
-      height: calc(100% - 44px);
+      height: 100%;
       :global(.infinite-scroll-component) {
-        border-radius: 15px;  
-        margin: 3px 0;
+        @include flexBox($direction: column-reverse );
+        @include setDimension($width: 100%, $height: fit-content);
+        overflow: hidden auto;
+        box-sizing: border-box;
+        padding: 15px;
         :global(.scroll__element) {
           @include flexBox($direction: column-reverse, $gap: 10px);
-          overflow: hidden auto;
-          box-sizing: border-box;
-          height: 100% !important;
-          padding: 15px;
-          background-color: var(--buddy-box-bg-color);
           .message {
             @extend .message-style;
           }

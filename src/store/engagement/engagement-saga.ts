@@ -2,15 +2,15 @@ import { put, takeEvery } from "redux-saga/effects";
 // api
 // constants
 import {
-  getChatBuddies,
   getChatMessages,
+  getChatRooms,
   postSendChatMessage,
 } from "src/api/engagement-api";
 import {
-  FETCH_CHAT_BUDDIES,
-  FETCH_CHAT_BUDDIES_FAILURE,
-  FETCH_CHAT_BUDDIES_REQUEST,
-  FETCH_CHAT_BUDDIES_SUCCESS,
+  FETCH_CHAT_ROOMS,
+  FETCH_CHAT_ROOMS_FAILURE,
+  FETCH_CHAT_ROOMS_REQUEST,
+  FETCH_CHAT_ROOMS_SUCCESS,
   FETCH_COMMUNITIES,
   FETCH_COMMUNITIES_FAILURE,
   FETCH_COMMUNITIES_REQUEST,
@@ -121,14 +121,14 @@ function* fetchCommunityPostsSaga(): any {
     });
   }
 }
-function* fetchChatBuddies({payload}:any): any {
-  yield put({ type: FETCH_CHAT_BUDDIES_REQUEST });
+function* fetchChatRoomsSaga({payload}:any): any {
+  yield put({ type: FETCH_CHAT_ROOMS_REQUEST });
   try {
-    const response = yield getChatBuddies(payload);
-    yield put({ type: FETCH_CHAT_BUDDIES_SUCCESS, payload: response.data });
+    const response = yield getChatRooms(payload);
+    yield put({ type: FETCH_CHAT_ROOMS_SUCCESS, payload: response.data });
   } catch (error: any) {
     yield put({
-      type: FETCH_CHAT_BUDDIES_FAILURE,
+      type: FETCH_CHAT_ROOMS_FAILURE,
       payload:
         error?.response?.data?.error_description ||
         "Sorry! network issue detected",
@@ -167,7 +167,7 @@ function* fetchMessagesSaga({ payload }: any): any {
 }
 export function* engagementSaga() {
   yield takeEvery(FETCH_COMMUNITIES, fetchCommunityPostsSaga);
-  yield takeEvery(FETCH_CHAT_BUDDIES, fetchChatBuddies);
+  yield takeEvery(FETCH_CHAT_ROOMS, fetchChatRoomsSaga);
   yield takeEvery(SEND_MESSAGE, sendMessageSaga);
   yield takeEvery(FETCH_MESSAGE, fetchMessagesSaga);
 }

@@ -5,16 +5,16 @@ import {
 } from "src/store/reducer-types";
 // mappers
 import {
-  mapChatBuddies,
+  mapChatRooms,
   mapNewChatMessage,
   mapPrevChatMessage,
 } from "./engagement-mappers";
 // constants
 import {
   ADD_ACTIVE_CHAT_MESSAGE,
-  FETCH_CHAT_BUDDIES_FAILURE,
-  FETCH_CHAT_BUDDIES_REQUEST,
-  FETCH_CHAT_BUDDIES_SUCCESS,
+  FETCH_CHAT_ROOMS_FAILURE,
+  FETCH_CHAT_ROOMS_REQUEST,
+  FETCH_CHAT_ROOMS_SUCCESS,
   FETCH_COMMUNITIES_FAILURE,
   FETCH_COMMUNITIES_REQUEST,
   FETCH_COMMUNITIES_SUCCESS,
@@ -41,11 +41,11 @@ const initialState: EngagementReducerType = {
     pageSize: 10,
     messages: [],
   },
-  chatBuddies: {
+  chatRooms: {
     isLastPage: false,
     page: 0,
     pageSize: 10,
-    buddies: [],
+    rooms: [],
   },
 };
 const EngagementReducer = (
@@ -54,7 +54,7 @@ const EngagementReducer = (
 ) => {
   switch (type) {
     case FETCH_COMMUNITIES_REQUEST:
-    case FETCH_CHAT_BUDDIES_REQUEST:
+    case FETCH_CHAT_ROOMS_REQUEST:
     case FETCH_MESSAGE_REQUEST:
       return { ...state, isLoading: true, action: type };
 
@@ -67,13 +67,13 @@ const EngagementReducer = (
         communities: payload,
       };
     }
-    case FETCH_CHAT_BUDDIES_SUCCESS: {
+    case FETCH_CHAT_ROOMS_SUCCESS: {
       return {
         ...state,
         isLoading: false,
         error: "",
         action: type,
-        ...mapChatBuddies(state.chatBuddies.buddies, payload),
+        ...mapChatRooms(state.chatRooms, state.activeChatRoom, payload),
       };
     }
     case SEND_MESSAGE_SUCCESS: {
@@ -107,7 +107,7 @@ const EngagementReducer = (
       return {
         ...state,
         activeChatRoom: {
-          ...state.activeChatRoom,
+          ...initialState.activeChatRoom,
           roomId: payload,
         },
       };
@@ -120,7 +120,7 @@ const EngagementReducer = (
       };
     }
     case FETCH_COMMUNITIES_FAILURE:
-    case FETCH_CHAT_BUDDIES_FAILURE:
+    case FETCH_CHAT_ROOMS_FAILURE:
     case SEND_MESSAGE_FAILURE:
     case FETCH_MESSAGE_FAILURE:
       return {
