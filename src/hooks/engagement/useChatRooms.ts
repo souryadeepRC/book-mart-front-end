@@ -25,18 +25,20 @@ export const useChatRooms = (
 ): useChatBuddiesReturnType => {
   // store
   const dispatch: AppDispatch = useDispatch();
-  const { rooms, isLastPage, page, pageSize }: ChatRoomStoreType =
+  const { rooms, isLastPage, page, pageSize, searchText }: ChatRoomStoreType =
     useSelector(selectChatRooms);
   // ref
   const initialRenderRef = useRef<boolean>(false);
 
   // callbacks
   const loadChatRooms = useCallback(
-    (page: number, pageSize: number): void => {
+    (page: number, pageSize: number, searchText: string): void => {
+
       dispatch(
         fetchChatRooms({
           page,
           pageSize,
+          searchText,
         })
       );
     },
@@ -44,16 +46,20 @@ export const useChatRooms = (
   );
 
   const fetchNexRooms = useCallback((): void => {
-    loadChatRooms(page + 1, pageSize);
-  }, [loadChatRooms, page, pageSize]);
+    loadChatRooms(page + 1, pageSize, searchText);
+  }, [loadChatRooms, page, pageSize, searchText]);
 
   // effects
+  // when search text change or initial load
   useEffect(() => {
     if (!initialRenderRef.current) {
-      loadChatRooms(1, pageSize);
+      loadChatRooms(1, pageSize, searchText);
       initialRenderRef.current = true;
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    return () => {
+      initialRenderRef.current = false;
+    };
+  }, [searchText]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (

@@ -25,6 +25,7 @@ import {
   SEND_MESSAGE_FAILURE,
   SEND_MESSAGE_SUCCESS,
   SET_ACTIVE_CHAT,
+  SET_CHAT_ROOM_SEARCH_TEXT,
 } from "src/store/engagement/engagement-constants";
 
 const initialState: EngagementReducerType = {
@@ -45,6 +46,7 @@ const initialState: EngagementReducerType = {
     isLastPage: false,
     page: 0,
     pageSize: 10,
+    searchText: "",
     rooms: [],
   },
 };
@@ -74,6 +76,15 @@ const EngagementReducer = (
         error: "",
         action: type,
         ...mapChatRooms(state.chatRooms, state.activeChatRoom, payload),
+      };
+    }
+    case SET_CHAT_ROOM_SEARCH_TEXT: {
+      return {
+        ...state,
+        chatRooms: {
+          ...state.chatRooms,
+          searchText: payload,
+        },
       };
     }
     case SEND_MESSAGE_SUCCESS: {

@@ -14,6 +14,7 @@ import {
   SEND_MESSAGE,
   SET_ACTIVE_BUDDY_MESSAGE,
   SET_ACTIVE_CHAT,
+  SET_CHAT_ROOM_SEARCH_TEXT,
 } from "./engagement-constants";
 
 export const fetchCommunities = (): ReducerActionPayloadType => {
@@ -21,9 +22,22 @@ export const fetchCommunities = (): ReducerActionPayloadType => {
     type: FETCH_COMMUNITIES,
   };
 };
-export const fetchChatRooms = (payload: any): ReducerActionPayloadType => {
+export const fetchChatRooms = (payload: {
+  page: number;
+  pageSize: number;
+  searchText: string;
+}): ReducerActionPayloadType => {
   return {
     type: FETCH_CHAT_ROOMS,
+    payload,
+  };
+};
+
+export const setChatRoomSearchText = (
+  payload: string
+): ReducerActionPayloadType => {
+  return {
+    type: SET_CHAT_ROOM_SEARCH_TEXT,
     payload,
   };
 };

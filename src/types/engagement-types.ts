@@ -22,7 +22,7 @@ export type ChatRoomType = {
   _id: string;
   latestMessage: string;
   updated_ts: Date;
-  members: BuddyType[];
+  members: BuddyType;
 };
 
 export type BuddyType = {
@@ -62,6 +62,7 @@ export type ChatRoomStoreType = {
   page: number;
   pageSize: number;
   rooms: ChatRoomType[] | [];
+  searchText: string;
 };
 export type ChatMessageFilterType = {
   roomId: string;

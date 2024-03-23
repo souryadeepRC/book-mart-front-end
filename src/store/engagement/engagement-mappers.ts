@@ -10,7 +10,7 @@ export const mapChatRooms = (
   activeChatRoom: ActiveChatRoomType,
   payload: ChatRoomStoreType
 ) => {
-  const { page, pageSize, isLastPage, rooms: nextRooms } = payload;
+  const { page, pageSize, isLastPage, rooms: nextRooms, searchText } = payload;
 
   let modifiedChatRoom = undefined;
   if (page === 1 && nextRooms?.length > 0) {
@@ -19,13 +19,15 @@ export const mapChatRooms = (
       roomId: nextRooms[0]._id,
     };
   }
-
+  const rooms =
+    page === 1 ? [...nextRooms] : [...existingChatRooms.rooms, ...nextRooms];
   return {
     chatRooms: {
+      searchText,
       page,
       pageSize,
       isLastPage,
-      rooms: [...existingChatRooms.rooms, ...nextRooms],
+      rooms,
     },
     ...(modifiedChatRoom ? { activeChatRoom: modifiedChatRoom } : {}),
   };

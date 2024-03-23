@@ -37,7 +37,7 @@ const ChatRooms = memo((): JSX.Element => {
 
   const Room = memo(({ room }: { room: ChatRoomType }): JSX.Element => {
     const { _id: roomId, members, latestMessage } = room;
-    const { username = "", imageUrl = "" } = members?.[0];
+    const { username = "", imageUrl = "" } = members;
     return (
       <section
         className={styles["chat-room"]}
