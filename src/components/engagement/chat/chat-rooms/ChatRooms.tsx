@@ -18,8 +18,10 @@ import { AppDispatch } from "src/store/reducer-types";
 import { ChatRoomType } from "src/types/engagement-types";
 // styles
 import styles from "./ChatRooms.module.scss";
-
-const ChatRooms = memo((): JSX.Element => {
+type ChatRoomsProps = {
+  onClick?: () => void;
+};
+const ChatRooms = memo(({ onClick }: ChatRoomsProps): JSX.Element => {
   // store
   const dispatch: AppDispatch = useDispatch();
   // ref
@@ -32,6 +34,7 @@ const ChatRooms = memo((): JSX.Element => {
     useChatRooms(contentRefs);
 
   const handleChatRoomClick = (roomId: string) => () => {
+    onClick && onClick();
     dispatch(setActiveChatRoom(roomId));
   };
 

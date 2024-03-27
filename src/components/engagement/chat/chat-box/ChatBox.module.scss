@@ -10,7 +10,7 @@
   );
   @include setDimension($width: 70%, $height: 100%);
   @include font($size: 30px, $weight: bold);
-  margin: 0 auto; 
+  margin: 0 auto;
   text-align: center;
   color: var(--primary-color);
   :global(.MuiSvgIcon-root) {
@@ -23,8 +23,6 @@
   @include setDimension($width: 70%, $height: 100%);
   margin: 0 auto;
   background-image: var(--chat-box-bg-image);
-
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -46,11 +44,11 @@
     }
   }
   .message__list {
-    height: calc(100% - 115px); 
+    height: calc(100% - 115px);
     :global(.infinite-scroll-component__outerdiv) {
       height: 100%;
       :global(.infinite-scroll-component) {
-        @include flexBox($direction: column-reverse );
+        @include flexBox($direction: column-reverse);
         @include setDimension($width: 100%, $height: fit-content);
         overflow: hidden auto;
         box-sizing: border-box;
@@ -62,6 +60,22 @@
           }
         }
       }
+    }
+  }
+}
+@media screen and (max-width: $mobile-max-width) {
+  .message-box__container {
+    width: 100%;
+    padding: 0;
+    justify-content: flex-start;
+    .message__recipient {
+      padding: 5px;
+      span {
+        font-size: 12px;
+      }
+    }
+    .message__list {
+      height: calc(100% - 80px);
     }
   }
 }

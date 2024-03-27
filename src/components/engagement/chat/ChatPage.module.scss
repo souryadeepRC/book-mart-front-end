@@ -1,5 +1,7 @@
 @import "src/styles/variables.scss";
-
+.chat-page-mobile {
+  display: none;
+}
 .chat-page__container {
   @include flexBox;
   @include setDimension($width: 100%, $height: calc(100% - 17px));
@@ -9,10 +11,16 @@
     $direction: column,
     $justifyContent: center,
     $alignItems: center,
-    $gap:15px
+    $gap: 15px
   );
   padding: 30px 0;
   font-style: italic;
   color: var(--primary-color);
   text-align: center;
+}
+
+@media screen and (max-width: $mobile-max-width) {
+  .chat-page__container {
+    height: calc(100% - 44px);
+  }
 }

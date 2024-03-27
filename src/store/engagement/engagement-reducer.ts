@@ -115,6 +115,7 @@ const EngagementReducer = (
       };
     }
     case SET_ACTIVE_CHAT: {
+      if (state.activeChatRoom.roomId === payload) return state;
       return {
         ...state,
         activeChatRoom: {

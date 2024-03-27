@@ -11,8 +11,11 @@ import { setChatRoomSearchText } from "src/store/engagement/engagement-actions";
 import { AppDispatch } from "src/store/reducer-types";
 // styles
 import styles from "./ChatBuddy.module.scss";
-
-const ChatBuddy = () => {
+type ChatBuddyProps = {
+  onChatRoomClick?: () => void;
+  className?: string;
+};
+const ChatBuddy = ({ onChatRoomClick, className }: ChatBuddyProps) => {
   // store
   const dispatch: AppDispatch = useDispatch();
   // callbacks
@@ -20,13 +23,13 @@ const ChatBuddy = () => {
     dispatch(setChatRoomSearchText(searchText));
   };
   return (
-    <section className={styles["buddies__container"]}>
+    <section className={`${styles["buddies__container"]} ${className}`}>
       <Button variant="contained">
         <ChatIcon />
         &nbsp;New Chat
       </Button>
       <SearchBox placeholder="search buddy" onSearch={onSearch} />
-      <ChatRooms />
+      <ChatRooms onClick={onChatRoomClick} />
     </section>
   );
 };

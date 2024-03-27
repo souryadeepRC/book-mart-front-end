@@ -10,9 +10,3 @@
     background-color: var(--message-box-bg-color);
   }
 }
-
-@media screen and (max-width: $mobile-max-width) {
-  .app__container .app-content {
-    padding: 60px 0 0 0;
-  }
-}

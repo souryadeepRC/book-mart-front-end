@@ -33,7 +33,6 @@ export const useChatRooms = (
   // callbacks
   const loadChatRooms = useCallback(
     (page: number, pageSize: number, searchText: string): void => {
-
       dispatch(
         fetchChatRooms({
           page,
@@ -56,9 +55,11 @@ export const useChatRooms = (
       loadChatRooms(1, pageSize, searchText);
       initialRenderRef.current = true;
     }
-    return () => {
-      initialRenderRef.current = false;
-    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (page === 0) return;
+    loadChatRooms(1, pageSize, searchText);
   }, [searchText]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {

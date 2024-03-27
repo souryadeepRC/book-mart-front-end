@@ -29,8 +29,7 @@ const AutoScrollRecords = ({
   loader: Loader,
   emptyRecordPage: EmptyRecordPage,
   refs,
-}: AutoScrollRecordsProps): JSX.Element => { 
-
+}: AutoScrollRecordsProps): JSX.Element => {
   return (
     <section className={`scroll__container ${className}`} ref={refs.parentRef}>
       <InfiniteScroll
@@ -40,6 +39,7 @@ const AutoScrollRecords = ({
         loader={Loader ? <Loader /> : <></>}
         scrollThreshold={0.9}
         height={"100%"}
+        style={{ overflow: "hidden auto" }}
         inverse={inverse}
         className="scroll__ele"
       >

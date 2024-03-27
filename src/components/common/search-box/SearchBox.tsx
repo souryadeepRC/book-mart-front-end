@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 //library
 import { InputAdornment } from "@mui/material";
 // icons
 import SearchIcon from "@mui/icons-material/Search";
 // common components
 import { TextField } from "src/components/common/CommonComponents";
-// styles
+// hooks
 import { useDebounce } from "src/hooks/useDebounce";
+// styles
 import "./SearchBox.scss";
 
 type SearchBoxProps = {
@@ -16,6 +17,8 @@ type SearchBoxProps = {
 const SearchBox = ({ placeholder = "search", onSearch }: SearchBoxProps) => {
   // state
   const [searchText, setSearchText] = useState<string>("");
+  //ref
+  const isSearchTypedRef = useRef<boolean>(false);
   // hooks
   const debouncedSearchText = useDebounce(searchText);
   // callbacks
@@ -23,11 +26,14 @@ const SearchBox = ({ placeholder = "search", onSearch }: SearchBoxProps) => {
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     setSearchText(event.target.value);
+    if (!isSearchTypedRef.current) isSearchTypedRef.current = true;
   };
 
   // effects
   useEffect(() => {
-    onSearch(debouncedSearchText);
+    if (isSearchTypedRef.current) {
+      onSearch(debouncedSearchText);
+    }
   }, [debouncedSearchText, onSearch]);
   return (
     <section className="book-mart-search-box">
